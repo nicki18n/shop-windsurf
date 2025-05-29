@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>购物车 - 花涧珠光水彩商城</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* 购物车页面特定样式 */
+    .header-with-back {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      height: 50px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .header-back {
+      position: absolute;
+      left: 15px;
+      font-size: 18px;
+    }
+    
+    .header-title {
+      font-size: 16px;
+      font-weight: bold;
+    }
+    
+    .header-more {
+      position: absolute;
+      right: 15px;
+      font-size: 14px;
+      color: #666;
+    }
+    
+    /* 购物车为空状态 */
+    .cart-empty {
+      display: none; /* 默认隐藏 */
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 50px 0;
+    }
+    
+    .cart-empty-icon {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 20px;
+      opacity: 0.5;
+    }
+    
+    .cart-empty-text {
+      font-size: 16px;
+      color: #999;
+      margin-bottom: 20px;
+    }
+    
+    .cart-empty-btn {
+      padding: 8px 20px;
+      background-color: #ff6b6b;
+      color: #fff;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+    
+    /* 购物车商品列表 */
+    .cart-list {
+      padding-bottom: 60px; /* 为底部结算栏留出空间 */
+    }
+    
+    .cart-section {
+      margin-bottom: 10px;
+      background-color: #fff;
+    }
+    
+    .cart-section-header {
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    
+    .cart-checkbox {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid #ddd;
+      margin-right: 10px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .cart-checkbox.checked {
+      background-color: #ff6b6b;
+      border-color: #ff6b6b;
+    }
+    
+    .cart-checkbox.checked::after {
+      content: "✓";
+      color: #fff;
+      font-size: 12px;
+    }
+    
+    .cart-shop-name {
+      flex: 1;
+      font-size: 14px;
+      color: #333;
+    }
+    
+    .cart-item {
+      display: flex;
+      padding: 15px;
+      border-bottom: 1px solid #f5f5f5;
+      position: relative;
+    }
+    
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+    
+    .cart-item-checkbox {
+      margin-right: 10px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .cart-item-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-right: 10px;
+    }
+    
+    .cart-item-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .cart-item-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 80px;
+    }
+    
+    .cart-item-name {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 5px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .cart-item-spec {
+      font-size: 12px;
+      color: #999;
+      margin-bottom: 5px;
+    }
+    
+    .cart-item-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .cart-item-price {
+      color: #ff6b6b;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    
+    .cart-item-quantity {
+      display: flex;
+      align-items: center;
+      border: 1px solid #eee;
+      border-radius: 2px;
+    }
+    
+    .cart-quantity-btn {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: #666;
+      background-color: #f8f8f8;
+    }
+    
+    .cart-quantity-input {
+      width: 40px;
+      height: 28px;
+      text-align: center;
+      border: none;
+      border-left: 1px solid #eee;
+      border-right: 1px solid #eee;
+      font-size: 14px;
+    }
+    
+    .cart-item-delete {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      font-size: 12px;
+      color: #999;
+    }
+    
+    /* 推荐商品 */
+    .recommend-section {
+      margin-top: 10px;
+      background-color: #fff;
+      padding: 15px;
+    }
+    
+    .recommend-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #333;
+    }
+    
+    .recommend-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    
+    /* 底部结算栏 */
+    .cart-bottom-bar {
+      position: fixed;
+      bottom: 50px; /* 留出底部导航栏的空间 */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 750px;
+      height: 50px;
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      border-top: 1px solid #eee;
+      padding: 0 15px;
+      box-sizing: border-box;
+      z-index: 10; /* 确保结算栏在导航栏上方 */
+    }
+    
+    .cart-select-all {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: #333;
+      margin-right: 15px;
+    }
+    
+    .cart-total {
+      flex: 1;
+      text-align: right;
+      padding-right: 15px;
+    }
+    
+    .cart-total-price {
+      font-size: 16px;
+      color: #ff6b6b;
+      font-weight: bold;
+    }
+    
+    .cart-total-desc {
+      font-size: 12px;
+      color: #999;
+    }
+    
+    .cart-checkout-btn {
+      width: 110px;
+      height: 40px;
+      background-color: #ff6b6b;
+      color: #fff;
+      font-size: 14px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    
+    .cart-checkout-btn.disabled {
+      background-color: #ccc;
+    }
+    
+    /* 优惠券提示 */
+    .cart-coupon-tip {
+      margin: 10px 0;
+      padding: 10px 15px;
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+      color: #ff6b6b;
+    }
+    
+    .cart-coupon-tip-right {
+      color: #999;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 头部 -->
+    <div class="header-with-back">
+      <div class="header-back">
+        <a href="../index.html">←</a>
+      </div>
+      <div class="header-title">购物车</div>
+      <div class="header-more">管理</div>
+    </div>
+    
+    <!-- 购物车为空状态 -->
+    <div class="cart-empty" id="cartEmpty">
+      <img class="cart-empty-icon" src="https://picsum.photos/100/100?random=40" alt="购物车为空">
+      <div class="cart-empty-text">购物车还是空的，去挑选喜欢的商品吧~</div>
+      <a href="../index.html" class="cart-empty-btn">去逛逛</a>
+    </div>
+    
+    <!-- 购物车商品列表 -->
+    <div class="cart-list" id="cartList">
+      <!-- 优惠券提示 -->
+      <div class="cart-coupon-tip">
+        <div>满200减30，还差¥72.00</div>
+        <div class="cart-coupon-tip-right">去凑单 ></div>
+      </div>
+      
+      <!-- 店铺1 -->
+      <div class="cart-section">
+        <div class="cart-section-header">
+          <div class="cart-checkbox checked"></div>
+          <div class="cart-shop-name">珠光水彩官方旗舰店</div>
+        </div>
+        
+        <!-- 商品1 -->
+        <div class="cart-item">
+          <div class="cart-item-checkbox">
+            <div class="cart-checkbox checked"></div>
+          </div>
+          <div class="cart-item-image">
+            <img src="https://picsum.photos/80/80?random=41" alt="星空珠光水彩">
+          </div>
+          <div class="cart-item-info">
+            <div>
+              <div class="cart-item-name">星空系列珠光水彩 12色套装</div>
+              <div class="cart-item-spec">规格：12色套装</div>
+            </div>
+            <div class="cart-item-bottom">
+              <div class="cart-item-price">¥128.00</div>
+              <div class="cart-item-quantity">
+                <div class="cart-quantity-btn">-</div>
+                <input type="text" class="cart-quantity-input" value="1">
+                <div class="cart-quantity-btn">+</div>
+              </div>
+            </div>
+          </div>
+          <div class="cart-item-delete">×</div>
+        </div>
+        
+        <!-- 商品2 -->
+        <div class="cart-item">
+          <div class="cart-item-checkbox">
+            <div class="cart-checkbox checked"></div>
+          </div>
+          <div class="cart-item-image">
+            <img src="https://picsum.photos/80/80?random=42" alt="金属珠光水彩">
+          </div>
+          <div class="cart-item-info">
+            <div>
+              <div class="cart-item-name">金属系列珠光水彩 6色套装</div>
+              <div class="cart-item-spec">规格：6色套装</div>
+            </div>
+            <div class="cart-item-bottom">
+              <div class="cart-item-price">¥88.00</div>
+              <div class="cart-item-quantity">
+                <div class="cart-quantity-btn">-</div>
+                <input type="text" class="cart-quantity-input" value="1">
+                <div class="cart-quantity-btn">+</div>
+              </div>
+            </div>
+          </div>
+          <div class="cart-item-delete">×</div>
+        </div>
+      </div>
+      
+      <!-- 店铺2 -->
+      <div class="cart-section">
+        <div class="cart-section-header">
+          <div class="cart-checkbox"></div>
+          <div class="cart-shop-name">艺术用品专营店</div>
+        </div>
+        
+        <!-- 商品3 -->
+        <div class="cart-item">
+          <div class="cart-item-checkbox">
+            <div class="cart-checkbox"></div>
+          </div>
+          <div class="cart-item-image">
+            <img src="https://picsum.photos/80/80?random=43" alt="水彩画笔">
+          </div>
+          <div class="cart-item-info">
+            <div>
+              <div class="cart-item-name">专业水彩画笔套装 10支装</div>
+              <div class="cart-item-spec">规格：尖头</div>
+            </div>
+            <div class="cart-item-bottom">
+              <div class="cart-item-price">¥68.00</div>
+              <div class="cart-item-quantity">
+                <div class="cart-quantity-btn">-</div>
+                <input type="text" class="cart-quantity-input" value="1">
+                <div class="cart-quantity-btn">+</div>
+              </div>
+            </div>
+          </div>
+          <div class="cart-item-delete">×</div>
+        </div>
+      </div>
+      
+      <!-- 猜你喜欢 -->
+      <div class="recommend-section">
+        <div class="recommend-title">猜你喜欢</div>
+        <div class="recommend-list">
+          <div class="product-card">
+            <div class="product-image">
+              <img src="https://picsum.photos/200/200?random=44" alt="梦幻珠光水彩">
+            </div>
+            <div class="product-info">
+              <div class="product-name">梦幻系列珠光水彩 24色套装</div>
+              <div class="product-price">¥198.00</div>
+              <div class="product-sold">已售 1892</div>
+            </div>
+          </div>
+          
+          <div class="product-card">
+            <div class="product-image">
+              <img src="https://picsum.photos/200/200?random=45" alt="自然珠光水彩">
+            </div>
+            <div class="product-info">
+              <div class="product-name">自然系列珠光水彩 18色套装</div>
+              <div class="product-price">¥168.00</div>
+              <div class="product-sold">已售 1245</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 底部空白区，避免内容被底部栏遮挡 -->
+    <div style="height: 110px;"></div>
+    
+    <!-- 底部结算栏 -->
+    <div class="cart-bottom-bar">
+      <div class="cart-select-all">
+        <div class="cart-checkbox checked"></div>
+        <span style="margin-left: 5px;">全选</span>
+      </div>
+      <div class="cart-total">
+        <div class="cart-total-price">合计: ¥216.00</div>
+        <div class="cart-total-desc">不含运费</div>
+      </div>
+      <div class="cart-checkout-btn">结算(2)</div>
+    </div>
+    
+    <!-- 底部导航栏 -->
+    <div class="tab-bar">
+      <div class="tab-item">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=40" alt="首页">
+        </div>
+        <div class="tab-text">首页</div>
+      </div>
+      <div class="tab-item">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=41" alt="分类">
+        </div>
+        <div class="tab-text">分类</div>
+      </div>
+      <div class="tab-item active">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=42" alt="购物车">
+        </div>
+        <div class="tab-text">购物车</div>
+      </div>
+      <div class="tab-item">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=43" alt="我的">
+        </div>
+        <div class="tab-text">我的</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 获取DOM元素
+      const cartEmpty = document.getElementById('cartEmpty');
+      const cartList = document.getElementById('cartList');
+      const checkboxes = document.querySelectorAll('.cart-checkbox');
+      const deleteButtons = document.querySelectorAll('.cart-item-delete');
+      const quantityBtns = document.querySelectorAll('.cart-quantity-btn');
+      const checkoutBtn = document.querySelector('.cart-checkout-btn');
+      const selectAllCheckbox = document.querySelector('.cart-select-all .cart-checkbox');
+      
+      // 判断购物车是否为空
+      function checkCartEmpty() {
+        const items = document.querySelectorAll('.cart-item');
+        if (items.length === 0) {
+          cartEmpty.style.display = 'flex';
+          cartList.style.display = 'none';
+        } else {
+          cartEmpty.style.display = 'none';
+          cartList.style.display = 'block';
+        }
+      }
+      
+      // 更新总价
+      function updateTotal() {
+        let total = 0;
+        let count = 0;
+        const items = document.querySelectorAll('.cart-item');
+        
+        items.forEach(item => {
+          const checkbox = item.querySelector('.cart-checkbox');
+          if (checkbox.classList.contains('checked')) {
+            const price = parseFloat(item.querySelector('.cart-item-price').textContent.replace('¥', ''));
+            const quantity = parseInt(item.querySelector('.cart-quantity-input').value);
+            total += price * quantity;
+            count += 1;
+          }
+        });
+        
+        document.querySelector('.cart-total-price').textContent = `合计: ¥${total.toFixed(2)}`;
+        checkoutBtn.textContent = `结算(${count})`;
+        
+        // 更新优惠券提示
+        const remainingAmount = 200 - total > 0 ? 200 - total : 0;
+        if (remainingAmount > 0) {
+          document.querySelector('.cart-coupon-tip div:first-child').textContent = 
+            `满200减30，还差¥${remainingAmount.toFixed(2)}`;
+        } else {
+          document.querySelector('.cart-coupon-tip div:first-child').textContent = 
+            `已满200，可减30元`;
+        }
+      }
+      
+      // 复选框点击事件
+      checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('click', function() {
+          this.classList.toggle('checked');
+          
+          // 如果是店铺复选框，同步更新该店铺下所有商品的复选框
+          if (this.parentElement.classList.contains('cart-section-header')) {
+            const section = this.closest('.cart-section');
+            const itemCheckboxes = section.querySelectorAll('.cart-item-checkbox .cart-checkbox');
+            
+            itemCheckboxes.forEach(itemCheckbox => {
+              if (this.classList.contains('checked')) {
+                itemCheckbox.classList.add('checked');
+              } else {
+                itemCheckbox.classList.remove('checked');
+              }
+            });
+          }
+          
+          // 如果是全选复选框，同步更新所有复选框
+          if (this.parentElement.classList.contains('cart-select-all')) {
+            checkboxes.forEach(cb => {
+              if (this.classList.contains('checked')) {
+                cb.classList.add('checked');
+              } else {
+                cb.classList.remove('checked');
+              }
+            });
+          }
+          
+          // 更新总价
+          updateTotal();
+        });
+      });
+      
+      // 删除按钮点击事件
+      deleteButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          if (confirm('确定要删除该商品吗？')) {
+            const item = this.closest('.cart-item');
+            item.remove();
+            
+            // 检查该店铺下是否还有商品
+            const section = this.closest('.cart-section');
+            const items = section.querySelectorAll('.cart-item');
+            if (items.length === 0) {
+              section.remove();
+            }
+            
+            // 检查购物车是否为空
+            checkCartEmpty();
+            // 更新总价
+            updateTotal();
+          }
+        });
+      });
+      
+      // 数量加减按钮点击事件
+      quantityBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const input = this.parentElement.querySelector('.cart-quantity-input');
+          let value = parseInt(input.value);
+          
+          if (this.textContent === '+') {
+            value += 1;
+          } else if (this.textContent === '-' && value > 1) {
+            value -= 1;
+          }
+          
+          input.value = value;
+          // 更新总价
+          updateTotal();
+        });
+      });
+      
+      // 结算按钮点击事件
+      checkoutBtn.addEventListener('click', function() {
+        const selectedItems = document.querySelectorAll('.cart-item .cart-checkbox.checked');
+        if (selectedItems.length === 0) {
+          alert('请选择要结算的商品');
+        } else {
+          window.location.href = 'order-confirm.html';
+        }
+      });
+      
+      // 底部导航切换
+      const tabItems = document.querySelectorAll('.tab-item');
+      tabItems.forEach((item, index) => {
+        item.addEventListener('click', function() {
+          // 移除所有tab的active类
+          tabItems.forEach(tab => tab.classList.remove('active'));
+          // 为当前点击的tab添加active类
+          this.classList.add('active');
+          
+          // 根据点击的tab跳转到对应页面
+          if (index === 0) {
+            window.location.href = '../index.html';
+          } else if (index === 1) {
+            window.location.href = 'category.html';
+          } else if (index === 2) {
+            // 当前页面，不跳转
+          } else if (index === 3) {
+            window.location.href = 'profile.html';
+          }
+        });
+      });
+      
+      // 初始化
+      updateTotal();
+    });
+  </script>
+</body>
+</html>

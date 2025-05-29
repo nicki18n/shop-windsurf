@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <linearGradient id="tube1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#ffb5a7;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#fcd5ce;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="tube2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#a8dadc;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#e0fbfc;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="tube3" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#cdb4db;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#ffc8dd;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="tube4" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#f6d365;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#fda085;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="tube5" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#84fab0;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#8fd3f4;stop-opacity:1" />
+        </linearGradient>
+    </defs>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect fill="white" x="0" y="0" width="200" height="200"></rect>
+        
+        <!-- 颜料管1 -->
+        <g transform="translate(30, 50)">
+            <rect x="0" y="0" width="80" height="20" rx="5" fill="url(#tube1)"></rect>
+            <rect x="80" y="5" width="10" height="10" rx="2" fill="#f8f9fa"></rect>
+            <text x="40" y="14" font-family="Arial" font-size="10" font-weight="bold" text-anchor="middle" fill="#fff">珠光玫瑰红</text>
+            <!-- 珠光效果 -->
+            <circle cx="20" cy="10" r="3" fill="white" opacity="0.4"></circle>
+            <circle cx="60" cy="10" r="3" fill="white" opacity="0.4"></circle>
+        </g>
+        
+        <!-- 颜料管2 -->
+        <g transform="translate(40, 80)">
+            <rect x="0" y="0" width="80" height="20" rx="5" fill="url(#tube2)"></rect>
+            <rect x="80" y="5" width="10" height="10" rx="2" fill="#f8f9fa"></rect>
+            <text x="40" y="14" font-family="Arial" font-size="10" font-weight="bold" text-anchor="middle" fill="#fff">珠光天空蓝</text>
+            <!-- 珠光效果 -->
+            <circle cx="20" cy="10" r="3" fill="white" opacity="0.4"></circle>
+            <circle cx="60" cy="10" r="3" fill="white" opacity="0.4"></circle>
+        </g>
+        
+        <!-- 颜料管3 -->
+        <g transform="translate(50, 110)">
+            <rect x="0" y="0" width="80" height="20" rx="5" fill="url(#tube3)"></rect>
+            <rect x="80" y="5" width="10" height="10" rx="2" fill="#f8f9fa"></rect>
+            <text x="40" y="14" font-family="Arial" font-size="10" font-weight="bold" text-anchor="middle" fill="#fff">珠光紫罗兰</text>
+            <!-- 珠光效果 -->
+            <circle cx="20" cy="10" r="3" fill="white" opacity="0.4"></circle>
+            <circle cx="60" cy="10" r="3" fill="white" opacity="0.4"></circle>
+        </g>
+        
+        <!-- 颜料管4 -->
+        <g transform="translate(60, 140)">
+            <rect x="0" y="0" width="80" height="20" rx="5" fill="url(#tube4)"></rect>
+            <rect x="80" y="5" width="10" height="10" rx="2" fill="#f8f9fa"></rect>
+            <text x="40" y="14" font-family="Arial" font-size="10" font-weight="bold" text-anchor="middle" fill="#fff">珠光金黄</text>
+            <!-- 珠光效果 -->
+            <circle cx="20" cy="10" r="3" fill="white" opacity="0.4"></circle>
+            <circle cx="60" cy="10" r="3" fill="white" opacity="0.4"></circle>
+        </g>
+        
+        <!-- 颜料管5 -->
+        <g transform="translate(70, 170)">
+            <rect x="0" y="0" width="80" height="20" rx="5" fill="url(#tube5)"></rect>
+            <rect x="80" y="5" width="10" height="10" rx="2" fill="#f8f9fa"></rect>
+            <text x="40" y="14" font-family="Arial" font-size="10" font-weight="bold" text-anchor="middle" fill="#fff">珠光翡翠绿</text>
+            <!-- 珠光效果 -->
+            <circle cx="20" cy="10" r="3" fill="white" opacity="0.4"></circle>
+            <circle cx="60" cy="10" r="3" fill="white" opacity="0.4"></circle>
+        </g>
+        
+        <!-- 挤出的颜料 -->
+        <path d="M150,60 C160,55 170,65 165,75 C160,85 150,80 155,70 Z" fill="url(#tube1)" opacity="0.8"></path>
+        <path d="M160,90 C170,85 180,95 175,105 C170,115 160,110 165,100 Z" fill="url(#tube2)" opacity="0.8"></path>
+        <path d="M170,120 C180,115 190,125 185,135 C180,145 170,140 175,130 Z" fill="url(#tube3)" opacity="0.8"></path>
+        
+        <!-- 珠光效果 - 挤出的颜料 -->
+        <circle cx="155" cy="65" r="2" fill="white" opacity="0.6"></circle>
+        <circle cx="165" cy="95" r="2" fill="white" opacity="0.6"></circle>
+        <circle cx="175" cy="125" r="2" fill="white" opacity="0.6"></circle>
+    </g>
+</svg>

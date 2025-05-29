@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <linearGradient id="avatarBg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#ffd6ff;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#e7c6ff;stop-opacity:1" />
+        </linearGradient>
+    </defs>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle cx="100" cy="100" r="100" fill="url(#avatarBg)"></circle>
+        
+        <!-- 简化的人物轮廓 -->
+        <circle cx="100" cy="75" r="35" fill="#ffffff"></circle>
+        <path d="M100,115 C65,115 40,145 40,185 L160,185 C160,145 135,115 100,115 Z" fill="#ffffff"></path>
+        
+        <!-- 画笔 -->
+        <g transform="translate(75, 65) rotate(-30)">
+            <rect x="0" y="0" width="40" height="5" rx="2" fill="#d4a373"></rect>
+            <path d="M40,0 L45,2.5 L40,5 Z" fill="#ffb5a7"></path>
+        </g>
+        
+        <!-- 调色板 -->
+        <g transform="translate(115, 90)">
+            <path d="M0,0 C10,-5 20,0 15,10 C10,20 0,15 5,5 Z" fill="#ffb5a7" opacity="0.8"></path>
+            <path d="M15,0 C25,-5 35,0 30,10 C25,20 15,15 20,5 Z" fill="#a8dadc" opacity="0.8"></path>
+            <path d="M30,0 C40,-5 50,0 45,10 C40,20 30,15 35,5 Z" fill="#cdb4db" opacity="0.8"></path>
+        </g>
+        
+        <!-- 珠光效果 -->
+        <circle cx="70" cy="60" r="5" fill="white" opacity="0.3"></circle>
+        <circle cx="130" cy="70" r="8" fill="white" opacity="0.2"></circle>
+        <circle cx="90" cy="150" r="10" fill="white" opacity="0.2"></circle>
+        <circle cx="140" cy="140" r="7" fill="white" opacity="0.2"></circle>
+        <circle cx="60" cy="130" r="9" fill="white" opacity="0.2"></circle>
+        
+        <!-- 水彩痕迹 -->
+        <circle cx="40" cy="40" r="15" fill="#ffb5a7" opacity="0.2"></circle>
+        <circle cx="160" cy="50" r="20" fill="#a8dadc" opacity="0.2"></circle>
+        <circle cx="30" cy="160" r="18" fill="#cdb4db" opacity="0.2"></circle>
+        <circle cx="170" cy="150" r="22" fill="#f6d365" opacity="0.2"></circle>
+    </g>
+</svg>

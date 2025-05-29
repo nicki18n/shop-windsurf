@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <pattern id="paperTexture" patternUnits="userSpaceOnUse" width="10" height="10">
+            <rect width="10" height="10" fill="#f8f9fa"/>
+            <path d="M 0,0 L 10,10 M 10,0 L 0,10" stroke="#f1f3f5" stroke-width="0.5"/>
+        </pattern>
+    </defs>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect fill="white" x="0" y="0" width="200" height="200"></rect>
+        
+        <!-- 水彩纸堆叠效果 -->
+        <rect x="45" y="60" width="120" height="90" fill="pattern(#paperTexture)" stroke="#e9ecef" stroke-width="1"></rect>
+        <rect x="40" y="55" width="120" height="90" fill="pattern(#paperTexture)" stroke="#e9ecef" stroke-width="1"></rect>
+        <rect x="35" y="50" width="120" height="90" fill="pattern(#paperTexture)" stroke="#e9ecef" stroke-width="1"></rect>
+        
+        <!-- 水彩效果 -->
+        <circle cx="70" cy="80" r="15" fill="#ffb5a7" opacity="0.5"></circle>
+        <circle cx="100" cy="70" r="20" fill="#fcd5ce" opacity="0.4"></circle>
+        <circle cx="120" cy="90" r="18" fill="#f8edeb" opacity="0.4"></circle>
+        <circle cx="90" cy="100" r="22" fill="#f1faee" opacity="0.3"></circle>
+        <circle cx="130" cy="110" r="15" fill="#a8dadc" opacity="0.4"></circle>
+        <circle cx="60" cy="110" r="12" fill="#cdb4db" opacity="0.4"></circle>
+        
+        <!-- 珠光效果 -->
+        <circle cx="70" cy="80" r="2" fill="white" opacity="0.8"></circle>
+        <circle cx="100" cy="70" r="3" fill="white" opacity="0.8"></circle>
+        <circle cx="120" cy="90" r="2.5" fill="white" opacity="0.8"></circle>
+        <circle cx="90" cy="100" r="2" fill="white" opacity="0.8"></circle>
+        <circle cx="130" cy="110" r="1.5" fill="white" opacity="0.8"></circle>
+        <circle cx="60" cy="110" r="2" fill="white" opacity="0.8"></circle>
+        
+        <!-- 文字 -->
+        <text x="100" y="160" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#555">专业水彩纸</text>
+    </g>
+</svg>

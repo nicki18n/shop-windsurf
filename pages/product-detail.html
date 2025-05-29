@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>产品详情 - 花涧珠光水彩商城</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* 产品详情页特定样式 */
+    .header-with-back {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      height: 50px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .header-back {
+      position: absolute;
+      left: 15px;
+      font-size: 18px;
+    }
+    
+    .header-title {
+      font-size: 16px;
+      font-weight: bold;
+    }
+    
+    .header-more {
+      position: absolute;
+      right: 15px;
+      font-size: 20px;
+    }
+    
+    /* 产品轮播图 */
+    .product-swiper {
+      width: 100%;
+      height: 300px;
+      position: relative;
+    }
+    
+    .product-swiper-slide {
+      width: 100%;
+      height: 100%;
+      display: none;
+    }
+    
+    .product-swiper-slide:first-child {
+      display: block;
+    }
+    
+    .product-swiper-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background-color: #f8f8f8;
+    }
+    
+    .product-swiper-pagination {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    
+    .product-swiper-bullet {
+      width: 6px;
+      height: 6px;
+      background: rgba(0, 0, 0, 0.3);
+      margin: 0 3px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    
+    .product-swiper-bullet-active {
+      background: #ff6b6b;
+      width: 15px;
+      border-radius: 3px;
+    }
+    
+    /* 产品信息 */
+    .product-info-section {
+      padding: 15px;
+      background-color: #fff;
+      margin-bottom: 10px;
+    }
+    
+    .product-price-box {
+      display: flex;
+      align-items: flex-end;
+      margin-bottom: 10px;
+    }
+    
+    .product-current-price {
+      font-size: 24px;
+      color: #ff6b6b;
+      font-weight: bold;
+    }
+    
+    .product-original-price {
+      font-size: 14px;
+      color: #999;
+      text-decoration: line-through;
+      margin-left: 8px;
+    }
+    
+    .product-title {
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    
+    .product-sold-box {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #999;
+    }
+    
+    /* 优惠信息 */
+    .product-promotion {
+      background-color: #fff;
+      margin-bottom: 10px;
+    }
+    
+    .promotion-item {
+      display: flex;
+      padding: 10px 15px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    
+    .promotion-label {
+      width: 60px;
+      font-size: 14px;
+      color: #999;
+    }
+    
+    .promotion-content {
+      flex: 1;
+      font-size: 14px;
+      color: #333;
+    }
+    
+    .promotion-tag {
+      display: inline-block;
+      padding: 2px 5px;
+      font-size: 12px;
+      color: #fff;
+      background-color: #ff6b6b;
+      border-radius: 3px;
+      margin-right: 5px;
+    }
+    
+    /* 规格选择 */
+    .product-spec {
+      background-color: #fff;
+      margin-bottom: 10px;
+    }
+    
+    .spec-title {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    
+    .spec-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    
+    .spec-option {
+      padding: 5px 12px;
+      border: 1px solid #ddd;
+      border-radius: 15px;
+      font-size: 13px;
+      color: #666;
+    }
+    
+    .spec-option.active {
+      border-color: #ff6b6b;
+      color: #ff6b6b;
+      background-color: #fff0f0;
+    }
+    
+    /* 商品详情 */
+    .product-detail {
+      background-color: #fff;
+    }
+    
+    .detail-tabs {
+      display: flex;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .detail-tab {
+      flex: 1;
+      text-align: center;
+      padding: 12px 0;
+      font-size: 14px;
+      color: #666;
+      position: relative;
+    }
+    
+    .detail-tab.active {
+      color: #ff6b6b;
+    }
+    
+    .detail-tab.active::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 2px;
+      background-color: #ff6b6b;
+    }
+    
+    .detail-content {
+      padding: 15px;
+    }
+    
+    .detail-image {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    
+    .detail-image img {
+      width: 100%;
+      display: block;
+    }
+    
+    .detail-text {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #666;
+      margin-bottom: 15px;
+    }
+    
+    .detail-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin: 15px 0 10px;
+      color: #333;
+    }
+    
+    /* 底部购买栏 */
+    .product-bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 50px;
+      background-color: #fff;
+      display: flex;
+      border-top: 1px solid #eee;
+      z-index: 10;
+    }
+    
+    .bottom-icon-btn {
+      width: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #666;
+    }
+    
+    .bottom-icon {
+      font-size: 18px;
+      margin-bottom: 3px;
+    }
+    
+    .bottom-action-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    
+    .add-cart-btn {
+      background-color: #ff9500;
+    }
+    
+    .buy-now-btn {
+      background-color: #ff6b6b;
+    }
+    
+    /* 评价区域 */
+    .review-section {
+      background-color: #fff;
+      margin-bottom: 10px;
+      padding: 15px;
+    }
+    
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .review-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .review-more {
+      font-size: 12px;
+      color: #999;
+    }
+    
+    .review-stats {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .review-rating {
+      font-size: 24px;
+      color: #ff6b6b;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    
+    .review-stars {
+      color: #ffb800;
+      font-size: 14px;
+      margin-right: 10px;
+    }
+    
+    .review-count {
+      font-size: 12px;
+      color: #999;
+    }
+    
+    .review-item {
+      border-top: 1px solid #f5f5f5;
+      padding-top: 15px;
+      margin-bottom: 15px;
+    }
+    
+    .review-user {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
+    .review-avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 10px;
+    }
+    
+    .review-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .review-username {
+      font-size: 14px;
+      color: #666;
+    }
+    
+    .review-content {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    
+    .review-images {
+      display: flex;
+      gap: 5px;
+      margin-bottom: 10px;
+    }
+    
+    .review-image {
+      width: 70px;
+      height: 70px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .review-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .review-date {
+      font-size: 12px;
+      color: #999;
+    }
+    
+    /* 底部空白区，避免内容被底部购买栏遮挡 */
+    .bottom-space {
+      height: 60px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 头部 -->
+    <div class="header-with-back">
+      <div class="header-back">
+        <a href="../index.html">←</a>
+      </div>
+      <div class="header-title">产品详情</div>
+      <div class="header-more">⋮</div>
+    </div>
+    
+    <!-- 产品轮播图 -->
+    <div class="product-swiper">
+      <div class="product-swiper-slide">
+        <img src="https://picsum.photos/400/400?random=30" alt="星空系列珠光水彩">
+      </div>
+      <div class="product-swiper-slide">
+        <img src="https://picsum.photos/400/400?random=31" alt="星空系列珠光水彩">
+      </div>
+      <div class="product-swiper-slide">
+        <img src="https://picsum.photos/400/400?random=32" alt="星空系列珠光水彩">
+      </div>
+      <div class="product-swiper-pagination">
+        <span class="product-swiper-bullet product-swiper-bullet-active"></span>
+        <span class="product-swiper-bullet"></span>
+        <span class="product-swiper-bullet"></span>
+      </div>
+    </div>
+    
+    <!-- 产品基本信息 -->
+    <div class="product-info-section">
+      <div class="product-price-box">
+        <div class="product-current-price">¥128.00</div>
+        <div class="product-original-price">¥168.00</div>
+      </div>
+      <div class="product-title">星空系列珠光水彩 12色套装 高饱和度珠光颜料 适合初学者和专业画师</div>
+      <div class="product-sold-box">
+        <div class="product-sold">已售 2345</div>
+        <div class="product-rating">4.9分 | 好评率98%</div>
+      </div>
+    </div>
+    
+    <!-- 优惠信息 -->
+    <div class="product-promotion">
+      <div class="promotion-item">
+        <div class="promotion-label">优惠</div>
+        <div class="promotion-content">
+          <span class="promotion-tag">满减</span>满200减30
+        </div>
+      </div>
+      <div class="promotion-item">
+        <div class="promotion-label">服务</div>
+        <div class="promotion-content">
+          <span class="promotion-tag">包邮</span>
+          <span class="promotion-tag">7天无理由退换</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 规格选择 -->
+    <div class="product-spec product-info-section">
+      <div class="spec-title">规格</div>
+      <div class="spec-options">
+        <div class="spec-option active">12色套装</div>
+        <div class="spec-option">24色套装</div>
+        <div class="spec-option">36色套装</div>
+      </div>
+      
+      <div class="spec-title">颜色系列</div>
+      <div class="spec-options">
+        <div class="spec-option active">星空系列</div>
+        <div class="spec-option">梦幻系列</div>
+        <div class="spec-option">金属系列</div>
+        <div class="spec-option">自然系列</div>
+      </div>
+    </div>
+    
+    <!-- 评价区域 -->
+    <div class="review-section">
+      <div class="review-header">
+        <div class="review-title">用户评价(1245)</div>
+        <div class="review-more">查看全部 ></div>
+      </div>
+      
+      <div class="review-stats">
+        <div class="review-rating">4.9</div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-count">1245条评价</div>
+      </div>
+      
+      <div class="review-item">
+        <div class="review-user">
+          <div class="review-avatar">
+            <img src="https://picsum.photos/30/30?random=33" alt="用户头像">
+          </div>
+          <div class="review-username">水彩爱好者</div>
+        </div>
+        <div class="review-content">
+          颜色非常漂亮，珠光效果很明显，和描述的一样。包装也很精美，送人自用都很合适。画出来的效果很梦幻，特别是星空效果，非常满意！
+        </div>
+        <div class="review-images">
+          <div class="review-image">
+            <img src="https://picsum.photos/70/70?random=34" alt="用户评价图片">
+          </div>
+          <div class="review-image">
+            <img src="https://picsum.photos/70/70?random=35" alt="用户评价图片">
+          </div>
+          <div class="review-image">
+            <img src="https://picsum.photos/70/70?random=36" alt="用户评价图片">
+          </div>
+        </div>
+        <div class="review-date">2025-05-20</div>
+      </div>
+    </div>
+    
+    <!-- 商品详情 -->
+    <div class="product-detail">
+      <div class="detail-tabs">
+        <div class="detail-tab active">商品详情</div>
+        <div class="detail-tab">规格参数</div>
+        <div class="detail-tab">购买须知</div>
+      </div>
+      
+      <div class="detail-content">
+        <div class="detail-title">产品介绍</div>
+        <div class="detail-text">
+          星空系列珠光水彩是我们精心研发的高品质水彩颜料，采用优质颜料和珠光粉制作，色彩饱和度高，珠光效果明显，适合绘制星空、梦幻等主题的水彩画作。
+        </div>
+        
+        <div class="detail-image">
+          <img src="https://picsum.photos/600/300?random=37" alt="产品详情图">
+        </div>
+        
+        <div class="detail-title">产品特点</div>
+        <div class="detail-text">
+          1. 高饱和度：色彩鲜艳，表现力强<br>
+          2. 珠光效果：独特的珠光质感，画面更加立体<br>
+          3. 易调和：与水轻松调和，上色均匀<br>
+          4. 耐光性好：色彩持久不易褪色<br>
+          5. 环保安全：采用环保材料，无毒无害
+        </div>
+        
+        <div class="detail-image">
+          <img src="https://picsum.photos/600/300?random=38" alt="产品详情图">
+        </div>
+        
+        <div class="detail-title">适用场景</div>
+        <div class="detail-text">
+          适合绘制星空、梦幻、奇幻等主题的水彩画作，也可用于手账、明信片、插画等创作。无论是初学者还是专业画师，都能轻松驾驭。
+        </div>
+        
+        <div class="detail-image">
+          <img src="https://picsum.photos/600/300?random=39" alt="产品详情图">
+        </div>
+      </div>
+    </div>
+    
+    <!-- 底部空白区，避免内容被底部购买栏遮挡 -->
+    <div class="bottom-space"></div>
+    
+    <!-- 底部购买栏 -->
+    <div class="product-bottom-bar">
+      <div class="bottom-icon-btn">
+        <div class="bottom-icon">⭐</div>
+        <div>收藏</div>
+      </div>
+      <div class="bottom-icon-btn">
+        <div class="bottom-icon">💬</div>
+        <div>客服</div>
+      </div>
+      <div class="bottom-icon-btn">
+        <div class="bottom-icon">🛒</div>
+        <div>购物车</div>
+      </div>
+      <div class="bottom-action-btn add-cart-btn">加入购物车</div>
+      <div class="bottom-action-btn buy-now-btn">立即购买</div>
+    </div>
+    
+    <!-- 底部导航栏 -->
+    <div class="tab-bar" style="display: none;">
+      <div class="tab-item">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=30" alt="首页">
+        </div>
+        <div class="tab-text">首页</div>
+      </div>
+      <div class="tab-item">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=31" alt="分类">
+        </div>
+        <div class="tab-text">分类</div>
+      </div>
+      <div class="tab-item">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=32" alt="购物车">
+        </div>
+        <div class="tab-text">购物车</div>
+      </div>
+      <div class="tab-item">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=33" alt="我的">
+        </div>
+        <div class="tab-text">我的</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 产品轮播图
+      let currentSlide = 0;
+      const slides = document.querySelectorAll('.product-swiper-slide');
+      const bullets = document.querySelectorAll('.product-swiper-bullet');
+      const totalSlides = slides.length;
+      
+      function showSlide(index) {
+        // 隐藏所有轮播图
+        slides.forEach(slide => slide.style.display = 'none');
+        bullets.forEach(bullet => bullet.classList.remove('product-swiper-bullet-active'));
+        
+        // 显示指定轮播图
+        slides[index].style.display = 'block';
+        bullets[index].classList.add('product-swiper-bullet-active');
+      }
+      
+      // 自动轮播
+      function autoSlide() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        showSlide(currentSlide);
+      }
+      
+      // 点击分页器切换轮播
+      bullets.forEach((bullet, index) => {
+        bullet.addEventListener('click', () => {
+          currentSlide = index;
+          showSlide(currentSlide);
+        });
+      });
+      
+      // 设置自动轮播定时器
+      setInterval(autoSlide, 3000);
+      
+      // 规格选择
+      const specOptions = document.querySelectorAll('.spec-option');
+      specOptions.forEach(option => {
+        option.addEventListener('click', function() {
+          // 获取同级的所有选项
+          const siblings = Array.from(this.parentNode.children);
+          // 移除所有选项的active类
+          siblings.forEach(sib => sib.classList.remove('active'));
+          // 为当前点击的选项添加active类
+          this.classList.add('active');
+        });
+      });
+      
+      // 详情标签切换
+      const detailTabs = document.querySelectorAll('.detail-tab');
+      detailTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          // 移除所有标签的active类
+          detailTabs.forEach(t => t.classList.remove('active'));
+          // 为当前点击的标签添加active类
+          this.classList.add('active');
+          // 这里可以添加切换详情内容的逻辑
+        });
+      });
+      
+      // 底部按钮点击事件
+      const addCartBtn = document.querySelector('.add-cart-btn');
+      const buyNowBtn = document.querySelector('.buy-now-btn');
+      
+      addCartBtn.addEventListener('click', function() {
+        alert('已加入购物车！');
+      });
+      
+      buyNowBtn.addEventListener('click', function() {
+        window.location.href = 'order-confirm.html';
+      });
+      
+      // 底部导航栏功能
+      const bottomIcons = document.querySelectorAll('.bottom-icon-btn');
+      bottomIcons.forEach((icon, index) => {
+        icon.addEventListener('click', function() {
+          if (index === 0) { // 收藏
+            alert('已添加到收藏夹');
+          } else if (index === 1) { // 客服
+            alert('正在连接客服...');
+          } else if (index === 2) { // 购物车
+            window.location.href = 'cart.html';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

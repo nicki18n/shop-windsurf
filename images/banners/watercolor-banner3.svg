@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800px" height="300px" viewBox="0 0 800 300" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <linearGradient id="bannerBg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#cdb4db;stop-opacity:0.8" />
+            <stop offset="100%" style="stop-color:#ffc8dd;stop-opacity:0.8" />
+        </linearGradient>
+    </defs>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect fill="url(#bannerBg)" x="0" y="0" width="800" height="300"></rect>
+        
+        <!-- 水彩痕迹 -->
+        <circle cx="200" cy="150" r="120" fill="#a2d2ff" opacity="0.3"></circle>
+        <circle cx="400" cy="100" r="90" fill="#ffafbd" opacity="0.3"></circle>
+        <circle cx="600" cy="180" r="100" fill="#b5ead7" opacity="0.3"></circle>
+        <circle cx="100" cy="200" r="80" fill="#f6d365" opacity="0.3"></circle>
+        
+        <!-- 珠光效果 -->
+        <circle cx="150" cy="120" r="15" fill="white" opacity="0.5"></circle>
+        <circle cx="350" cy="80" r="12" fill="white" opacity="0.4"></circle>
+        <circle cx="550" cy="150" r="18" fill="white" opacity="0.5"></circle>
+        <circle cx="700" cy="200" r="10" fill="white" opacity="0.4"></circle>
+        <circle cx="250" cy="220" r="14" fill="white" opacity="0.5"></circle>
+        
+        <!-- 水彩画布 -->
+        <g transform="translate(150, 100)">
+            <rect x="0" y="0" width="120" height="80" fill="#f8f9fa" stroke="#e9ecef" stroke-width="2"></rect>
+            <!-- 水彩画 -->
+            <circle cx="30" cy="20" r="15" fill="#ffb5a7" opacity="0.6"></circle>
+            <circle cx="60" cy="30" r="20" fill="#a8dadc" opacity="0.6"></circle>
+            <circle cx="90" cy="25" r="18" fill="#cdb4db" opacity="0.6"></circle>
+            <circle cx="40" cy="50" r="12" fill="#f6d365" opacity="0.6"></circle>
+            <circle cx="70" cy="60" r="15" fill="#b5ead7" opacity="0.6"></circle>
+            <!-- 珠光效果 -->
+            <circle cx="30" cy="20" r="4" fill="white" opacity="0.5"></circle>
+            <circle cx="60" cy="30" r="5" fill="white" opacity="0.5"></circle>
+            <circle cx="90" cy="25" r="4" fill="white" opacity="0.5"></circle>
+            <circle cx="40" cy="50" r="3" fill="white" opacity="0.5"></circle>
+            <circle cx="70" cy="60" r="4" fill="white" opacity="0.5"></circle>
+        </g>
+        
+        <!-- 水彩笔刷 -->
+        <g transform="translate(550, 120) rotate(20)">
+            <rect x="0" y="0" width="100" height="12" rx="3" fill="#d4a373"></rect>
+            <path d="M100,0 L115,6 L100,12 Z" fill="#ffb5a7"></path>
+            <!-- 珠光效果 -->
+            <circle cx="25" cy="6" r="2" fill="white" opacity="0.5"></circle>
+            <circle cx="50" cy="6" r="2" fill="white" opacity="0.5"></circle>
+            <circle cx="75" cy="6" r="2" fill="white" opacity="0.5"></circle>
+            <circle cx="105" cy="6" r="1.5" fill="white" opacity="0.6"></circle>
+        </g>
+        
+        <!-- 水彩调色盘 -->
+        <g transform="translate(600, 200)">
+            <circle cx="0" cy="0" r="30" fill="#f5f5f7" stroke="#ddd" stroke-width="2"></circle>
+            <circle cx="-15" cy="-8" r="8" fill="#ffb5a7"></circle>
+            <circle cx="0" cy="-15" r="8" fill="#a8dadc"></circle>
+            <circle cx="15" cy="-8" r="8" fill="#cdb4db"></circle>
+            <circle cx="15" cy="8" r="8" fill="#ffafbd"></circle>
+            <circle cx="0" cy="15" r="8" fill="#b5ead7"></circle>
+            <circle cx="-15" cy="8" r="8" fill="#f6d365"></circle>
+        </g>
+        
+        <!-- 文字 -->
+        <text x="400" y="120" font-family="Arial" font-size="48" font-weight="bold" text-anchor="middle" fill="#fff">艺术课程</text>
+        <text x="400" y="180" font-family="Arial" font-size="36" font-weight="normal" text-anchor="middle" fill="#fff">珠光水彩绘画技法</text>
+        <text x="400" y="230" font-family="Arial" font-size="24" font-weight="normal" text-anchor="middle" fill="#fff">线上课程 · 名师指导</text>
+    </g>
+</svg>

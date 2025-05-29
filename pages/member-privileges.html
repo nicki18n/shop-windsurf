@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>会员特权 - 珠光水彩商城</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* 会员特权页面特定样式 */
+    .member-header {
+      background: linear-gradient(to right, #FFD700, #FFA500);
+      padding: 20px 15px;
+      color: #fff;
+      position: relative;
+      text-align: center;
+    }
+    
+    .member-header-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('https://picsum.photos/750/200?random=70');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.1;
+      z-index: 0;
+    }
+    
+    .member-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .member-subtitle {
+      font-size: 14px;
+      opacity: 0.8;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .member-level {
+      display: flex;
+      background-color: #fff;
+      border-radius: 10px;
+      margin: -20px 15px 15px;
+      padding: 15px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 2;
+    }
+    
+    .member-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid #FFD700;
+      margin-right: 15px;
+    }
+    
+    .member-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .member-info {
+      flex: 1;
+    }
+    
+    .member-name {
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    
+    .member-level-tag {
+      display: inline-block;
+      background: linear-gradient(to right, #FFD700, #FFA500);
+      color: #fff;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-bottom: 5px;
+    }
+    
+    .member-points {
+      font-size: 12px;
+      color: #999;
+    }
+    
+    .privilege-section {
+      background-color: #fff;
+      border-radius: 10px;
+      margin: 15px;
+      overflow: hidden;
+    }
+    
+    .privilege-title {
+      font-size: 16px;
+      font-weight: bold;
+      padding: 15px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    
+    .privilege-item {
+      display: flex;
+      padding: 15px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    
+    .privilege-item:last-child {
+      border-bottom: none;
+    }
+    
+    .privilege-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #f8f8f8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+    }
+    
+    .privilege-icon img {
+      width: 24px;
+      height: 24px;
+    }
+    
+    .privilege-content {
+      flex: 1;
+    }
+    
+    .privilege-name {
+      font-size: 15px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    
+    .privilege-desc {
+      font-size: 13px;
+      color: #999;
+      line-height: 1.5;
+    }
+    
+    .level-progress {
+      background-color: #fff;
+      border-radius: 10px;
+      margin: 15px;
+      padding: 15px;
+    }
+    
+    .progress-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    
+    .progress-bar-container {
+      height: 8px;
+      background-color: #f5f5f5;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(to right, #FFD700, #FFA500);
+      width: 60%;
+    }
+    
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #999;
+    }
+    
+    .progress-current {
+      color: #FFA500;
+      font-weight: bold;
+    }
+    
+    .progress-next {
+      text-align: right;
+    }
+    
+    .progress-next-level {
+      color: #333;
+      font-weight: bold;
+    }
+    
+    .footer-info {
+      text-align: center;
+      padding: 20px 0;
+      font-size: 12px;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 头部 -->
+    <div class="header-with-back">
+      <div class="header-back">
+        <a href="profile.html">←</a>
+      </div>
+      <div class="header-title">会员特权</div>
+    </div>
+    
+    <!-- 会员头部 -->
+    <div class="member-header">
+      <div class="member-header-bg"></div>
+      <div class="member-title">珠光水彩会员</div>
+      <div class="member-subtitle">尊享多重会员特权</div>
+    </div>
+    
+    <!-- 会员等级信息 -->
+    <div class="member-level">
+      <div class="member-avatar">
+        <img src="https://picsum.photos/60/60?random=71" alt="用户头像">
+      </div>
+      <div class="member-info">
+        <div class="member-name">用户123456</div>
+        <div class="member-level-tag">黄金会员</div>
+        <div class="member-points">当前积分：1280</div>
+      </div>
+    </div>
+    
+    <!-- 会员等级进度 -->
+    <div class="level-progress">
+      <div class="progress-title">会员等级进度</div>
+      <div class="progress-bar-container">
+        <div class="progress-bar"></div>
+      </div>
+      <div class="progress-info">
+        <div class="progress-current">
+          当前：黄金会员 (1280积分)
+        </div>
+        <div class="progress-next">
+          距离 <span class="progress-next-level">铂金会员</span> 还需720积分
+        </div>
+      </div>
+    </div>
+    
+    <!-- 会员特权 -->
+    <div class="privilege-section">
+      <div class="privilege-title">专属特权</div>
+      
+      <div class="privilege-item">
+        <div class="privilege-icon">
+          <img src="https://picsum.photos/24/24?random=72" alt="生日礼">
+        </div>
+        <div class="privilege-content">
+          <div class="privilege-name">生日礼遇</div>
+          <div class="privilege-desc">会员生日当月可获得专属生日礼包，包含珠光水彩限定款</div>
+        </div>
+      </div>
+      
+      <div class="privilege-item">
+        <div class="privilege-icon">
+          <img src="https://picsum.photos/24/24?random=73" alt="专属优惠">
+        </div>
+        <div class="privilege-content">
+          <div class="privilege-name">专属优惠</div>
+          <div class="privilege-desc">会员专享折扣，全场商品9折起，限定款独享8.5折</div>
+        </div>
+      </div>
+      
+      <div class="privilege-item">
+        <div class="privilege-icon">
+          <img src="https://picsum.photos/24/24?random=74" alt="积分加速">
+        </div>
+        <div class="privilege-content">
+          <div class="privilege-name">积分加速</div>
+          <div class="privilege-desc">消费积分1.5倍加速累计，更快升级会员等级</div>
+        </div>
+      </div>
+      
+      <div class="privilege-item">
+        <div class="privilege-icon">
+          <img src="https://picsum.photos/24/24?random=75" alt="免费课程">
+        </div>
+        <div class="privilege-content">
+          <div class="privilege-name">免费课程</div>
+          <div class="privilege-desc">每月可免费参与1次线上水彩课程，提升绘画技巧</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 黄金会员特权 -->
+    <div class="privilege-section">
+      <div class="privilege-title">黄金会员专享</div>
+      
+      <div class="privilege-item">
+        <div class="privilege-icon">
+          <img src="https://picsum.photos/24/24?random=76" alt="新品优先">
+        </div>
+        <div class="privilege-content">
+          <div class="privilege-name">新品优先购</div>
+          <div class="privilege-desc">新品上市提前24小时优先购买，不错过限量款</div>
+        </div>
+      </div>
+      
+      <div class="privilege-item">
+        <div class="privilege-icon">
+          <img src="https://picsum.photos/24/24?random=77" alt="专属客服">
+        </div>
+        <div class="privilege-content">
+          <div class="privilege-name">专属客服</div>
+          <div class="privilege-desc">黄金会员专享一对一客服服务，优先解决问题</div>
+        </div>
+      </div>
+      
+      <div class="privilege-item">
+        <div class="privilege-icon">
+          <img src="https://picsum.photos/24/24?random=78" alt="免邮特权">
+        </div>
+        <div class="privilege-content">
+          <div class="privilege-name">免邮特权</div>
+          <div class="privilege-desc">单笔订单满99元即可享受免邮费服务</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 积分规则 -->
+    <div class="privilege-section">
+      <div class="privilege-title">积分规则</div>
+      
+      <div class="privilege-item">
+        <div class="privilege-icon">
+          <img src="https://picsum.photos/24/24?random=79" alt="积分获取">
+        </div>
+        <div class="privilege-content">
+          <div class="privilege-name">积分获取</div>
+          <div class="privilege-desc">消费1元获得1积分，会员可享1.5倍积分加速</div>
+        </div>
+      </div>
+      
+      <div class="privilege-item">
+        <div class="privilege-icon">
+          <img src="https://picsum.photos/24/24?random=80" alt="积分使用">
+        </div>
+        <div class="privilege-content">
+          <div class="privilege-name">积分使用</div>
+          <div class="privilege-desc">100积分可抵扣1元，最高可抵扣订单金额的30%</div>
+        </div>
+      </div>
+      
+      <div class="privilege-item">
+        <div class="privilege-icon">
+          <img src="https://picsum.photos/24/24?random=81" alt="积分有效期">
+        </div>
+        <div class="privilege-content">
+          <div class="privilege-name">积分有效期</div>
+          <div class="privilege-desc">积分自获得之日起有效期为1年，请及时使用</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 底部导航栏 -->
+    <div class="tab-bar">
+      <div class="tab-item">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=82" alt="首页">
+        </div>
+        <div class="tab-text">首页</div>
+      </div>
+      <div class="tab-item">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=83" alt="分类">
+        </div>
+        <div class="tab-text">分类</div>
+      </div>
+      <div class="tab-item">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=84" alt="购物车">
+        </div>
+        <div class="tab-text">购物车</div>
+      </div>
+      <div class="tab-item active">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=85" alt="我的">
+        </div>
+        <div class="tab-text">我的</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 底部导航切换
+      const tabItems = document.querySelectorAll('.tab-item');
+      tabItems.forEach((item, index) => {
+        item.addEventListener('click', function() {
+          // 移除所有tab的active类
+          tabItems.forEach(tab => tab.classList.remove('active'));
+          // 为当前点击的tab添加active类
+          this.classList.add('active');
+          
+          // 根据点击的tab跳转到对应页面
+          if (index === 0) {
+            window.location.href = '../index.html';
+          } else if (index === 1) {
+            window.location.href = 'category.html';
+          } else if (index === 2) {
+            window.location.href = 'cart.html';
+          } else if (index === 3) {
+            window.location.href = 'profile.html';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

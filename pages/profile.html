@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>个人中心 - 花涧珠光水彩商城</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* 个人中心页面特定样式 */
+    .profile-header {
+      background: linear-gradient(to right, #ff6b6b, #ff9f9f);
+      padding: 20px 15px;
+      color: #fff;
+      position: relative;
+    }
+    
+    .profile-header-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('https://picsum.photos/750/200?random=60');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.2;
+      z-index: 0;
+    }
+    
+    .profile-user {
+      display: flex;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .profile-avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      margin-right: 15px;
+    }
+    
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .profile-info {
+      flex: 1;
+    }
+    
+    .profile-name {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    .profile-level {
+      font-size: 12px;
+      opacity: 0.8;
+      display: flex;
+      align-items: center;
+    }
+    
+    .profile-level-icon {
+      width: 14px;
+      height: 14px;
+      margin-right: 5px;
+    }
+    
+    .profile-setting {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 20px;
+      color: #fff;
+      z-index: 1;
+    }
+    
+    /* 订单导航 */
+    .order-nav {
+      background-color: #fff;
+      margin-bottom: 10px;
+      padding: 15px;
+    }
+    
+    .order-nav-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .order-nav-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .order-nav-more {
+      font-size: 12px;
+      color: #999;
+    }
+    
+    .order-nav-list {
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .order-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    
+    .order-nav-icon {
+      width: 24px;
+      height: 24px;
+      margin-bottom: 8px;
+    }
+    
+    .order-nav-name {
+      font-size: 12px;
+      color: #666;
+    }
+    
+    .order-nav-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background-color: #ff6b6b;
+      color: #fff;
+      font-size: 10px;
+      border-radius: 10px;
+      min-width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 4px;
+    }
+    
+    /* 功能区块 */
+    .feature-section {
+      background-color: #fff;
+      margin-bottom: 10px;
+    }
+    
+    .feature-section-title {
+      padding: 15px;
+      font-size: 15px;
+      font-weight: bold;
+      color: #333;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 10px 0;
+    }
+    
+    .feature-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 0;
+    }
+    
+    .feature-icon {
+      width: 24px;
+      height: 24px;
+      margin-bottom: 8px;
+    }
+    
+    .feature-name {
+      font-size: 12px;
+      color: #666;
+    }
+    
+    /* 会员卡片 */
+    .member-card {
+      margin: 0 15px 10px;
+      background: linear-gradient(to right, #FFD700, #FFA500);
+      border-radius: 10px;
+      padding: 15px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .member-card-pattern {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('https://picsum.photos/200/100?random=61');
+      background-size: cover;
+      opacity: 0.1;
+    }
+    
+    .member-card-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      position: relative;
+    }
+    
+    .member-card-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+    
+    .member-card-points {
+      font-size: 12px;
+    }
+    
+    .member-card-points-value {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    
+    .member-card-btn {
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-size: 12px;
+    }
+    
+    /* 列表项 */
+    .list-item {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      background-color: #fff;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    
+    .list-item:last-child {
+      border-bottom: none;
+    }
+    
+    .list-item-icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+    }
+    
+    .list-item-title {
+      flex: 1;
+      font-size: 14px;
+      color: #333;
+    }
+    
+    .list-item-arrow {
+      color: #ccc;
+      font-size: 14px;
+    }
+    
+    /* 底部版本信息 */
+    .footer-info {
+      text-align: center;
+      padding: 20px 0;
+      font-size: 12px;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 个人信息头部 -->
+    <div class="profile-header">
+      <div class="profile-header-bg"></div>
+      <div class="profile-setting">⚙️</div>
+      <div class="profile-user">
+        <div class="profile-avatar">
+          <img src="https://picsum.photos/70/70?random=62" alt="用户头像">
+        </div>
+        <div class="profile-info">
+          <div class="profile-name">水彩爱好者</div>
+          <div class="profile-level">
+            <img class="profile-level-icon" src="https://picsum.photos/14/14?random=63" alt="等级">
+            <span>艺术达人 Lv.4</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 会员卡片 -->
+    <div class="member-card">
+      <div class="member-card-pattern"></div>
+      <div class="member-card-title">珠光水彩会员</div>
+      <div class="member-card-info">
+        <div class="member-card-points">
+          积分 <span class="member-card-points-value">1280</span>
+        </div>
+        <div class="member-card-btn">查看特权</div>
+      </div>
+    </div>
+    
+    <!-- 我的订单 -->
+    <div class="order-nav">
+      <div class="order-nav-header">
+        <div class="order-nav-title">我的订单</div>
+        <div class="order-nav-more">全部订单 ></div>
+      </div>
+      <div class="order-nav-list">
+        <div class="order-nav-item">
+          <img class="order-nav-icon" src="https://picsum.photos/24/24?random=64" alt="待付款">
+          <div class="order-nav-name">待付款</div>
+          <div class="order-nav-badge">2</div>
+        </div>
+        <div class="order-nav-item">
+          <img class="order-nav-icon" src="https://picsum.photos/24/24?random=65" alt="待发货">
+          <div class="order-nav-name">待发货</div>
+        </div>
+        <div class="order-nav-item">
+          <img class="order-nav-icon" src="https://picsum.photos/24/24?random=66" alt="待收货">
+          <div class="order-nav-name">待收货</div>
+          <div class="order-nav-badge">1</div>
+        </div>
+        <div class="order-nav-item">
+          <img class="order-nav-icon" src="https://picsum.photos/24/24?random=67" alt="待评价">
+          <div class="order-nav-name">待评价</div>
+        </div>
+        <div class="order-nav-item">
+          <img class="order-nav-icon" src="https://picsum.photos/24/24?random=68" alt="售后">
+          <div class="order-nav-name">售后</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 我的服务 -->
+    <div class="feature-section">
+      <div class="feature-section-title">我的服务</div>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <img class="feature-icon" src="https://picsum.photos/24/24?random=69" alt="收藏夹">
+          <div class="feature-name">收藏夹</div>
+        </div>
+        <div class="feature-item">
+          <img class="feature-icon" src="https://picsum.photos/24/24?random=70" alt="优惠券">
+          <div class="feature-name">优惠券</div>
+        </div>
+        <div class="feature-item">
+          <img class="feature-icon" src="https://picsum.photos/24/24?random=71" alt="地址管理">
+          <div class="feature-name">地址管理</div>
+        </div>
+        <div class="feature-item">
+          <img class="feature-icon" src="https://picsum.photos/24/24?random=72" alt="客服中心">
+          <div class="feature-name">客服中心</div>
+        </div>
+        <div class="feature-item">
+          <img class="feature-icon" src="https://picsum.photos/24/24?random=73" alt="我的足迹">
+          <div class="feature-name">我的足迹</div>
+        </div>
+        <div class="feature-item">
+          <img class="feature-icon" src="https://picsum.photos/24/24?random=74" alt="意见反馈">
+          <div class="feature-name">意见反馈</div>
+        </div>
+        <div class="feature-item">
+          <img class="feature-icon" src="https://picsum.photos/24/24?random=75" alt="帮助中心">
+          <div class="feature-name">帮助中心</div>
+        </div>
+        <div class="feature-item" id="admin-entry">
+          <img class="feature-icon" src="../images/icons/admin.svg" alt="后台管理">
+          <div class="feature-name">后台管理</div>
+        </div>
+        <div class="feature-item">
+          <img class="feature-icon" src="https://picsum.photos/24/24?random=76" alt="更多服务">
+          <div class="feature-name">更多服务</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 学习中心 -->
+    <div class="feature-section">
+      <div class="feature-section-title">学习中心</div>
+      <div class="list-item">
+        <img class="list-item-icon" src="https://picsum.photos/20/20?random=77" alt="水彩教程">
+        <div class="list-item-title">水彩教程</div>
+        <div class="list-item-arrow">></div>
+      </div>
+      <div class="list-item">
+        <img class="list-item-icon" src="https://picsum.photos/20/20?random=78" alt="作品展示">
+        <div class="list-item-title">作品展示</div>
+        <div class="list-item-arrow">></div>
+      </div>
+      <div class="list-item">
+        <img class="list-item-icon" src="https://picsum.photos/20/20?random=79" alt="艺术社区">
+        <div class="list-item-title">艺术社区</div>
+        <div class="list-item-arrow">></div>
+      </div>
+    </div>
+    
+    <!-- 设置与帮助 -->
+    <div class="feature-section">
+      <div class="list-item">
+        <img class="list-item-icon" src="https://picsum.photos/20/20?random=80" alt="设置">
+        <div class="list-item-title">设置</div>
+        <div class="list-item-arrow">></div>
+      </div>
+      <div class="list-item">
+        <img class="list-item-icon" src="https://picsum.photos/20/20?random=81" alt="关于我们">
+        <div class="list-item-title">关于我们</div>
+        <div class="list-item-arrow">></div>
+      </div>
+    </div>
+    
+    <!-- 底部版本信息 -->
+    <div class="footer-info">
+      花涧珠光水彩商城 v1.0.0
+    </div>
+    
+    <!-- 底部导航栏 -->
+    <div class="tab-bar">
+      <div class="tab-item">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=82" alt="首页">
+        </div>
+        <div class="tab-text">首页</div>
+      </div>
+      <div class="tab-item">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=83" alt="分类">
+        </div>
+        <div class="tab-text">分类</div>
+      </div>
+      <div class="tab-item">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=84" alt="购物车">
+        </div>
+        <div class="tab-text">购物车</div>
+      </div>
+      <div class="tab-item active">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=85" alt="我的">
+        </div>
+        <div class="tab-text">我的</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 设置按钮点击事件
+      const settingBtn = document.querySelector('.profile-setting');
+      settingBtn.addEventListener('click', function() {
+        alert('进入设置页面');
+      });
+      
+      // 会员卡点击事件
+      const memberCard = document.querySelector('.member-card');
+      const memberCardBtn = document.querySelector('.member-card-btn');
+      
+      memberCard.addEventListener('click', function(e) {
+        // 防止事件冲突，如果点击的是“查看特权”按钮，则不执行会员卡的点击事件
+        if (e.target === memberCardBtn || memberCardBtn.contains(e.target)) {
+          return;
+        }
+        alert('查看会员详情');
+      });
+      
+      // 查看特权按钮点击事件
+      memberCardBtn.addEventListener('click', function(e) {
+        e.stopPropagation(); // 阻止事件冒泡
+        window.location.href = 'member-privileges.html';
+      });
+      
+      // 订单导航点击事件
+      const orderNavItems = document.querySelectorAll('.order-nav-item');
+      orderNavItems.forEach((item, index) => {
+        item.addEventListener('click', function() {
+          const orderTypes = ['待付款', '待发货', '待收货', '待评价', '售后'];
+          alert(`查看${orderTypes[index]}订单`);
+        });
+      });
+      
+      // 查看全部订单
+      const orderNavMore = document.querySelector('.order-nav-more');
+      orderNavMore.addEventListener('click', function() {
+        window.location.href = 'order-list.html';
+      });
+      
+      // 功能项点击事件
+      const featureItems = document.querySelectorAll('.feature-item');
+      featureItems.forEach(item => {
+        item.addEventListener('click', function() {
+          const featureName = this.querySelector('.feature-name').textContent;
+          
+          // 如果是优惠券，跳转到优惠券页面
+          if (featureName === '优惠券') {
+            window.location.href = 'coupons.html';
+          } 
+          // 如果是后台管理，跳转到后台登录页面
+          else if (featureName === '后台管理') {
+            window.location.href = '../admin/login.html';
+          } else {
+            alert(`进入${featureName}`);
+          }
+        });
+      });
+      
+      // 检查是否为管理员，如果不是则隐藏后台管理入口
+      // 模拟用户角色检查，实际应用中应从服务器获取用户角色
+      const isAdmin = true; // 模拟当前用户是管理员
+      const adminEntry = document.getElementById('admin-entry');
+      if (!isAdmin && adminEntry) {
+        adminEntry.style.display = 'none';
+      }
+      
+      // 列表项点击事件
+      const listItems = document.querySelectorAll('.list-item');
+      listItems.forEach(item => {
+        item.addEventListener('click', function() {
+          const listTitle = this.querySelector('.list-item-title').textContent;
+          alert(`进入${listTitle}`);
+        });
+      });
+      
+      // 底部导航切换
+      const tabItems = document.querySelectorAll('.tab-item');
+      tabItems.forEach((item, index) => {
+        item.addEventListener('click', function() {
+          // 移除所有tab的active类
+          tabItems.forEach(tab => tab.classList.remove('active'));
+          // 为当前点击的tab添加active类
+          this.classList.add('active');
+          
+          // 根据点击的tab跳转到对应页面
+          if (index === 0) {
+            window.location.href = '../index.html';
+          } else if (index === 1) {
+            window.location.href = 'category.html';
+          } else if (index === 2) {
+            window.location.href = 'cart.html';
+          } else if (index === 3) {
+            // 当前页面，不跳转
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

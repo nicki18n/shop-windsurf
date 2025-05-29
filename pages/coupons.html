@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>我的优惠券 - 珠光水彩商城</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* 优惠券页面特定样式 */
+    .coupon-tabs {
+      display: flex;
+      background-color: #fff;
+      border-bottom: 1px solid #f5f5f5;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    
+    .coupon-tab {
+      flex: 1;
+      text-align: center;
+      padding: 15px 0;
+      font-size: 14px;
+      color: #666;
+      position: relative;
+    }
+    
+    .coupon-tab.active {
+      color: #ff6b6b;
+      font-weight: bold;
+    }
+    
+    .coupon-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 2px;
+      background-color: #ff6b6b;
+    }
+    
+    .coupon-container {
+      padding: 15px;
+    }
+    
+    .coupon-item {
+      margin-bottom: 15px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+    
+    .coupon-item.expired {
+      opacity: 0.6;
+    }
+    
+    .coupon-item.used {
+      opacity: 0.6;
+    }
+    
+    .coupon-item.used::after,
+    .coupon-item.expired::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: rgba(255, 255, 255, 0.5);
+      z-index: 1;
+    }
+    
+    .coupon-item.used::before {
+      content: '已使用';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-30deg);
+      font-size: 24px;
+      color: rgba(0, 0, 0, 0.2);
+      font-weight: bold;
+      z-index: 2;
+      border: 3px solid rgba(0, 0, 0, 0.2);
+      padding: 5px 15px;
+      border-radius: 5px;
+    }
+    
+    .coupon-item.expired::before {
+      content: '已过期';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-30deg);
+      font-size: 24px;
+      color: rgba(0, 0, 0, 0.2);
+      font-weight: bold;
+      z-index: 2;
+      border: 3px solid rgba(0, 0, 0, 0.2);
+      padding: 5px 15px;
+      border-radius: 5px;
+    }
+    
+    .coupon-content {
+      display: flex;
+      background-color: #fff;
+    }
+    
+    .coupon-left {
+      width: 100px;
+      padding: 15px 10px;
+      background: linear-gradient(135deg, #ff6b6b, #ff9f9f);
+      color: #fff;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+    
+    .coupon-value {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    
+    .coupon-condition {
+      font-size: 12px;
+      margin-top: 5px;
+    }
+    
+    .coupon-right {
+      flex: 1;
+      padding: 15px;
+      position: relative;
+    }
+    
+    .coupon-right::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: repeating-linear-gradient(to bottom, #ff6b6b 0, #ff6b6b 5px, transparent 5px, transparent 10px);
+    }
+    
+    .coupon-name {
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    
+    .coupon-desc {
+      font-size: 12px;
+      color: #999;
+      margin-bottom: 10px;
+    }
+    
+    .coupon-time {
+      font-size: 12px;
+      color: #999;
+    }
+    
+    .coupon-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 15px;
+      background-color: #f9f9f9;
+      border-top: 1px dashed #eee;
+    }
+    
+    .coupon-tag {
+      font-size: 12px;
+      color: #ff6b6b;
+      background-color: rgba(255, 107, 107, 0.1);
+      padding: 2px 5px;
+      border-radius: 2px;
+    }
+    
+    .coupon-btn {
+      font-size: 12px;
+      color: #fff;
+      background-color: #ff6b6b;
+      padding: 5px 10px;
+      border-radius: 15px;
+    }
+    
+    .coupon-btn.disabled {
+      background-color: #ccc;
+    }
+    
+    .empty-coupon {
+      text-align: center;
+      padding: 50px 0;
+      color: #999;
+    }
+    
+    .empty-coupon-icon {
+      font-size: 50px;
+      margin-bottom: 10px;
+      color: #ddd;
+    }
+    
+    .coupon-rules {
+      margin: 20px 15px;
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 15px;
+    }
+    
+    .coupon-rules-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    
+    .coupon-rules-item {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 5px;
+      line-height: 1.5;
+    }
+    
+    .coupon-rules-item::before {
+      content: '• ';
+      color: #ff6b6b;
+    }
+    
+    .coupon-get-more {
+      margin: 20px 15px;
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+    }
+    
+    .coupon-get-btn {
+      display: inline-block;
+      background: linear-gradient(to right, #ff6b6b, #ff9f9f);
+      color: #fff;
+      padding: 10px 30px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: bold;
+      box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 头部 -->
+    <div class="header-with-back">
+      <div class="header-back">
+        <a href="profile.html">←</a>
+      </div>
+      <div class="header-title">我的优惠券</div>
+    </div>
+    
+    <!-- 优惠券标签页 -->
+    <div class="coupon-tabs">
+      <div class="coupon-tab active" data-tab="available">可使用</div>
+      <div class="coupon-tab" data-tab="used">已使用</div>
+      <div class="coupon-tab" data-tab="expired">已过期</div>
+    </div>
+    
+    <!-- 可使用优惠券 -->
+    <div class="coupon-container" id="available-coupons">
+      <!-- 优惠券项 -->
+      <div class="coupon-item">
+        <div class="coupon-content">
+          <div class="coupon-left">
+            <div class="coupon-value">¥50</div>
+            <div class="coupon-condition">满299可用</div>
+          </div>
+          <div class="coupon-right">
+            <div class="coupon-name">珠光水彩新品专享券</div>
+            <div class="coupon-desc">限购买新品系列珠光水彩使用</div>
+            <div class="coupon-time">有效期至：2025-06-30</div>
+          </div>
+        </div>
+        <div class="coupon-footer">
+          <div class="coupon-tag">新品专享</div>
+          <div class="coupon-btn">立即使用</div>
+        </div>
+      </div>
+      
+      <div class="coupon-item">
+        <div class="coupon-content">
+          <div class="coupon-left">
+            <div class="coupon-value">¥20</div>
+            <div class="coupon-condition">满199可用</div>
+          </div>
+          <div class="coupon-right">
+            <div class="coupon-name">会员专享优惠券</div>
+            <div class="coupon-desc">黄金会员专享，全场通用</div>
+            <div class="coupon-time">有效期至：2025-07-15</div>
+          </div>
+        </div>
+        <div class="coupon-footer">
+          <div class="coupon-tag">会员专享</div>
+          <div class="coupon-btn">立即使用</div>
+        </div>
+      </div>
+      
+      <div class="coupon-item">
+        <div class="coupon-content">
+          <div class="coupon-left">
+            <div class="coupon-value">¥10</div>
+            <div class="coupon-condition">无门槛</div>
+          </div>
+          <div class="coupon-right">
+            <div class="coupon-name">新人专享优惠券</div>
+            <div class="coupon-desc">新用户首单可用，全场通用</div>
+            <div class="coupon-time">有效期至：2025-06-15</div>
+          </div>
+        </div>
+        <div class="coupon-footer">
+          <div class="coupon-tag">新人专享</div>
+          <div class="coupon-btn">立即使用</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 已使用优惠券 -->
+    <div class="coupon-container" id="used-coupons" style="display: none;">
+      <div class="coupon-item used">
+        <div class="coupon-content">
+          <div class="coupon-left">
+            <div class="coupon-value">¥30</div>
+            <div class="coupon-condition">满199可用</div>
+          </div>
+          <div class="coupon-right">
+            <div class="coupon-name">618购物节优惠券</div>
+            <div class="coupon-desc">618活动期间专享，全场通用</div>
+            <div class="coupon-time">已使用</div>
+          </div>
+        </div>
+        <div class="coupon-footer">
+          <div class="coupon-tag">活动专享</div>
+          <div class="coupon-btn disabled">已使用</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 已过期优惠券 -->
+    <div class="coupon-container" id="expired-coupons" style="display: none;">
+      <div class="coupon-item expired">
+        <div class="coupon-content">
+          <div class="coupon-left">
+            <div class="coupon-value">¥15</div>
+            <div class="coupon-condition">满99可用</div>
+          </div>
+          <div class="coupon-right">
+            <div class="coupon-name">五一假期优惠券</div>
+            <div class="coupon-desc">五一活动期间专享，全场通用</div>
+            <div class="coupon-time">已过期</div>
+          </div>
+        </div>
+        <div class="coupon-footer">
+          <div class="coupon-tag">节日专享</div>
+          <div class="coupon-btn disabled">已过期</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 领取更多优惠券 -->
+    <div class="coupon-get-more">
+      <div class="coupon-get-btn">领取更多优惠券</div>
+    </div>
+    
+    <!-- 优惠券使用规则 -->
+    <div class="coupon-rules">
+      <div class="coupon-rules-title">优惠券使用规则</div>
+      <div class="coupon-rules-item">优惠券不可兑换现金，不可与其他优惠券叠加使用</div>
+      <div class="coupon-rules-item">优惠券仅限本人使用，不可转让</div>
+      <div class="coupon-rules-item">部分特价商品不可使用优惠券，详情请见商品页面说明</div>
+      <div class="coupon-rules-item">如订单取消，优惠券将自动退回（未过期情况下）</div>
+      <div class="coupon-rules-item">优惠券使用门槛以优惠券详情为准</div>
+      <div class="coupon-rules-item">本公司保留对优惠券使用规则的最终解释权</div>
+    </div>
+    
+    <!-- 底部导航栏 -->
+    <div class="tab-bar">
+      <div class="tab-item">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=90" alt="首页">
+        </div>
+        <div class="tab-text">首页</div>
+      </div>
+      <div class="tab-item">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=91" alt="分类">
+        </div>
+        <div class="tab-text">分类</div>
+      </div>
+      <div class="tab-item">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=92" alt="购物车">
+        </div>
+        <div class="tab-text">购物车</div>
+      </div>
+      <div class="tab-item active">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=93" alt="我的">
+        </div>
+        <div class="tab-text">我的</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 优惠券标签页切换
+      const couponTabs = document.querySelectorAll('.coupon-tab');
+      const couponContainers = document.querySelectorAll('.coupon-container');
+      
+      couponTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          // 移除所有标签页的active类
+          couponTabs.forEach(t => t.classList.remove('active'));
+          // 为当前点击的标签页添加active类
+          this.classList.add('active');
+          
+          // 隐藏所有优惠券容器
+          couponContainers.forEach(container => {
+            container.style.display = 'none';
+          });
+          
+          // 显示对应的优惠券容器
+          const tabName = this.getAttribute('data-tab');
+          document.getElementById(`${tabName}-coupons`).style.display = 'block';
+        });
+      });
+      
+      // 优惠券使用按钮点击事件
+      const useCouponBtns = document.querySelectorAll('.coupon-btn:not(.disabled)');
+      useCouponBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const couponItem = this.closest('.coupon-item');
+          const couponName = couponItem.querySelector('.coupon-name').textContent;
+          const couponValue = couponItem.querySelector('.coupon-value').textContent;
+          
+          alert(`您选择了使用${couponName}，优惠金额${couponValue}，将为您跳转到商品页面`);
+          window.location.href = '../index.html';
+        });
+      });
+      
+      // 领取更多优惠券按钮点击事件
+      const getMoreBtn = document.querySelector('.coupon-get-btn');
+      getMoreBtn.addEventListener('click', function() {
+        alert('前往领券中心，领取更多优惠券');
+      });
+      
+      // 底部导航切换
+      const tabItems = document.querySelectorAll('.tab-item');
+      tabItems.forEach((item, index) => {
+        item.addEventListener('click', function() {
+          // 移除所有tab的active类
+          tabItems.forEach(tab => tab.classList.remove('active'));
+          // 为当前点击的tab添加active类
+          this.classList.add('active');
+          
+          // 根据点击的tab跳转到对应页面
+          if (index === 0) {
+            window.location.href = '../index.html';
+          } else if (index === 1) {
+            window.location.href = 'category.html';
+          } else if (index === 2) {
+            window.location.href = 'cart.html';
+          } else if (index === 3) {
+            window.location.href = 'profile.html';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

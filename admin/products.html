@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>商品管理 - 珠光水彩商城</title>
+  <style>
+    /* 全局样式 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    
+    body {
+      background-color: #f5f5f7;
+      color: #1d1d1f;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+    
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    /* 布局 */
+    .admin-container {
+      display: flex;
+      min-height: 100vh;
+    }
+    
+    /* 侧边栏 */
+    .sidebar {
+      width: 220px;
+      background-color: #2c2c2e;
+      color: #fff;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+    
+    .sidebar-header {
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .sidebar-logo {
+      width: 50px;
+      height: 50px;
+      margin: 0 auto 10px;
+      background-color: #fff;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .sidebar-logo img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+    }
+    
+    .sidebar-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    
+    .sidebar-menu {
+      padding: 20px 0;
+    }
+    
+    .menu-category {
+      margin-bottom: 15px;
+      padding: 0 20px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .menu-item {
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .menu-item:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .menu-item.active {
+      background-color: #ff6b6b;
+      color: #fff;
+    }
+    
+    .menu-icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      opacity: 0.8;
+    }
+    
+    .menu-text {
+      font-size: 14px;
+    }
+    
+    /* 主内容区 */
+    .main-content {
+      flex: 1;
+      margin-left: 220px;
+      padding: 20px;
+    }
+    
+    /* 顶部导航 */
+    .top-nav {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .page-title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+    
+    .nav-actions {
+      display: flex;
+      align-items: center;
+    }
+    
+    .nav-item {
+      margin-left: 20px;
+      position: relative;
+      cursor: pointer;
+    }
+    
+    .nav-icon {
+      width: 20px;
+      height: 20px;
+    }
+    
+    .nav-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background-color: #ff6b6b;
+      color: #fff;
+      font-size: 10px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .user-profile {
+      display: flex;
+      align-items: center;
+    }
+    
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 10px;
+    }
+    
+    .user-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .user-name {
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    /* 操作栏 */
+    .action-bar {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      padding: 15px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .action-left {
+      display: flex;
+      align-items: center;
+    }
+    
+    .action-btn {
+      padding: 8px 16px;
+      background-color: #ff6b6b;
+      color: #fff;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      margin-right: 10px;
+    }
+    
+    .action-btn:hover {
+      background-color: #ff5b5b;
+      box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+    }
+    
+    .action-btn img {
+      width: 16px;
+      height: 16px;
+      margin-right: 5px;
+    }
+    
+    .action-btn.secondary {
+      background-color: #f5f5f7;
+      color: #666;
+    }
+    
+    .action-btn.secondary:hover {
+      background-color: #e5e5e7;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .action-right {
+      display: flex;
+      align-items: center;
+    }
+    
+    .search-box {
+      position: relative;
+      margin-right: 10px;
+    }
+    
+    .search-input {
+      padding: 8px 15px 8px 35px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+      width: 250px;
+      transition: all 0.3s;
+    }
+    
+    .search-input:focus {
+      outline: none;
+      border-color: #ff6b6b;
+      box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
+    }
+    
+    .search-icon {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      opacity: 0.5;
+    }
+    
+    .filter-btn {
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .filter-btn:hover {
+      background-color: #f5f5f7;
+    }
+    
+    .filter-btn img {
+      width: 16px;
+      height: 16px;
+      margin-right: 5px;
+      opacity: 0.5;
+    }
+    /* 商品表格 */
+    .product-table-container {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    
+    .product-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .product-table th {
+      background-color: #f9f9f9;
+      padding: 12px 15px;
+      text-align: left;
+      font-size: 14px;
+      font-weight: 500;
+      color: #666;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .product-table td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #eee;
+      font-size: 14px;
+      vertical-align: middle;
+    }
+    
+    .product-table tr:hover {
+      background-color: #f5f5f7;
+    }
+    
+    .product-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .product-checkbox {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+    
+    .product-image {
+      width: 50px;
+      height: 50px;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .product-name {
+      font-weight: 500;
+      color: #333;
+    }
+    
+    .product-category {
+      font-size: 12px;
+      color: #666;
+      background-color: #f5f5f7;
+      padding: 2px 6px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    
+    .product-price {
+      font-weight: 500;
+      color: #ff6b6b;
+    }
+    
+    .product-stock {
+      font-weight: 500;
+    }
+    
+    .stock-warning {
+      color: #f97316;
+    }
+    
+    .stock-danger {
+      color: #ef4444;
+    }
+    
+    .product-status {
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    
+    .status-active {
+      background-color: rgba(16, 185, 129, 0.1);
+      color: #10b981;
+    }
+    
+    .status-inactive {
+      background-color: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+    }
+    
+    .status-draft {
+      background-color: rgba(249, 115, 22, 0.1);
+      color: #f97316;
+    }
+    
+    .product-sales {
+      font-size: 12px;
+      color: #666;
+    }
+    
+    .sales-hot {
+      color: #ef4444;
+    }
+    
+    .sales-normal {
+      color: #3b82f6;
+    }
+    
+    .sales-low {
+      color: #666;
+    }
+    
+    .product-actions {
+      display: flex;
+    }
+    
+    .product-action-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 5px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .product-action-btn:hover {
+      background-color: #f5f5f7;
+    }
+    
+    .product-action-btn img {
+      width: 16px;
+      height: 16px;
+      opacity: 0.6;
+    }
+    
+    /* 分页 */
+    .pagination {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    .page-info {
+      font-size: 14px;
+      color: #666;
+    }
+    
+    .page-controls {
+      display: flex;
+      align-items: center;
+    }
+    
+    .page-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 5px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 14px;
+    }
+    
+    .page-btn:hover {
+      background-color: #f5f5f7;
+    }
+    
+    .page-btn.active {
+      background-color: #ff6b6b;
+      color: #fff;
+    }
+    
+    .page-btn.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    /* 弹窗样式 */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+    
+    .modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .modal-content {
+      background-color: #fff;
+      border-radius: 10px;
+      width: 500px;
+      max-width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      transform: translateY(20px);
+      transition: all 0.3s;
+    }
+    
+    .modal.show .modal-content {
+      transform: translateY(0);
+    }
+    
+    .modal-header {
+      padding: 15px 20px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .modal-title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+    
+    .modal-close {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .modal-close:hover {
+      background-color: #f5f5f7;
+    }
+    
+    .modal-body {
+      padding: 20px;
+    }
+    
+    .modal-footer {
+      padding: 15px 20px;
+      border-top: 1px solid #eee;
+      display: flex;
+      justify-content: flex-end;
+    }
+    
+    .modal-btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-left: 10px;
+    }
+    
+    .modal-btn.primary {
+      background-color: #ff6b6b;
+      color: #fff;
+    }
+    
+    .modal-btn.primary:hover {
+      background-color: #ff5b5b;
+      box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+    }
+    
+    .modal-btn.secondary {
+      background-color: #f5f5f7;
+      color: #666;
+    }
+    
+    .modal-btn.secondary:hover {
+      background-color: #e5e5e7;
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <!-- 侧边栏容器 -->
+    <div class="sidebar-container"></div>
+    
+    <!-- 主内容区 -->
+    <div class="main-content">
+      <!-- 顶部导航 -->
+      <div class="top-nav">
+        <div class="page-title">商品管理</div>
+        
+        <div class="nav-actions">
+          <div class="nav-item">
+            <img class="nav-icon" src="../images/icons/settings.svg" alt="搜索">
+          </div>
+          
+          <div class="nav-item">
+            <img class="nav-icon" src="../images/icons/settings.svg" alt="通知">
+            <div class="nav-badge">5</div>
+          </div>
+          
+          <div class="nav-item user-profile">
+            <div class="user-avatar">
+              <img src="../images/users/user-avatar.svg" alt="管理员">
+            </div>
+            <div class="user-name">管理员</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 操作栏 -->
+      <div class="action-bar">
+        <div class="action-left">
+          <div class="action-btn" id="addProductBtn">
+            <img src="../images/icons/settings.svg" alt="添加">
+            添加商品
+          </div>
+          <div class="action-btn secondary">
+            <img src="../images/icons/settings.svg" alt="导入">
+            导入
+          </div>
+          <div class="action-btn secondary">
+            <img src="../images/icons/settings.svg" alt="导出">
+            导出
+          </div>
+        </div>
+        
+        <div class="action-right">
+          <div class="search-box">
+            <img class="search-icon" src="../images/icons/settings.svg" alt="搜索">
+            <input type="text" class="search-input" placeholder="搜索商品名称、编号...">
+          </div>
+          
+          <div class="filter-btn">
+            <img src="../images/icons/settings.svg" alt="筛选">
+            筛选
+          </div>
+        </div>
+      </div>
+      
+      <!-- 商品列表 -->
+      <div class="product-table-container">
+        <table class="product-table">
+          <thead>
+            <tr>
+              <th>
+                <input type="checkbox" class="product-checkbox" id="selectAll">
+              </th>
+              <th>商品图片</th>
+              <th>商品名称</th>
+              <th>分类</th>
+              <th>价格</th>
+              <th>库存</th>
+              <th>状态</th>
+              <th>销量</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <input type="checkbox" class="product-checkbox">
+              </td>
+              <td>
+                <div class="product-image">
+                  <img src="../images/products/watercolor-set.svg" alt="珠光水彩套装">
+                </div>
+              </td>
+              <td>
+                <div class="product-name">珠光水彩套装 - 12色基础色</div>
+              </td>
+              <td>
+                <div class="product-category">珠光水彩</div>
+              </td>
+              <td>
+                <div class="product-price">¥299.00</div>
+              </td>
+              <td>
+                <div class="product-stock">128</div>
+              </td>
+              <td>
+                <div class="product-status status-active">在售</div>
+              </td>
+              <td>
+                <div class="product-sales sales-hot">1280</div>
+              </td>
+              <td>
+                <div class="product-actions">
+                  <div class="product-action-btn">
+                    <img src="../images/icons/settings.svg" alt="编辑">
+                  </div>
+                  <div class="product-action-btn">
+                    <img src="../images/icons/settings.svg" alt="查看">
+                  </div>
+                  <div class="product-action-btn">
+                    <img src="../images/icons/settings.svg" alt="删除">
+                  </div>
+                </div>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>
+                <input type="checkbox" class="product-checkbox">
+              </td>
+              <td>
+                <div class="product-image">
+                  <img src="../images/products/watercolor-paper.svg" alt="珠光水彩单色">
+                </div>
+              </td>
+              <td>
+                <div class="product-name">珠光水彩单色 - 深海蓝</div>
+              </td>
+              <td>
+                <div class="product-category">珠光水彩</div>
+              </td>
+              <td>
+                <div class="product-price">¥45.00</div>
+              </td>
+              <td>
+                <div class="product-stock stock-warning">15</div>
+              </td>
+              <td>
+                <div class="product-status status-active">在售</div>
+              </td>
+              <td>
+                <div class="product-sales sales-normal">356</div>
+              </td>
+              <td>
+                <div class="product-actions">
+                  <div class="product-action-btn">
+                    <img src="../images/icons/settings.svg" alt="编辑">
+                  </div>
+                  <div class="product-action-btn">
+                    <img src="../images/icons/settings.svg" alt="查看">
+                  </div>
+                  <div class="product-action-btn">
+                    <img src="../images/icons/settings.svg" alt="删除">
+                  </div>
+                </div>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>
+                <input type="checkbox" class="product-checkbox">
+              </td>
+              <td>
+                <div class="product-image">
+                  <img src="../images/products/brush-set.svg" alt="高级画笔组合">
+                </div>
+              </td>
+              <td>
+                <div class="product-name">高级画笔组合 - 10支装</div>
+              </td>
+              <td>
+                <div class="product-category">画笔</div>
+              </td>
+              <td>
+                <div class="product-price">¥158.00</div>
+              </td>
+              <td>
+                <div class="product-stock">86</div>
+              </td>
+              <td>
+                <div class="product-status status-active">在售</div>
+              </td>
+              <td>
+                <div class="product-sales sales-normal">425</div>
+              </td>
+              <td>
+                <div class="product-actions">
+                  <div class="product-action-btn">
+                    <img src="../images/icons/settings.svg" alt="编辑">
+                  </div>
+                  <div class="product-action-btn">
+                    <img src="../images/icons/settings.svg" alt="查看">
+                  </div>
+                  <div class="product-action-btn">
+                    <img src="../images/icons/settings.svg" alt="删除">
+                  </div>
+                </div>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>
+                <input type="checkbox" class="product-checkbox">
+              </td>
+              <td>
+                <div class="product-image">
+                  <img src="../images/products/watercolor-canvas.svg" alt="专业水彩纸">
+                </div>
+              </td>
+              <td>
+                <div class="product-name">专业水彩纸 - 300g 20张</div>
+              </td>
+              <td>
+                <div class="product-category">水彩纸</div>
+              </td>
+              <td>
+                <div class="product-price">¥89.00</div>
+              </td>
+              <td>
+                <div class="product-stock stock-danger">5</div>
+              </td>
+              <td>
+                <div class="product-status status-active">在售</div>
+              </td>
+              <td>
+                <div class="product-sales sales-normal">215</div>
+              </td>
+              <td>
+                <div class="product-actions">
+                  <div class="product-action-btn">
+                    <img src="../images/icons/settings.svg" alt="编辑">
+                  </div>
+                  <div class="product-action-btn">
+                    <img src="../images/icons/settings.svg" alt="查看">
+                  </div>
+                  <div class="product-action-btn">
+                    <img src="../images/icons/settings.svg" alt="删除">
+                  </div>
+                </div>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>
+                <input type="checkbox" class="product-checkbox">
+              </td>
+              <td>
+                <div class="product-image">
+                  <img src="../images/products/watercolor-tubes.svg" alt="珠光水彩限定版">
+                </div>
+              </td>
+              <td>
+                <div class="product-name">珠光水彩限定版 - 四季系列</div>
+              </td>
+              <td>
+                <div class="product-category">珠光水彩</div>
+              </td>
+              <td>
+                <div class="product-price">¥399.00</div>
+              </td>
+              <td>
+                <div class="product-stock">32</div>
+              </td>
+              <td>
+                <div class="product-status status-draft">草稿</div>
+              </td>
+              <td>
+                <div class="product-sales">-</div>
+              </td>
+              <td>
+                <div class="product-actions">
+                  <div class="product-action-btn">
+                    <img src="../images/icons/settings.svg" alt="编辑">
+                  </div>
+                  <div class="product-action-btn">
+                    <img src="../images/icons/settings.svg" alt="查看">
+                  </div>
+                  <div class="product-action-btn">
+                    <img src="../images/icons/settings.svg" alt="删除">
+                  </div>
+                </div>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>
+                <input type="checkbox" class="product-checkbox">
+              </td>
+              <td>
+                <div class="product-image">
+                  <img src="../images/products/watercolor-palette.svg" alt="初学者水彩套装">
+                </div>
+              </td>
+              <td>
+                <div class="product-name">初学者水彩套装 - 入门练习套装</div>
+              </td>
+              <td>
+                <div class="product-category">珠光水彩</div>
+              </td>
+              <td>
+                <div class="product-price">¥199.00</div>
+              </td>
+              <td>
+                <div class="product-stock">0</div>
+              </td>
+              <td>
+                <div class="product-status status-inactive">缺货</div>
+              </td>
+              <td>
+                <div class="product-sales sales-hot">980</div>
+              </td>
+              <td>
+                <div class="product-actions">
+                  <div class="product-action-btn">
+                    <img src="../images/icons/settings.svg" alt="编辑">
+                  </div>
+                  <div class="product-action-btn">
+                    <img src="../images/icons/settings.svg" alt="查看">
+                  </div>
+                  <div class="product-action-btn">
+                    <img src="../images/icons/settings.svg" alt="删除">
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <!-- 分页 -->
+      <div class="pagination">
+        <div class="page-info">显示 1 至 6 条，共 24 条数据</div>
+        <div class="page-controls">
+          <div class="page-btn disabled">«</div>
+          <div class="page-btn active">1</div>
+          <div class="page-btn">2</div>
+          <div class="page-btn">3</div>
+          <div class="page-btn">4</div>
+          <div class="page-btn">»</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 添加商品弹窗 -->
+  <div class="modal" id="addProductModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">添加商品</div>
+        <div class="modal-close" id="closeAddProductModal">×</div>
+      </div>
+      <div class="modal-body">
+        <div style="margin-bottom: 15px;">
+          <label class="form-label" for="productName">商品名称</label>
+          <input type="text" id="productName" class="form-input" placeholder="请输入商品名称">
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+          <label class="form-label" for="productCategory">商品分类</label>
+          <select id="productCategory" class="form-input">
+            <option value="">请选择分类</option>
+            <option value="珠光水彩">珠光水彩</option>
+            <option value="画笔">画笔</option>
+            <option value="水彩纸">水彩纸</option>
+            <option value="配件">配件</option>
+          </select>
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+          <label class="form-label" for="productPrice">商品价格</label>
+          <input type="number" id="productPrice" class="form-input" placeholder="请输入商品价格">
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+          <label class="form-label" for="productStock">商品库存</label>
+          <input type="number" id="productStock" class="form-input" placeholder="请输入商品库存">
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+          <label class="form-label" for="productStatus">商品状态</label>
+          <select id="productStatus" class="form-input">
+            <option value="在售">在售</option>
+            <option value="缺货">缺货</option>
+            <option value="草稿">草稿</option>
+          </select>
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+          <label class="form-label" for="productImage">商品图片</label>
+          <input type="file" id="productImage" class="form-input">
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+          <label class="form-label" for="productDescription">商品描述</label>
+          <textarea id="productDescription" class="form-input" rows="4" placeholder="请输入商品描述"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="modal-btn secondary" id="cancelAddProduct">取消</div>
+        <div class="modal-btn primary" id="confirmAddProduct">确认添加</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 删除确认弹窗 -->
+  <div class="modal" id="deleteConfirmModal">
+    <div class="modal-content" style="width: 400px;">
+      <div class="modal-header">
+        <div class="modal-title">确认删除</div>
+        <div class="modal-close" id="closeDeleteModal">×</div>
+      </div>
+      <div class="modal-body">
+        <p>您确定要删除该商品吗？此操作不可逆。</p>
+      </div>
+      <div class="modal-footer">
+        <div class="modal-btn secondary" id="cancelDelete">取消</div>
+        <div class="modal-btn primary" id="confirmDelete">确认删除</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 引入公共JS -->
+  <script src="js/common.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 全选复选框点击事件
+      const selectAllCheckbox = document.getElementById('selectAll');
+      const productCheckboxes = document.querySelectorAll('.product-checkbox:not(#selectAll)');
+      
+      selectAllCheckbox.addEventListener('change', function() {
+        productCheckboxes.forEach(checkbox => {
+          checkbox.checked = this.checked;
+        });
+      });
+      
+      // 单个复选框点击事件
+      productCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          // 检查是否所有商品复选框都被选中
+          const allChecked = Array.from(productCheckboxes).every(cb => cb.checked);
+          selectAllCheckbox.checked = allChecked;
+        });
+      });
+      
+      // 分页按钮点击事件
+      const pageBtns = document.querySelectorAll('.page-btn:not(.disabled)');
+      pageBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          // 移除所有分页按钮的active类
+          pageBtns.forEach(pageBtn => pageBtn.classList.remove('active'));
+          // 如果点击的不是前进或后退按钮，添加active类
+          if (this.textContent !== '«' && this.textContent !== '»') {
+            this.classList.add('active');
+          }
+        });
+      });
+      
+      // 添加商品按钮点击事件
+      const addProductBtn = document.getElementById('addProductBtn');
+      const addProductModal = document.getElementById('addProductModal');
+      const closeAddProductModal = document.getElementById('closeAddProductModal');
+      const cancelAddProduct = document.getElementById('cancelAddProduct');
+      const confirmAddProduct = document.getElementById('confirmAddProduct');
+      
+      addProductBtn.addEventListener('click', function() {
+        addProductModal.classList.add('show');
+      });
+      
+      closeAddProductModal.addEventListener('click', function() {
+        addProductModal.classList.remove('show');
+      });
+      
+      cancelAddProduct.addEventListener('click', function() {
+        addProductModal.classList.remove('show');
+      });
+      
+      confirmAddProduct.addEventListener('click', function() {
+        // 获取表单数据
+        const productName = document.getElementById('productName').value;
+        const productCategory = document.getElementById('productCategory').value;
+        const productPrice = document.getElementById('productPrice').value;
+        const productStock = document.getElementById('productStock').value;
+        
+        // 验证表单
+        if (!productName) {
+          alert('请输入商品名称');
+          return;
+        }
+        
+        if (!productCategory) {
+          alert('请选择商品分类');
+          return;
+        }
+        
+        if (!productPrice) {
+          alert('请输入商品价格');
+          return;
+        }
+        
+        if (!productStock) {
+          alert('请输入商品库存');
+          return;
+        }
+        
+        // 模拟添加商品成功
+        alert('商品添加成功！');
+        addProductModal.classList.remove('show');
+        
+        // 清空表单
+        document.getElementById('productName').value = '';
+        document.getElementById('productCategory').value = '';
+        document.getElementById('productPrice').value = '';
+        document.getElementById('productStock').value = '';
+        document.getElementById('productDescription').value = '';
+      });
+      
+      // 商品操作按钮点击事件
+      const productActionBtns = document.querySelectorAll('.product-action-btn');
+      const deleteConfirmModal = document.getElementById('deleteConfirmModal');
+      const closeDeleteModal = document.getElementById('closeDeleteModal');
+      const cancelDelete = document.getElementById('cancelDelete');
+      const confirmDelete = document.getElementById('confirmDelete');
+      let currentProduct = null;
+      
+      productActionBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const action = this.querySelector('img').alt;
+          const productRow = this.closest('tr');
+          const productName = productRow.querySelector('.product-name').textContent;
+          currentProduct = { row: productRow, name: productName };
+          
+          if (action === '编辑') {
+            alert(`编辑商品：${productName}`);
+          } else if (action === '查看') {
+            alert(`查看商品：${productName}`);
+          } else if (action === '删除') {
+            deleteConfirmModal.classList.add('show');
+          }
+        });
+      });
+      
+      closeDeleteModal.addEventListener('click', function() {
+        deleteConfirmModal.classList.remove('show');
+      });
+      
+      cancelDelete.addEventListener('click', function() {
+        deleteConfirmModal.classList.remove('show');
+      });
+      
+      confirmDelete.addEventListener('click', function() {
+        if (currentProduct) {
+          // 模拟删除商品
+          currentProduct.row.remove();
+          alert(`商品「${currentProduct.name}」已删除！`);
+          deleteConfirmModal.classList.remove('show');
+        }
+      });
+      
+      // 搜索框输入事件
+      const searchInput = document.querySelector('.search-input');
+      searchInput.addEventListener('keyup', function(e) {
+        if (e.key === 'Enter') {
+          const searchTerm = this.value.trim().toLowerCase();
+          alert(`搜索：${searchTerm}`);
+        }
+      });
+      
+      // 筛选按钮点击事件
+      const filterBtn = document.querySelector('.filter-btn');
+      filterBtn.addEventListener('click', function() {
+        alert('打开筛选面板');
+      });
+    });
+  </script>
+</body>
+</html>

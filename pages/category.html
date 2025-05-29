@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>分类 - 花涧珠光水彩商城</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* 分类页面特定样式 */
+    .category-container {
+      display: flex;
+      height: calc(100vh - 50px - 50px); /* 减去头部和底部导航的高度 */
+      overflow: hidden;
+    }
+    
+    .category-sidebar {
+      width: 80px;
+      background-color: #f8f8f8;
+      overflow-y: auto;
+      height: 100%;
+    }
+    
+    .category-sidebar-item {
+      padding: 15px 0;
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .category-sidebar-item.active {
+      color: #ff6b6b;
+      background-color: #fff;
+      border-left: 3px solid #ff6b6b;
+    }
+    
+    .category-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px;
+      background-color: #fff;
+    }
+    
+    .category-banner {
+      width: 100%;
+      height: 100px;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 15px;
+    }
+    
+    .category-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .subcategory-title {
+      font-size: 14px;
+      font-weight: bold;
+      margin: 15px 0 10px;
+      color: #333;
+    }
+    
+    .subcategory-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    
+    .subcategory-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #f8f8f8;
+      border-radius: 8px;
+      padding: 10px;
+    }
+    
+    .subcategory-icon {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 8px;
+    }
+    
+    .subcategory-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    
+    .subcategory-name {
+      font-size: 12px;
+      color: #666;
+      text-align: center;
+    }
+    
+    .product-section {
+      margin-top: 20px;
+    }
+    
+    .product-section-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .product-section-title::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 16px;
+      background-color: #ff6b6b;
+      margin-right: 5px;
+      border-radius: 2px;
+    }
+    
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    
+    /* 头部标题栏调整 */
+    .header-with-back {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      height: 50px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .header-back {
+      position: absolute;
+      left: 15px;
+      font-size: 18px;
+    }
+    
+    .header-title {
+      font-size: 16px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 头部 -->
+    <div class="header-with-back">
+      <div class="header-back">
+        <a href="../index.html">←</a>
+      </div>
+      <div class="header-title">商品分类</div>
+    </div>
+    
+    <!-- 分类内容 -->
+    <div class="category-container">
+      <!-- 左侧分类导航 -->
+      <div class="category-sidebar">
+        <div class="category-sidebar-item active">珠光水彩</div>
+        <div class="category-sidebar-item">画笔</div>
+        <div class="category-sidebar-item">水彩纸</div>
+        <div class="category-sidebar-item">颜料盒</div>
+        <div class="category-sidebar-item">套装</div>
+        <div class="category-sidebar-item">水彩卡片</div>
+        <div class="category-sidebar-item">教程</div>
+        <div class="category-sidebar-item">配件</div>
+      </div>
+      
+      <!-- 右侧分类详情 -->
+      <div class="category-content">
+        <!-- 分类banner -->
+        <div class="category-banner">
+          <img src="https://picsum.photos/200/200?random=26" alt="珠光水彩">
+        </div>
+        
+        <!-- 子分类 -->
+        <div class="subcategory-title">按系列分类</div>
+        <div class="subcategory-grid">
+          <div class="subcategory-item">
+            <div class="subcategory-icon">
+              <img src="https://picsum.photos/50/50?random=20" alt="星空系列">
+            </div>
+            <div class="subcategory-name">星空系列</div>
+          </div>
+          
+          <div class="subcategory-item">
+            <div class="subcategory-icon">
+              <img src="https://picsum.photos/50/50?random=21" alt="梦幻系列">
+            </div>
+            <div class="subcategory-name">梦幻系列</div>
+          </div>
+          
+          <div class="subcategory-item">
+            <div class="subcategory-icon">
+              <img src="https://picsum.photos/50/50?random=23" alt="金属系列">
+            </div>
+            <div class="subcategory-name">金属系列</div>
+          </div>
+          
+          <div class="subcategory-item">
+            <div class="subcategory-icon">
+              <img src="https://picsum.photos/50/50?random=22" alt="自然系列">
+            </div>
+            <div class="subcategory-name">自然系列</div>
+          </div>
+          
+          <div class="subcategory-item">
+            <div class="subcategory-icon">
+              <img src="https://picsum.photos/200/200?random=24" alt="花卉系列">
+            </div>
+            <div class="subcategory-name">花卉系列</div>
+          </div>
+          
+          <div class="subcategory-item">
+            <div class="subcategory-icon">
+              <img src="https://picsum.photos/200/200?random=25" alt="风景系列">
+            </div>
+            <div class="subcategory-name">风景系列</div>
+          </div>
+        </div>
+        
+        <div class="subcategory-title">按颜色分类</div>
+        <div class="subcategory-grid">
+          <div class="subcategory-item">
+            <div class="subcategory-icon">
+              <img src="https://picsum.photos/50/50?random=20" alt="蓝色系">
+            </div>
+            <div class="subcategory-name">蓝色系</div>
+          </div>
+          
+          <div class="subcategory-item">
+            <div class="subcategory-icon">
+              <img src="https://picsum.photos/50/50?random=21" alt="红色系">
+            </div>
+            <div class="subcategory-name">红色系</div>
+          </div>
+          
+          <div class="subcategory-item">
+            <div class="subcategory-icon">
+              <img src="https://picsum.photos/50/50?random=23" alt="绿色系">
+            </div>
+            <div class="subcategory-name">绿色系</div>
+          </div>
+          
+          <div class="subcategory-item">
+            <div class="subcategory-icon">
+              <img src="https://picsum.photos/50/50?random=22" alt="金色系">
+            </div>
+            <div class="subcategory-name">金色系</div>
+          </div>
+          
+          <div class="subcategory-item">
+            <div class="subcategory-icon">
+              <img src="https://picsum.photos/200/200?random=24" alt="银色系">
+            </div>
+            <div class="subcategory-name">银色系</div>
+          </div>
+          
+          <div class="subcategory-item">
+            <div class="subcategory-icon">
+              <img src="https://picsum.photos/200/200?random=25" alt="彩虹系">
+            </div>
+            <div class="subcategory-name">彩虹系</div>
+          </div>
+        </div>
+        
+        <!-- 热门商品 -->
+        <div class="product-section">
+          <div class="product-section-title">热门商品</div>
+          <div class="product-list">
+            <div class="product-card">
+              <div class="product-image">
+                <img src="https://picsum.photos/200/200?random=24" alt="星空珠光水彩">
+              </div>
+              <div class="product-info">
+                <div class="product-name">星空系列珠光水彩 12色套装</div>
+                <div class="product-price">¥128.00</div>
+                <div class="product-sold">已售 2345</div>
+              </div>
+            </div>
+            
+            <div class="product-card">
+              <div class="product-image">
+                <img src="https://picsum.photos/200/200?random=25" alt="梦幻珠光水彩">
+              </div>
+              <div class="product-info">
+                <div class="product-name">梦幻系列珠光水彩 24色套装</div>
+                <div class="product-price">¥198.00</div>
+                <div class="product-sold">已售 1892</div>
+              </div>
+            </div>
+            
+            <div class="product-card">
+              <div class="product-image">
+                <img src="https://picsum.photos/200/200?random=26" alt="金属珠光水彩">
+              </div>
+              <div class="product-info">
+                <div class="product-name">金属系列珠光水彩 6色套装</div>
+                <div class="product-price">¥88.00</div>
+                <div class="product-sold">已售 3421</div>
+              </div>
+            </div>
+            
+            <div class="product-card">
+              <div class="product-image">
+                <img src="https://picsum.photos/50/50?random=23" alt="自然珠光水彩">
+              </div>
+              <div class="product-info">
+                <div class="product-name">自然系列珠光水彩 18色套装</div>
+                <div class="product-price">¥168.00</div>
+                <div class="product-sold">已售 1245</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 底部导航栏 -->
+    <div class="tab-bar">
+      <div class="tab-item">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=20" alt="首页">
+        </div>
+        <div class="tab-text">首页</div>
+      </div>
+      <div class="tab-item active">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=21" alt="分类">
+        </div>
+        <div class="tab-text">分类</div>
+      </div>
+      <div class="tab-item">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=22" alt="购物车">
+        </div>
+        <div class="tab-text">购物车</div>
+      </div>
+      <div class="tab-item">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=23" alt="我的">
+        </div>
+        <div class="tab-text">我的</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 初始化分类数据
+      const categoryData = {
+        '珠光水彩': {
+          banner: 'https://picsum.photos/200/200?random=26',
+          series: [
+            { name: '星空系列', image: 'https://picsum.photos/50/50?random=20' },
+            { name: '梦幻系列', image: 'https://picsum.photos/50/50?random=21' },
+            { name: '金属系列', image: 'https://picsum.photos/50/50?random=23' },
+            { name: '自然系列', image: 'https://picsum.photos/50/50?random=24' }
+          ],
+          colors: [
+            { name: '蓝色系', image: 'https://picsum.photos/50/50?random=25' },
+            { name: '红色系', image: 'https://picsum.photos/50/50?random=26' },
+            { name: '金色系', image: 'https://picsum.photos/50/50?random=27' },
+            { name: '绿色系', image: 'https://picsum.photos/50/50?random=28' }
+          ],
+          hotProducts: [
+            { name: '星空系列珠光水彩 12色套装', price: '128.00', sold: '2345', image: 'https://picsum.photos/50/50?random=20' },
+            { name: '梦幻系列珠光水彩 24色套装', price: '198.00', sold: '1892', image: 'https://picsum.photos/50/50?random=21' },
+            { name: '金属系列珠光水彩 6色套装', price: '88.00', sold: '3421', image: 'https://picsum.photos/50/50?random=22' },
+            { name: '自然系列珠光水彩 18色套装', price: '168.00', sold: '1245', image: 'https://picsum.photos/50/50?random=23' }
+          ]
+        },
+        '画笔': {
+          banner: 'https://picsum.photos/200/200?random=30',
+          series: [
+            { name: '水彩笔', image: 'https://picsum.photos/50/50?random=31' },
+            { name: '勾线笔', image: 'https://picsum.photos/50/50?random=32' },
+            { name: '毛笔', image: 'https://picsum.photos/50/50?random=33' },
+            { name: '混合笔', image: 'https://picsum.photos/50/50?random=34' }
+          ],
+          colors: [],
+          hotProducts: [
+            { name: '细头水彩笔套装', price: '68.00', sold: '1245', image: 'https://picsum.photos/50/50?random=35' },
+            { name: '专业勾线笔套装', price: '45.00', sold: '892', image: 'https://picsum.photos/50/50?random=36' }
+          ]
+        },
+        '水彩纸': {
+          banner: 'https://picsum.photos/200/200?random=40',
+          series: [
+            { name: '冷压水彩纸', image: 'https://picsum.photos/50/50?random=41' },
+            { name: '细纹水彩纸', image: 'https://picsum.photos/50/50?random=42' },
+            { name: '粉彩水彩纸', image: 'https://picsum.photos/50/50?random=43' }
+          ],
+          colors: [],
+          hotProducts: [
+            { name: '300g冷压水彩纸 20张', price: '36.00', sold: '2145', image: 'https://picsum.photos/50/50?random=44' },
+            { name: '200g细纹水彩纸 30张', price: '28.00', sold: '1632', image: 'https://picsum.photos/50/50?random=45' }
+          ]
+        }
+      };
+      
+      // 获取DOM元素
+      const categoryContent = document.querySelector('.category-content');
+      const categoryBanner = document.querySelector('.category-banner img');
+      const subcategorySeriesGrid = document.querySelector('.subcategory-grid');
+      const subcategoryColorsSection = document.querySelector('.subcategory-colors-section');
+      const productSection = document.querySelector('.product-section');
+      const productList = document.querySelector('.product-list');
+      
+      // 渲染分类内容函数
+      function renderCategory(categoryName) {
+        const category = categoryData[categoryName];
+        if (!category) return;
+        
+        // 更新banner
+        categoryBanner.src = category.banner;
+        categoryBanner.alt = categoryName;
+        
+        // 渲染系列分类
+        let seriesHTML = '';
+        category.series.forEach(series => {
+          seriesHTML += `
+            <div class="subcategory-item">
+              <div class="subcategory-icon">
+                <img src="${series.image}" alt="${series.name}">
+              </div>
+              <div class="subcategory-name">${series.name}</div>
+            </div>
+          `;
+        });
+        subcategorySeriesGrid.innerHTML = seriesHTML;
+        
+        // 渲染颜色分类
+        if (category.colors && category.colors.length > 0) {
+          let colorsHTML = `
+            <div class="subcategory-title">按颜色分类</div>
+            <div class="subcategory-grid">
+          `;
+          
+          category.colors.forEach(color => {
+            colorsHTML += `
+              <div class="subcategory-item">
+                <div class="subcategory-icon">
+                  <img src="${color.image}" alt="${color.name}">
+                </div>
+                <div class="subcategory-name">${color.name}</div>
+              </div>
+            `;
+          });
+          
+          colorsHTML += '</div>';
+          subcategoryColorsSection.innerHTML = colorsHTML;
+          subcategoryColorsSection.style.display = 'block';
+        } else {
+          subcategoryColorsSection.style.display = 'none';
+        }
+        
+        // 渲染热销商品
+        let productsHTML = '';
+        category.hotProducts.forEach(product => {
+          productsHTML += `
+            <div class="product-card">
+              <div class="product-image">
+                <img src="${product.image}" alt="${product.name}">
+              </div>
+              <div class="product-info">
+                <div class="product-name">${product.name}</div>
+                <div class="product-price">¥${product.price}</div>
+                <div class="product-sold">已售 ${product.sold}</div>
+              </div>
+            </div>
+          `;
+        });
+        productList.innerHTML = productsHTML;
+        
+        // 添加点击事件
+        const subcategoryItems = document.querySelectorAll('.subcategory-item');
+        subcategoryItems.forEach(item => {
+          item.addEventListener('click', function() {
+            const subcategoryName = this.querySelector('.subcategory-name').textContent;
+            window.location.href = 'hot-products.html';
+          });
+        });
+        
+        const productCards = document.querySelectorAll('.product-card');
+        productCards.forEach(card => {
+          card.addEventListener('click', function() {
+            window.location.href = 'product-detail.html';
+          });
+        });
+      }
+      
+      // 分类侧边栏切换
+      const sidebarItems = document.querySelectorAll('.category-sidebar-item');
+      sidebarItems.forEach(item => {
+        item.addEventListener('click', function() {
+          // 移除所有项的active类
+          sidebarItems.forEach(sidebarItem => sidebarItem.classList.remove('active'));
+          // 为当前点击的项添加active类
+          this.classList.add('active');
+          // 加载对应分类内容
+          renderCategory(this.textContent);
+          
+          // 滚动到顶部
+          window.scrollTo(0, 0);
+        });
+      });
+      
+      // 底部导航切换
+      const tabItems = document.querySelectorAll('.tab-item');
+      tabItems.forEach((item, index) => {
+        item.addEventListener('click', function() {
+          // 移除所有tab的active类
+          tabItems.forEach(tab => tab.classList.remove('active'));
+          // 为当前点击的tab添加active类
+          this.classList.add('active');
+          
+          // 根据点击的tab跳转到对应页面
+          if (index === 0) {
+            window.location.href = '../index.html';
+          } else if (index === 1) {
+            // 当前页面，不跳转
+          } else if (index === 2) {
+            window.location.href = 'cart.html';
+          } else if (index === 3) {
+            window.location.href = 'profile.html';
+          }
+        });
+      });
+      
+      // 初始化页面，加载默认分类
+      renderCategory('珠光水彩');
+      
+      // 初始化点击事件
+      addClickEvents();
+    });
+  </script>
+</body>
+</html>

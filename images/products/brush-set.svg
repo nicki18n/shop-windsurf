@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <linearGradient id="woodGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#d4a373;stop-opacity:1" />
+            <stop offset="50%" style="stop-color:#e9edc9;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#d4a373;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="brushGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#ffd6a5;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#faedcd;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="brushGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#a8dadc;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#e0fbfc;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="brushGradient3" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#ffc8dd;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#ffafcc;stop-opacity:1" />
+        </linearGradient>
+    </defs>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect fill="white" x="0" y="0" width="200" height="200"></rect>
+        
+        <!-- 画笔1 -->
+        <g transform="translate(40, 40) rotate(45)">
+            <rect x="0" y="0" width="120" height="15" rx="2" fill="url(#woodGradient)"></rect>
+            <path d="M120,0 L140,7.5 L120,15 Z" fill="url(#brushGradient1)"></path>
+            <ellipse cx="5" cy="7.5" rx="3" ry="7.5" fill="#d4a373"></ellipse>
+        </g>
+        
+        <!-- 画笔2 -->
+        <g transform="translate(50, 70) rotate(30)">
+            <rect x="0" y="0" width="100" height="12" rx="2" fill="url(#woodGradient)"></rect>
+            <path d="M100,0 L118,6 L100,12 Z" fill="url(#brushGradient2)"></path>
+            <ellipse cx="5" cy="6" rx="3" ry="6" fill="#d4a373"></ellipse>
+        </g>
+        
+        <!-- 画笔3 -->
+        <g transform="translate(60, 100) rotate(15)">
+            <rect x="0" y="0" width="90" height="10" rx="2" fill="url(#woodGradient)"></rect>
+            <path d="M90,0 L105,5 L90,10 Z" fill="url(#brushGradient3)"></path>
+            <ellipse cx="5" cy="5" rx="3" ry="5" fill="#d4a373"></ellipse>
+        </g>
+        
+        <!-- 画笔4 -->
+        <g transform="translate(70, 130) rotate(0)">
+            <rect x="0" y="0" width="80" height="8" rx="2" fill="url(#woodGradient)"></rect>
+            <path d="M80,0 L92,4 L80,8 Z" fill="#ccd5ae"></path>
+            <ellipse cx="5" cy="4" rx="3" ry="4" fill="#d4a373"></ellipse>
+        </g>
+        
+        <!-- 珠光效果 -->
+        <circle cx="100" cy="60" r="3" fill="white" opacity="0.7"></circle>
+        <circle cx="120" cy="80" r="2" fill="white" opacity="0.7"></circle>
+        <circle cx="110" cy="100" r="2.5" fill="white" opacity="0.7"></circle>
+        <circle cx="130" cy="110" r="2" fill="white" opacity="0.7"></circle>
+        
+        <!-- 文字 -->
+        <text x="100" y="180" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#555">高级画笔组合</text>
+    </g>
+</svg>

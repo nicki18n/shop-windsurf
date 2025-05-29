@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#a8dadc;stop-opacity:0.8" />
+            <stop offset="100%" style="stop-color:#e0fbfc;stop-opacity:0.8" />
+        </linearGradient>
+        <linearGradient id="mountainGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#6d6875;stop-opacity:0.8" />
+            <stop offset="100%" style="stop-color:#b5838d;stop-opacity:0.8" />
+        </linearGradient>
+        <linearGradient id="waterGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#457b9d;stop-opacity:0.7" />
+            <stop offset="100%" style="stop-color:#a8dadc;stop-opacity:0.7" />
+        </linearGradient>
+    </defs>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect fill="white" x="0" y="0" width="200" height="200"></rect>
+        
+        <!-- 画框 -->
+        <rect x="30" y="30" width="140" height="120" fill="#f8f9fa" stroke="#ddd" stroke-width="2"></rect>
+        
+        <!-- 水彩画 - 天空 -->
+        <rect x="35" y="35" width="130" height="50" fill="url(#skyGradient)"></rect>
+        
+        <!-- 水彩画 - 山 -->
+        <path d="M35,85 L70,55 L90,70 L120,45 L150,65 L165,55 L165,85 Z" fill="url(#mountainGradient)"></path>
+        
+        <!-- 水彩画 - 水 -->
+        <path d="M35,85 L165,85 L165,145 L35,145 Z" fill="url(#waterGradient)"></path>
+        
+        <!-- 珠光效果 - 天空 -->
+        <circle cx="60" cy="45" r="3" fill="white" opacity="0.6"></circle>
+        <circle cx="100" cy="50" r="4" fill="white" opacity="0.5"></circle>
+        <circle cx="140" cy="40" r="2.5" fill="white" opacity="0.7"></circle>
+        
+        <!-- 珠光效果 - 山 -->
+        <circle cx="80" cy="65" r="2" fill="white" opacity="0.4"></circle>
+        <circle cx="120" cy="55" r="2.5" fill="white" opacity="0.4"></circle>
+        
+        <!-- 珠光效果 - 水 -->
+        <ellipse cx="70" cy="110" rx="15" ry="5" fill="white" opacity="0.3"></ellipse>
+        <ellipse cx="120" cy="125" rx="20" ry="3" fill="white" opacity="0.2"></ellipse>
+        
+        <!-- 画笔 -->
+        <g transform="translate(50, 160)">
+            <rect x="0" y="0" width="60" height="5" rx="2" fill="#d4a373"></rect>
+            <path d="M60,0 L70,2.5 L60,5 Z" fill="#ffb5a7"></path>
+        </g>
+        
+        <!-- 调色盘 -->
+        <g transform="translate(130, 160)">
+            <circle cx="0" cy="0" r="10" fill="#f5f5f7" stroke="#ddd" stroke-width="1"></circle>
+            <circle cx="-5" cy="-3" r="3" fill="#ffb5a7"></circle>
+            <circle cx="0" cy="-5" r="3" fill="#a8dadc"></circle>
+            <circle cx="5" cy="-3" r="3" fill="#cdb4db"></circle>
+            <circle cx="5" cy="3" r="3" fill="#ffafbd"></circle>
+            <circle cx="0" cy="5" r="3" fill="#b5ead7"></circle>
+            <circle cx="-5" cy="3" r="3" fill="#f6d365"></circle>
+        </g>
+        
+        <!-- 文字 -->
+        <text x="100" y="185" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#555">珠光水彩山水画</text>
+    </g>
+</svg>

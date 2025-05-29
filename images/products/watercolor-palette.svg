@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <linearGradient id="palette1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#ff9a9e;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#fad0c4;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="palette2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#a18cd1;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#fbc2eb;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="palette3" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#84fab0;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#8fd3f4;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="palette4" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#ffc3a0;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#ffafbd;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="palette5" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#f6d365;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#fda085;stop-opacity:1" />
+        </linearGradient>
+    </defs>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect fill="white" x="0" y="0" width="200" height="200"></rect>
+        
+        <!-- 调色板 -->
+        <path d="M30,50 L170,50 C175.523,50 180,54.4772 180,60 L180,140 C180,145.523 175.523,150 170,150 L30,150 C24.4772,150 20,145.523 20,140 L20,60 C20,54.4772 24.4772,50 30,50 Z" fill="#f5f5f7" stroke="#ddd" stroke-width="2"></path>
+        
+        <!-- 调色格 -->
+        <circle cx="50" cy="70" r="15" fill="url(#palette1)"></circle>
+        <circle cx="85" cy="70" r="15" fill="url(#palette2)"></circle>
+        <circle cx="120" cy="70" r="15" fill="url(#palette3)"></circle>
+        <circle cx="155" cy="70" r="15" fill="url(#palette4)"></circle>
+        <circle cx="50" cy="105" r="15" fill="url(#palette5)"></circle>
+        <circle cx="85" cy="105" r="15" fill="#a0d2eb"></circle>
+        <circle cx="120" cy="105" r="15" fill="#d0bdf4"></circle>
+        <circle cx="155" cy="105" r="15" fill="#ff9aa2"></circle>
+        <circle cx="50" cy="140" r="15" fill="#e2f0cb"></circle>
+        <circle cx="85" cy="140" r="15" fill="#b5ead7"></circle>
+        <circle cx="120" cy="140" r="15" fill="#c7ceea"></circle>
+        <circle cx="155" cy="140" r="15" fill="#ffdac1"></circle>
+        
+        <!-- 珠光效果 -->
+        <circle cx="50" cy="70" r="5" fill="white" opacity="0.4"></circle>
+        <circle cx="85" cy="70" r="5" fill="white" opacity="0.4"></circle>
+        <circle cx="120" cy="70" r="5" fill="white" opacity="0.4"></circle>
+        <circle cx="155" cy="70" r="5" fill="white" opacity="0.4"></circle>
+        <circle cx="50" cy="105" r="5" fill="white" opacity="0.4"></circle>
+        <circle cx="85" cy="105" r="5" fill="white" opacity="0.4"></circle>
+        <circle cx="120" cy="105" r="5" fill="white" opacity="0.4"></circle>
+        <circle cx="155" cy="105" r="5" fill="white" opacity="0.4"></circle>
+        <circle cx="50" cy="140" r="5" fill="white" opacity="0.4"></circle>
+        <circle cx="85" cy="140" r="5" fill="white" opacity="0.4"></circle>
+        <circle cx="120" cy="140" r="5" fill="white" opacity="0.4"></circle>
+        <circle cx="155" cy="140" r="5" fill="white" opacity="0.4"></circle>
+        
+        <!-- 文字 -->
+        <text x="100" y="180" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#555">珠光水彩调色盘</text>
+    </g>
+</svg>

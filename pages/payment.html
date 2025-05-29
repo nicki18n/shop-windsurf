@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>支付 - 花涧珠光水彩商城</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* 支付页面特定样式 */
+    .header-with-back {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      height: 50px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .header-back {
+      position: absolute;
+      left: 15px;
+      font-size: 18px;
+    }
+    
+    .header-title {
+      font-size: 16px;
+      font-weight: bold;
+    }
+    
+    /* 支付信息 */
+    .payment-info {
+      background-color: #fff;
+      padding: 30px 15px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    
+    .payment-amount {
+      font-size: 36px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    
+    .payment-order-id {
+      font-size: 14px;
+      color: #999;
+    }
+    
+    /* 支付方式 */
+    .payment-methods {
+      background-color: #fff;
+      margin-bottom: 10px;
+    }
+    
+    .payment-method-title {
+      padding: 15px;
+      font-size: 14px;
+      color: #333;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    
+    .payment-method-item {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      border-bottom: 1px solid #f5f5f5;
+      position: relative;
+    }
+    
+    .payment-method-item:last-child {
+      border-bottom: none;
+    }
+    
+    .payment-method-icon {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+    
+    .payment-method-name {
+      flex: 1;
+      font-size: 14px;
+      color: #333;
+    }
+    
+    .payment-method-desc {
+      font-size: 12px;
+      color: #999;
+    }
+    
+    .payment-method-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid #ddd;
+      margin-left: 10px;
+      position: relative;
+    }
+    
+    .payment-method-check.checked {
+      border-color: #ff6b6b;
+      background-color: #ff6b6b;
+    }
+    
+    .payment-method-check.checked::after {
+      content: "✓";
+      color: #fff;
+      font-size: 12px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    
+    /* 支付说明 */
+    .payment-tips {
+      background-color: #fff;
+      padding: 15px;
+      margin-bottom: 10px;
+    }
+    
+    .payment-tip-title {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    
+    .payment-tip-content {
+      font-size: 12px;
+      color: #999;
+      line-height: 1.6;
+    }
+    
+    /* 底部支付按钮 */
+    .payment-bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 15px;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    .payment-btn {
+      width: 100%;
+      height: 44px;
+      background-color: #09BB07;
+      color: #fff;
+      font-size: 16px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    
+    /* 底部空白区，避免内容被底部按钮遮挡 */
+    .bottom-space {
+      height: 70px;
+    }
+    
+    /* 支付倒计时 */
+    .payment-countdown {
+      background-color: #fff;
+      padding: 10px 15px;
+      font-size: 12px;
+      color: #ff6b6b;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    
+    /* 订单信息 */
+    .order-brief {
+      background-color: #fff;
+      padding: 15px;
+      margin-bottom: 10px;
+    }
+    
+    .order-brief-title {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    
+    .order-brief-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    
+    .order-brief-value {
+      color: #333;
+    }
+    
+    /* 支付结果弹窗 */
+    .payment-result-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+    
+    .payment-result-content {
+      width: 280px;
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .payment-result-icon {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 15px;
+    }
+    
+    .payment-result-icon img {
+      width: 100%;
+      height: 100%;
+    }
+    
+    .payment-result-title {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    
+    .payment-result-desc {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+    
+    .payment-result-btn {
+      width: 100%;
+      height: 40px;
+      background-color: #ff6b6b;
+      color: #fff;
+      font-size: 14px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    
+    .payment-result-btn.outline {
+      background-color: transparent;
+      border: 1px solid #ddd;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 头部 -->
+    <div class="header-with-back">
+      <div class="header-back">
+        <a href="order-confirm.html">←</a>
+      </div>
+      <div class="header-title">订单支付</div>
+    </div>
+    
+    <!-- 支付倒计时 -->
+    <div class="payment-countdown">
+      请在 <span id="countdown">29:59</span> 内完成支付，超时订单将自动取消
+    </div>
+    
+    <!-- 支付金额 -->
+    <div class="payment-info">
+      <div class="payment-amount">¥186.00</div>
+      <div class="payment-order-id">订单号：2025052812345678</div>
+    </div>
+    
+    <!-- 订单简要信息 -->
+    <div class="order-brief">
+      <div class="order-brief-title">订单信息</div>
+      <div class="order-brief-item">
+        <div>商品</div>
+        <div class="order-brief-value">珠光水彩套装等2件商品</div>
+      </div>
+      <div class="order-brief-item">
+        <div>收货人</div>
+        <div class="order-brief-value">张三 13812345678</div>
+      </div>
+      <div class="order-brief-item">
+        <div>收货地址</div>
+        <div class="order-brief-value">上海市浦东新区张江高科技园区</div>
+      </div>
+    </div>
+    
+    <!-- 支付方式 -->
+    <div class="payment-methods">
+      <div class="payment-method-title">选择支付方式</div>
+      
+      <!-- 微信支付 -->
+      <div class="payment-method-item">
+        <img class="payment-method-icon" src="https://picsum.photos/30/30?random=50" alt="微信支付">
+        <div class="payment-method-name">微信支付</div>
+        <div class="payment-method-desc">微信安全支付</div>
+        <div class="payment-method-check checked"></div>
+      </div>
+      
+      <!-- 支付宝 -->
+      <div class="payment-method-item">
+        <img class="payment-method-icon" src="https://picsum.photos/30/30?random=51" alt="支付宝">
+        <div class="payment-method-name">支付宝</div>
+        <div class="payment-method-desc">支付宝安全支付</div>
+        <div class="payment-method-check"></div>
+      </div>
+      
+      <!-- 银行卡 -->
+      <div class="payment-method-item">
+        <img class="payment-method-icon" src="https://picsum.photos/30/30?random=52" alt="银行卡">
+        <div class="payment-method-name">银行卡支付</div>
+        <div class="payment-method-desc">支持多家银行</div>
+        <div class="payment-method-check"></div>
+      </div>
+    </div>
+    
+    <!-- 支付说明 -->
+    <div class="payment-tips">
+      <div class="payment-tip-title">支付说明</div>
+      <div class="payment-tip-content">
+        1. 请在规定时间内完成支付，超时订单将自动取消<br>
+        2. 支付成功后，可在"我的订单"中查看订单状态<br>
+        3. 如遇支付问题，请联系客服：400-123-4567
+      </div>
+    </div>
+    
+    <!-- 底部空白区，避免内容被底部按钮遮挡 -->
+    <div class="bottom-space"></div>
+    
+    <!-- 底部支付按钮 -->
+    <div class="payment-bottom-bar">
+      <div class="payment-btn" id="paymentBtn">确认支付 ¥186.00</div>
+    </div>
+    
+    <!-- 底部导航栏 -->
+    <div class="tab-bar">
+      <div class="tab-item">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=90" alt="首页">
+        </div>
+        <div class="tab-text">首页</div>
+      </div>
+      <div class="tab-item">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=91" alt="分类">
+        </div>
+        <div class="tab-text">分类</div>
+      </div>
+      <div class="tab-item active">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=92" alt="购物车">
+        </div>
+        <div class="tab-text">购物车</div>
+      </div>
+      <div class="tab-item">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=93" alt="我的">
+        </div>
+        <div class="tab-text">我的</div>
+      </div>
+    </div>
+    
+    <!-- 支付结果弹窗 -->
+    <div class="payment-result-modal" id="paymentResultModal">
+      <div class="payment-result-content">
+        <div class="payment-result-icon">
+          <img src="https://picsum.photos/60/60?random=53" alt="支付成功">
+        </div>
+        <div class="payment-result-title">支付成功</div>
+        <div class="payment-result-desc">您的订单已支付成功，商家将尽快为您发货</div>
+        <div class="payment-result-btn" id="viewOrderBtn">查看订单</div>
+        <div class="payment-result-btn outline" id="backToHomeBtn">返回首页</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 倒计时功能
+      let minutes = 29;
+      let seconds = 59;
+      const countdownEl = document.getElementById('countdown');
+      
+      function updateCountdown() {
+        countdownEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        
+        if (seconds === 0) {
+          if (minutes === 0) {
+            // 倒计时结束
+            clearInterval(countdownInterval);
+            alert('支付超时，订单已取消');
+            window.location.href = '../index.html';
+            return;
+          }
+          minutes--;
+          seconds = 59;
+        } else {
+          seconds--;
+        }
+      }
+      
+      const countdownInterval = setInterval(updateCountdown, 1000);
+      
+      // 支付方式选择
+      const paymentMethods = document.querySelectorAll('.payment-method-item');
+      paymentMethods.forEach(method => {
+        method.addEventListener('click', function() {
+          // 移除所有选中状态
+          paymentMethods.forEach(m => {
+            m.querySelector('.payment-method-check').classList.remove('checked');
+          });
+          
+          // 设置当前选中状态
+          this.querySelector('.payment-method-check').classList.add('checked');
+        });
+      });
+      
+      // 支付按钮点击事件
+      const paymentBtn = document.getElementById('paymentBtn');
+      const paymentResultModal = document.getElementById('paymentResultModal');
+      
+      paymentBtn.addEventListener('click', function() {
+        // 模拟支付过程
+        setTimeout(() => {
+          paymentResultModal.style.display = 'flex';
+        }, 1000);
+      });
+      
+      // 查看订单按钮点击事件
+      const viewOrderBtn = document.getElementById('viewOrderBtn');
+      viewOrderBtn.addEventListener('click', function() {
+        alert('跳转到订单详情页');
+        paymentResultModal.style.display = 'none';
+      });
+      
+      // 返回首页按钮点击事件
+      const backToHomeBtn = document.getElementById('backToHomeBtn');
+      backToHomeBtn.addEventListener('click', function() {
+        window.location.href = '../index.html';
+      });
+      
+      // 底部导航切换
+      const tabItems = document.querySelectorAll('.tab-item');
+      tabItems.forEach((item, index) => {
+        item.addEventListener('click', function() {
+          // 移除所有tab的active类
+          tabItems.forEach(tab => tab.classList.remove('active'));
+          // 为当前点击的tab添加active类
+          this.classList.add('active');
+          
+          // 根据点击的tab跳转到对应页面
+          if (index === 0) {
+            window.location.href = '../index.html';
+          } else if (index === 1) {
+            window.location.href = 'category.html';
+          } else if (index === 2) {
+            window.location.href = 'cart.html';
+          } else if (index === 3) {
+            window.location.href = 'profile.html';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

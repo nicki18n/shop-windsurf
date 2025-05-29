@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>订单确认 - 花涧珠光水彩商城</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* 订单确认页面特定样式 */
+    .header-with-back {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      height: 50px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .header-back {
+      position: absolute;
+      left: 15px;
+      font-size: 18px;
+    }
+    
+    .header-title {
+      font-size: 16px;
+      font-weight: bold;
+    }
+    
+    /* 地址信息 */
+    .address-section {
+      background-color: #fff;
+      padding: 15px;
+      margin-bottom: 10px;
+      position: relative;
+    }
+    
+    .address-arrow {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #999;
+      font-size: 16px;
+    }
+    
+    .address-info {
+      padding-right: 20px;
+    }
+    
+    .address-user {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    
+    .address-user span {
+      margin-right: 15px;
+    }
+    
+    .address-detail {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.5;
+    }
+    
+    .address-empty {
+      display: flex;
+      align-items: center;
+      color: #ff6b6b;
+      font-size: 14px;
+    }
+    
+    .address-empty-icon {
+      margin-right: 5px;
+      font-size: 16px;
+    }
+    
+    /* 订单商品 */
+    .order-section {
+      background-color: #fff;
+      margin-bottom: 10px;
+    }
+    
+    .order-header {
+      padding: 12px 15px;
+      border-bottom: 1px solid #f5f5f5;
+      font-size: 14px;
+      color: #333;
+    }
+    
+    .order-item {
+      display: flex;
+      padding: 15px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    
+    .order-item:last-child {
+      border-bottom: none;
+    }
+    
+    .order-item-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-right: 10px;
+    }
+    
+    .order-item-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .order-item-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 80px;
+    }
+    
+    .order-item-name {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 5px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .order-item-spec {
+      font-size: 12px;
+      color: #999;
+    }
+    
+    .order-item-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .order-item-price {
+      color: #ff6b6b;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    
+    .order-item-quantity {
+      font-size: 14px;
+      color: #999;
+    }
+    
+    /* 配送方式 */
+    .delivery-section {
+      background-color: #fff;
+      margin-bottom: 10px;
+    }
+    
+    .delivery-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    
+    .delivery-label {
+      font-size: 14px;
+      color: #333;
+    }
+    
+    .delivery-value {
+      font-size: 14px;
+      color: #666;
+      display: flex;
+      align-items: center;
+    }
+    
+    .delivery-arrow {
+      margin-left: 5px;
+      color: #999;
+    }
+    
+    /* 优惠券 */
+    .coupon-section {
+      background-color: #fff;
+      margin-bottom: 10px;
+    }
+    
+    .coupon-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    
+    .coupon-label {
+      font-size: 14px;
+      color: #333;
+    }
+    
+    .coupon-value {
+      font-size: 14px;
+      color: #ff6b6b;
+      display: flex;
+      align-items: center;
+    }
+    
+    .coupon-arrow {
+      margin-left: 5px;
+      color: #999;
+    }
+    
+    /* 订单金额 */
+    .amount-section {
+      background-color: #fff;
+      margin-bottom: 10px;
+      padding: 15px;
+    }
+    
+    .amount-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: #666;
+    }
+    
+    .amount-item:last-child {
+      margin-bottom: 0;
+      padding-top: 10px;
+      border-top: 1px solid #f5f5f5;
+      color: #333;
+      font-weight: bold;
+    }
+    
+    .amount-value {
+      color: #ff6b6b;
+    }
+    
+    /* 订单备注 */
+    .remark-section {
+      background-color: #fff;
+      margin-bottom: 10px;
+      padding: 15px;
+    }
+    
+    .remark-title {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    
+    .remark-input {
+      width: 100%;
+      height: 60px;
+      border: 1px solid #eee;
+      border-radius: 4px;
+      padding: 10px;
+      font-size: 14px;
+      resize: none;
+    }
+    
+    /* 底部结算栏 */
+    .order-bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 50px;
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      border-top: 1px solid #eee;
+      padding: 0 15px;
+    }
+    
+    .order-total {
+      flex: 1;
+      text-align: right;
+      padding-right: 15px;
+    }
+    
+    .order-total-price {
+      font-size: 16px;
+      color: #ff6b6b;
+      font-weight: bold;
+    }
+    
+    .order-submit-btn {
+      width: 110px;
+      height: 40px;
+      background-color: #ff6b6b;
+      color: #fff;
+      font-size: 14px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    
+    /* 底部空白区，避免内容被底部结算栏遮挡 */
+    .bottom-space {
+      height: 60px;
+    }
+    
+    /* 支付方式 */
+    .payment-section {
+      background-color: #fff;
+      margin-bottom: 10px;
+    }
+    
+    .payment-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    
+    .payment-label {
+      font-size: 14px;
+      color: #333;
+    }
+    
+    .payment-value {
+      font-size: 14px;
+      color: #666;
+      display: flex;
+      align-items: center;
+    }
+    
+    .payment-icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 5px;
+    }
+    
+    .payment-arrow {
+      margin-left: 5px;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 头部 -->
+    <div class="header-with-back">
+      <div class="header-back">
+        <a href="cart.html">←</a>
+      </div>
+      <div class="header-title">确认订单</div>
+    </div>
+    
+    <!-- 收货地址 -->
+    <div class="address-section">
+      <div class="address-arrow">></div>
+      
+      <!-- 有地址时显示 -->
+      <div class="address-info">
+        <div class="address-user">
+          <span>张三</span>
+          <span>13812345678</span>
+        </div>
+        <div class="address-detail">
+          上海市浦东新区张江高科技园区博云路2号5号楼3层301室
+        </div>
+      </div>
+      
+      <!-- 无地址时显示 -->
+      <!--
+      <div class="address-empty">
+        <div class="address-empty-icon">+</div>
+        <div>添加收货地址</div>
+      </div>
+      -->
+    </div>
+    
+    <!-- 订单商品 -->
+    <div class="order-section">
+      <div class="order-header">
+        珠光水彩官方旗舰店
+      </div>
+      
+      <!-- 商品1 -->
+      <div class="order-item">
+        <div class="order-item-image">
+          <img src="https://picsum.photos/200/200?random=1" alt="星空系列珠光水彩">
+        </div>
+        <div class="order-item-info">
+          <div>
+            <div class="order-item-name">星空系列珠光水彩 12色套装</div>
+            <div class="order-item-spec">规格：12色套装</div>
+          </div>
+          <div class="order-item-bottom">
+            <div class="order-item-price">¥128.00</div>
+            <div class="order-item-quantity">x1</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 商品2 -->
+      <div class="order-item">
+        <div class="order-item-image">
+          <img src="https://picsum.photos/200/200?random=2" alt="金属系列珠光水彩">
+        </div>
+        <div class="order-item-info">
+          <div>
+            <div class="order-item-name">金属系列珠光水彩 6色套装</div>
+            <div class="order-item-spec">规格：6色套装</div>
+          </div>
+          <div class="order-item-bottom">
+            <div class="order-item-price">¥88.00</div>
+            <div class="order-item-quantity">x1</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 配送方式 -->
+    <div class="delivery-section">
+      <div class="delivery-item">
+        <div class="delivery-label">配送方式</div>
+        <div class="delivery-value">
+          <span>快递 免邮</span>
+          <span class="delivery-arrow">></span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 支付方式 -->
+    <div class="payment-section">
+      <div class="payment-item">
+        <div class="payment-label">支付方式</div>
+        <div class="payment-value">
+          <img class="payment-icon" src="https://picsum.photos/20/20?random=10" alt="微信支付">
+          <span>微信支付</span>
+          <span class="payment-arrow">></span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 优惠券 -->
+    <div class="coupon-section">
+      <div class="coupon-item">
+        <div class="coupon-label">优惠券</div>
+        <div class="coupon-value">
+          <span>满200减30</span>
+          <span class="coupon-arrow">></span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 订单金额 -->
+    <div class="amount-section">
+      <div class="amount-item">
+        <div>商品金额</div>
+        <div>¥216.00</div>
+      </div>
+      <div class="amount-item">
+        <div>运费</div>
+        <div>+¥0.00</div>
+      </div>
+      <div class="amount-item">
+        <div>优惠券</div>
+        <div>-¥30.00</div>
+      </div>
+      <div class="amount-item">
+        <div>实付金额</div>
+        <div class="amount-value">¥186.00</div>
+      </div>
+    </div>
+    
+    <!-- 订单备注 -->
+    <div class="remark-section">
+      <div class="remark-title">订单备注</div>
+      <textarea class="remark-input" placeholder="选填，请先和商家协商一致"></textarea>
+    </div>
+    
+    <!-- 底部空白区，避免内容被底部结算栏遮挡 -->
+    <div class="bottom-space"></div>
+    
+    <!-- 底部结算栏 -->
+    <div class="order-bottom-bar">
+      <div class="order-total">
+        <div class="order-total-price">实付金额: ¥186.00</div>
+      </div>
+      <div class="order-submit-btn">提交订单</div>
+    </div>
+    
+    <!-- 底部导航栏 -->
+    <div class="tab-bar">
+      <div class="tab-item">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=90" alt="首页">
+        </div>
+        <div class="tab-text">首页</div>
+      </div>
+      <div class="tab-item">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=91" alt="分类">
+        </div>
+        <div class="tab-text">分类</div>
+      </div>
+      <div class="tab-item active">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=92" alt="购物车">
+        </div>
+        <div class="tab-text">购物车</div>
+      </div>
+      <div class="tab-item">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=93" alt="我的">
+        </div>
+        <div class="tab-text">我的</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 提交订单按钮点击事件
+      const submitBtn = document.querySelector('.order-submit-btn');
+      submitBtn.addEventListener('click', function() {
+        window.location.href = 'payment.html';
+      });
+      
+      // 底部导航切换
+      const tabItems = document.querySelectorAll('.tab-item');
+      tabItems.forEach((item, index) => {
+        item.addEventListener('click', function() {
+          // 移除所有tab的active类
+          tabItems.forEach(tab => tab.classList.remove('active'));
+          // 为当前点击的tab添加active类
+          this.classList.add('active');
+          
+          // 根据点击的tab跳转到对应页面
+          if (index === 0) {
+            window.location.href = '../index.html';
+          } else if (index === 1) {
+            window.location.href = 'category.html';
+          } else if (index === 2) {
+            window.location.href = 'cart.html';
+          } else if (index === 3) {
+            window.location.href = 'profile.html';
+          }
+        });
+      });
+      
+      // 地址选择点击事件
+      const addressSection = document.querySelector('.address-section');
+      addressSection.addEventListener('click', function() {
+        alert('跳转到地址选择页面');
+        // 这里可以添加跳转到地址选择页面的逻辑
+      });
+      
+      // 配送方式点击事件
+      const deliveryItem = document.querySelector('.delivery-item');
+      deliveryItem.addEventListener('click', function() {
+        alert('选择配送方式');
+        // 这里可以添加选择配送方式的逻辑
+      });
+      
+      // 支付方式点击事件
+      const paymentItem = document.querySelector('.payment-item');
+      paymentItem.addEventListener('click', function() {
+        alert('选择支付方式');
+        // 这里可以添加选择支付方式的逻辑
+      });
+      
+      // 优惠券点击事件
+      const couponItem = document.querySelector('.coupon-item');
+      couponItem.addEventListener('click', function() {
+        alert('选择优惠券');
+        // 这里可以添加选择优惠券的逻辑
+      });
+    });
+  </script>
+</body>
+</html>
