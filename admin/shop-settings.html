@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>店铺设置 - 花涧珠光水彩商城</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="css/shop-settings.css">
+  <style>
+    /* 侧边栏样式 */
+    .sidebar {
+      width: 220px;
+      background-color: #2c2c2e;
+      color: #fff;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+    
+    .sidebar-header {
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .sidebar-logo {
+      width: 50px;
+      height: 50px;
+      margin: 0 auto 10px;
+      background-color: #fff;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .sidebar-logo img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+    }
+    
+    .sidebar-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    
+    .sidebar-menu {
+      padding: 20px 0;
+    }
+    
+    .menu-category {
+      margin-bottom: 15px;
+      padding: 0 20px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .menu-item {
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .menu-item:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .menu-item.active {
+      background-color: #ff6b6b;
+    }
+    
+    .menu-icon {
+      width: 18px;
+      height: 18px;
+      margin-right: 12px;
+      opacity: 0.7;
+    }
+    
+    .menu-text {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <!-- 侧边栏容器 -->
+    <div class="sidebar-container"></div>
+    
+    <!-- 主内容区 -->
+    <div class="main-content">
+      <!-- 顶部导航 -->
+      <div class="top-nav">
+        <div class="page-title">店铺设置</div>
+        <button class="save-btn">
+          <i class="fas fa-save"></i>
+          保存设置
+        </button>
+      </div>
+      
+      <!-- 设置选项卡 -->
+      <div class="settings-tabs">
+        <div class="tab active" data-tab="basic">基本信息</div>
+        <div class="tab" data-tab="payment">支付设置</div>
+        <div class="tab" data-tab="shipping">物流配送</div>
+        <div class="tab" data-tab="notification">通知设置</div>
+        <div class="tab" data-tab="security">安全设置</div>
+      </div>
+      
+      <!-- 设置内容区 -->
+      <div class="settings-content">
+        <!-- 基本信息设置 -->
+        <div class="settings-section active" id="basic-settings">
+          <div class="section-title">店铺基本信息</div>
+          
+          <div class="form-group">
+            <label class="form-label">店铺名称</label>
+            <input type="text" class="form-input" value="花涧珠光水彩商城" placeholder="请输入店铺名称">
+            <div class="form-hint">店铺名称将显示在商城首页、订单和小程序信息中</div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">店铺Logo</label>
+            <div class="upload-container">
+              <div class="upload-preview">
+                <img src="https://picsum.photos/id/96/200/200" alt="店铺Logo">
+              </div>
+              <div class="upload-actions">
+                <button class="upload-btn">
+                  <i class="fas fa-upload"></i>
+                  上传图片
+                </button>
+                <div class="upload-hint">建议尺寸：200px × 200px，支持jpg、png格式</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">店铺简介</label>
+            <textarea class="form-textarea" rows="4" placeholder="请输入店铺简介">花涧珠光水彩商城是专业的水彩颜料销售平台，提供高品质的珠光水彩产品，为水彩爱好者提供优质的创作工具。</textarea>
+            <div class="form-hint">简介将显示在商城首页和小程序简介中，建议100字以内</div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">联系电话</label>
+            <input type="text" class="form-input" value="400-123-4567" placeholder="请输入联系电话">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">客服邮箱</label>
+            <input type="email" class="form-input" value="service@watercolor.com" placeholder="请输入客服邮箱">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">营业时间</label>
+            <input type="text" class="form-input" value="周一至周日 9:00-21:00" placeholder="请输入营业时间">
+          </div>
+        </div>
+        
+        <!-- 支付设置 -->
+        <div class="settings-section" id="payment-settings">
+          <div class="section-title">支付方式设置</div>
+          
+          <div class="payment-methods">
+            <div class="payment-method">
+              <div class="method-header">
+                <div class="method-info">
+                  <img src="../images/icons/wechat-pay.svg" alt="微信支付" class="method-icon">
+                  <div class="method-name">微信支付</div>
+                </div>
+                <div class="method-switch">
+                  <input type="checkbox" id="wechatPay" class="switch-input" checked>
+                  <label for="wechatPay" class="switch-label"></label>
+                </div>
+              </div>
+              <div class="method-config">
+                <div class="form-group">
+                  <label class="form-label">商户ID</label>
+                  <input type="text" class="form-input" value="1234567890" placeholder="请输入微信支付商户ID">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">API密钥</label>
+                  <input type="password" class="form-input" value="••••••••••••••••" placeholder="请输入API密钥">
+                </div>
+              </div>
+            </div>
+            
+            <div class="payment-method">
+              <div class="method-header">
+                <div class="method-info">
+                  <img src="../images/icons/alipay.svg" alt="支付宝" class="method-icon">
+                  <div class="method-name">支付宝</div>
+                </div>
+                <div class="method-switch">
+                  <input type="checkbox" id="alipay" class="switch-input" checked>
+                  <label for="alipay" class="switch-label"></label>
+                </div>
+              </div>
+              <div class="method-config">
+                <div class="form-group">
+                  <label class="form-label">商户ID</label>
+                  <input type="text" class="form-input" value="2019082566123456" placeholder="请输入支付宝商户ID">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">应用私钥</label>
+                  <textarea class="form-textarea" rows="3" placeholder="请输入应用私钥">MIIEvgIBADANBgkqhkiG9w0BAQEF...</textarea>
+                </div>
+              </div>
+            </div>
+            
+            <div class="payment-method">
+              <div class="method-header">
+                <div class="method-info">
+                  <img src="../images/icons/bank-card.svg" alt="银行卡支付" class="method-icon">
+                  <div class="method-name">银行卡支付</div>
+                </div>
+                <div class="method-switch">
+                  <input type="checkbox" id="bankPay" class="switch-input">
+                  <label for="bankPay" class="switch-label"></label>
+                </div>
+              </div>
+              <div class="method-config" style="display: none;">
+                <div class="form-group">
+                  <label class="form-label">收款银行</label>
+                  <select class="form-select">
+                    <option>请选择银行</option>
+                    <option>中国工商银行</option>
+                    <option>中国建设银行</option>
+                    <option>中国农业银行</option>
+                    <option>中国银行</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">收款账号</label>
+                  <input type="text" class="form-input" placeholder="请输入银行卡号">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">开户名</label>
+                  <input type="text" class="form-input" placeholder="请输入开户名">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 引入公共JS -->
+  <script src="js/common.js"></script>
+  <script src="js/shop-settings.js"></script>
+</body>
+</html>

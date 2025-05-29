@@ -64,7 +64,7 @@ function loadSidebar() {
           <span class="menu-text">优惠券</span>
         </div>
         
-        <div class="menu-item" data-page="promotions">
+        <div class="menu-item" data-page="activities">
           <img class="menu-icon" src="../images/icons/settings.svg" alt="活动管理">
           <span class="menu-text">活动管理</span>
         </div>

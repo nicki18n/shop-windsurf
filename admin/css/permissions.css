@@ -1,0 +1,523 @@
+/* 全局样式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: #f5f5f7;
+  color: #1d1d1f;
+  line-height: 1.5;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* 布局 */
+.admin-container {
+  display: flex;
+  width: 100%;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  margin-left: 220px;
+}
+
+/* 顶部导航 */
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1d1d1f;
+}
+
+.action-btn {
+  background-color: #007AFF;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.2s;
+}
+
+.action-btn:hover {
+  background-color: #0066CC;
+}
+
+/* 权限管理容器 */
+.permissions-container {
+  display: flex;
+  gap: 20px;
+}
+
+/* 角色列表部分 */
+.roles-section {
+  width: 250px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.section-title {
+  padding: 16px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1d1d1f;
+  border-bottom: 1px solid #e8e8ed;
+}
+
+.roles-list {
+  padding: 10px 0;
+}
+
+.role-item {
+  padding: 14px 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.role-item:hover {
+  background-color: #f5f5f7;
+}
+
+.role-item.active {
+  background-color: #e8f0fd;
+  border-left: 3px solid #007AFF;
+}
+
+.role-name {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.role-count {
+  font-size: 12px;
+  color: #86868b;
+  background-color: #f2f2f7;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+/* 权限配置部分 */
+.permissions-section {
+  flex: 1;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.section-header {
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e8e8ed;
+}
+
+.role-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1d1d1f;
+}
+
+.role-actions {
+  display: flex;
+  gap: 16px;
+}
+
+.text-btn {
+  background: none;
+  border: none;
+  color: #007AFF;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.text-btn:hover {
+  text-decoration: underline;
+}
+
+.text-btn.danger {
+  color: #ff3b30;
+}
+
+/* 权限组 */
+.permission-groups {
+  padding: 20px;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.permission-group {
+  border: 1px solid #e8e8ed;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.group-header {
+  background-color: #f8f8fa;
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e8e8ed;
+}
+
+.group-title {
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.group-title i {
+  color: #007AFF;
+}
+
+.group-toggle {
+  display: flex;
+  align-items: center;
+}
+
+.toggle-input {
+  margin-right: 6px;
+}
+
+.toggle-label {
+  font-size: 14px;
+  color: #6e6e73;
+}
+
+/* 权限项 */
+.permission-items {
+  padding: 10px 0;
+}
+
+.permission-item {
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f5f5f7;
+}
+
+.permission-item:last-child {
+  border-bottom: none;
+}
+
+.permission-name {
+  font-size: 14px;
+}
+
+/* 开关样式 */
+.switch-input {
+  display: none;
+}
+
+.switch-label {
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  background-color: #d2d2d7;
+  border-radius: 12px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.switch-label::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #fff;
+  top: 2px;
+  left: 2px;
+  transition: left 0.2s;
+}
+
+.switch-input:checked + .switch-label {
+  background-color: #34c759;
+}
+
+.switch-input:checked + .switch-label::after {
+  left: 22px;
+}
+
+/* 底部按钮 */
+.section-footer {
+  padding: 16px 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  border-top: 1px solid #e8e8ed;
+}
+
+.cancel-btn {
+  background-color: #f5f5f7;
+  color: #1d1d1f;
+  border: 1px solid #d2d2d7;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.save-btn {
+  background-color: #007AFF;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  background-color: #e8e8ed;
+}
+
+.save-btn:hover {
+  background-color: #0066CC;
+}
+
+/* 模态框样式 */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 12px;
+  width: 500px;
+  max-width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #e8e8ed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.modal-close {
+  font-size: 24px;
+  cursor: pointer;
+  color: #86868b;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-footer {
+  padding: 16px 20px;
+  border-top: 1px solid #e8e8ed;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.confirm-btn {
+  background-color: #007AFF;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.confirm-btn:hover {
+  background-color: #0066CC;
+}
+
+/* 表单样式 */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d2d2d7;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.form-textarea {
+  resize: vertical;
+}
+
+/* 角色用户管理样式 */
+.search-add-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.search-box {
+  position: relative;
+  width: 300px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #86868b;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 12px 10px 36px;
+  border: 1px solid #d2d2d7;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.add-user-btn {
+  background-color: #007AFF;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.role-users-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.role-user-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid #e8e8ed;
+  border-radius: 8px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-name {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.user-account {
+  font-size: 13px;
+  color: #86868b;
+}
+
+/* 响应式样式 */
+@media (max-width: 992px) {
+  .permissions-container {
+    flex-direction: column;
+  }
+  
+  .roles-section {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    padding: 15px;
+  }
+  
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .role-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}

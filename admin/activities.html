@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>活动管理 - 花涧珠光水彩商城</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="css/activities.css">
+  <style>
+    /* 侧边栏样式 */
+    .sidebar {
+      width: 220px;
+      background-color: #2c2c2e;
+      color: #fff;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+    
+    .sidebar-header {
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .sidebar-logo {
+      width: 50px;
+      height: 50px;
+      margin: 0 auto 10px;
+      background-color: #fff;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .sidebar-logo img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+    }
+    
+    .sidebar-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    
+    .sidebar-menu {
+      padding: 20px 0;
+    }
+    
+    .menu-category {
+      margin-bottom: 15px;
+      padding: 0 20px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .menu-item {
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .menu-item:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .menu-item.active {
+      background-color: #ff6b6b;
+    }
+    
+    .menu-icon {
+      width: 18px;
+      height: 18px;
+      margin-right: 12px;
+      opacity: 0.7;
+    }
+    
+    .menu-text {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <!-- 侧边栏容器 -->
+    <div class="sidebar-container"></div>
+    
+    <!-- 主内容区 -->
+    <div class="main-content">
+      <!-- 顶部导航 -->
+      <div class="top-nav">
+        <div class="page-title">活动管理</div>
+        <button class="action-btn">
+          <img src="../images/icons/plus.svg" alt="新增" width="16" height="16">
+          新增活动
+        </button>
+      </div>
+      
+      <div class="search-filter">
+        <div class="search-box">
+          <img src="../images/icons/search.svg" alt="搜索" class="search-icon">
+          <input type="text" class="search-input" placeholder="搜索活动名称、关键词">
+        </div>
+        <div class="filter-actions">
+          <div class="filter-btn">
+            <img src="../images/icons/filter.svg" alt="筛选" width="16" height="16">
+            筛选
+          </div>
+        </div>
+      </div>
+      
+      <div class="filter-section">
+        <div class="filter-row">
+          <div class="filter-label">活动类型</div>
+          <div class="filter-options">
+            <div class="filter-option active">全部</div>
+            <div class="filter-option">限时折扣</div>
+            <div class="filter-option">满减活动</div>
+            <div class="filter-option">新品首发</div>
+            <div class="filter-option">秒杀活动</div>
+            <div class="filter-option">拼团活动</div>
+            <div class="filter-option">会员专享</div>
+          </div>
+        </div>
+        <div class="filter-row">
+          <div class="filter-label">活动状态</div>
+          <div class="filter-options">
+            <div class="filter-option active">全部</div>
+            <div class="filter-option">进行中</div>
+            <div class="filter-option">即将开始</div>
+            <div class="filter-option">已结束</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="activity-list">
+        <!-- 活动卡片1 -->
+        <div class="activity-card">
+          <img src="https://picsum.photos/id/237/400/200" alt="夏日水彩特惠" class="activity-image">
+          <div class="activity-content">
+            <div class="activity-header">
+              <div class="activity-info">
+                <div class="activity-name">夏日水彩特惠</div>
+                <div class="activity-type">限时折扣</div>
+              </div>
+              <div class="activity-status active">进行中</div>
+            </div>
+            <div class="activity-details">
+              <div class="activity-detail">
+                <img src="../images/icons/calendar.svg" alt="日期" class="activity-detail-icon">
+                2025-05-20 至 2025-06-20
+              </div>
+              <div class="activity-detail">
+                <img src="../images/icons/tag.svg" alt="折扣" class="activity-detail-icon">
+                全场水彩颜料8折起
+              </div>
+              <div class="activity-detail">
+                <img src="../images/icons/user.svg" alt="参与" class="activity-detail-icon">
+                已有1253人参与
+              </div>
+            </div>
+            <div class="activity-actions">
+              <div class="edit-btn" data-id="1">编辑</div>
+              <div class="view-btn" data-id="1">查看</div>
+              <div class="delete-btn" data-id="1">删除</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 活动卡片2 -->
+        <div class="activity-card">
+          <img src="https://picsum.photos/id/238/400/200" alt="新品首发 - 珠光水彩套装" class="activity-image">
+          <div class="activity-content">
+            <div class="activity-header">
+              <div class="activity-info">
+                <div class="activity-name">新品首发 - 珠光水彩套装</div>
+                <div class="activity-type">新品首发</div>
+              </div>
+              <div class="activity-status upcoming">即将开始</div>
+            </div>
+            <div class="activity-details">
+              <div class="activity-detail">
+                <img src="../images/icons/calendar.svg" alt="日期" class="activity-detail-icon">
+                2025-06-01 至 2025-06-15
+              </div>
+              <div class="activity-detail">
+                <img src="../images/icons/tag.svg" alt="折扣" class="activity-detail-icon">
+                首发价¥299（原价¥399）
+              </div>
+              <div class="activity-detail">
+                <img src="../images/icons/gift.svg" alt="赠品" class="activity-detail-icon">
+                赠送精美水彩笔记本
+              </div>
+            </div>
+            <div class="activity-actions">
+              <div class="edit-btn" data-id="2">编辑</div>
+              <div class="view-btn" data-id="2">查看</div>
+              <div class="delete-btn" data-id="2">删除</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 活动卡片3 -->
+        <div class="activity-card">
+          <img src="https://picsum.photos/id/239/400/200" alt="618水彩艺术节" class="activity-image">
+          <div class="activity-content">
+            <div class="activity-header">
+              <div class="activity-info">
+                <div class="activity-name">618水彩艺术节</div>
+                <div class="activity-type">满减活动</div>
+              </div>
+              <div class="activity-status upcoming">即将开始</div>
+            </div>
+            <div class="activity-details">
+              <div class="activity-detail">
+                <img src="../images/icons/calendar.svg" alt="日期" class="activity-detail-icon">
+                2025-06-10 至 2025-06-18
+              </div>
+              <div class="activity-detail">
+                <img src="../images/icons/tag.svg" alt="满减" class="activity-detail-icon">
+                满300减50，满500减100
+              </div>
+              <div class="activity-detail">
+                <img src="../images/icons/coupon.svg" alt="优惠券" class="activity-detail-icon">
+                可叠加使用优惠券
+              </div>
+            </div>
+            <div class="activity-actions">
+              <div class="edit-btn" data-id="3">编辑</div>
+              <div class="view-btn" data-id="3">查看</div>
+              <div class="delete-btn" data-id="3">删除</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 活动卡片4 -->
+        <div class="activity-card">
+          <img src="https://picsum.photos/id/240/400/200" alt="水彩课程体验" class="activity-image">
+          <div class="activity-content">
+            <div class="activity-header">
+              <div class="activity-info">
+                <div class="activity-name">水彩课程体验</div>
+                <div class="activity-type">会员专享</div>
+              </div>
+              <div class="activity-status ended">已结束</div>
+            </div>
+            <div class="activity-details">
+              <div class="activity-detail">
+                <img src="../images/icons/calendar.svg" alt="日期" class="activity-detail-icon">
+                2025-05-01 至 2025-05-15
+              </div>
+              <div class="activity-detail">
+                <img src="../images/icons/tag.svg" alt="优惠" class="activity-detail-icon">
+                会员专享课程5折
+              </div>
+              <div class="activity-detail">
+                <img src="../images/icons/user.svg" alt="参与" class="activity-detail-icon">
+                共有876人参与
+              </div>
+            </div>
+            <div class="activity-actions">
+              <div class="edit-btn" data-id="4">编辑</div>
+              <div class="view-btn" data-id="4">查看</div>
+              <div class="delete-btn" data-id="4">删除</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 活动卡片5 -->
+        <div class="activity-card">
+          <img src="https://picsum.photos/id/241/400/200" alt="水彩工具秒杀" class="activity-image">
+          <div class="activity-content">
+            <div class="activity-header">
+              <div class="activity-info">
+                <div class="activity-name">水彩工具秒杀</div>
+                <div class="activity-type">秒杀活动</div>
+              </div>
+              <div class="activity-status active">进行中</div>
+            </div>
+            <div class="activity-details">
+              <div class="activity-detail">
+                <img src="../images/icons/calendar.svg" alt="日期" class="activity-detail-icon">
+                2025-05-25 至 2025-06-05
+              </div>
+              <div class="activity-detail">
+                <img src="../images/icons/clock.svg" alt="时间" class="activity-detail-icon">
+                每天10:00、14:00、20:00
+              </div>
+              <div class="activity-detail">
+                <img src="../images/icons/tag.svg" alt="折扣" class="activity-detail-icon">
+                低至3折，每场限量100件
+              </div>
+            </div>
+            <div class="activity-actions">
+              <div class="edit-btn" data-id="5">编辑</div>
+              <div class="view-btn" data-id="5">查看</div>
+              <div class="delete-btn" data-id="5">删除</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 活动卡片6 -->
+        <div class="activity-card">
+          <img src="https://picsum.photos/id/242/400/200" alt="水彩画材拼团" class="activity-image">
+          <div class="activity-content">
+            <div class="activity-header">
+              <div class="activity-info">
+                <div class="activity-name">水彩画材拼团</div>
+                <div class="activity-type">拼团活动</div>
+              </div>
+              <div class="activity-status active">进行中</div>
+            </div>
+            <div class="activity-details">
+              <div class="activity-detail">
+                <img src="../images/icons/calendar.svg" alt="日期" class="activity-detail-icon">
+                2025-05-15 至 2025-06-15
+              </div>
+              <div class="activity-detail">
+                <img src="../images/icons/users.svg" alt="拼团" class="activity-detail-icon">
+                3人成团，立减100元
+              </div>
+              <div class="activity-detail">
+                <img src="../images/icons/user.svg" alt="参与" class="activity-detail-icon">
+                已有2145人参与拼团
+              </div>
+            </div>
+            <div class="activity-actions">
+              <div class="edit-btn" data-id="6">编辑</div>
+              <div class="view-btn" data-id="6">查看</div>
+              <div class="delete-btn" data-id="6">删除</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="pagination">
+        <div class="page-item active">1</div>
+        <div class="page-item">2</div>
+        <div class="page-item">3</div>
+        <div class="page-item">...</div>
+        <div class="page-item">10</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 编辑活动弹窗 -->
+  <div class="modal" id="editActivityModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title" id="editActivityTitle">编辑活动</div>
+        <div class="modal-close" id="closeEditActivityModal">×</div>
+      </div>
+      <div class="modal-body">
+        <!-- 基本信息 -->
+        <div class="form-group">
+          <label class="form-label">活动名称</label>
+          <input type="text" class="form-input" id="activityName" placeholder="请输入活动名称">
+        </div>
+        
+        <div class="form-row">
+          <div class="form-col">
+            <div class="form-group">
+              <label class="form-label">活动类型</label>
+              <select class="form-select" id="activityType">
+                <option value="discount">限时折扣</option>
+                <option value="minus">满减活动</option>
+                <option value="new">新品首发</option>
+                <option value="flash">秒杀活动</option>
+                <option value="group">拼团活动</option>
+                <option value="member">会员专享</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="form-group">
+              <label class="form-label">活动状态</label>
+              <div class="form-radio-group">
+                <label class="form-radio-item">
+                  <input type="radio" name="activityStatus" class="form-radio" value="active" checked> 进行中
+                </label>
+                <label class="form-radio-item">
+                  <input type="radio" name="activityStatus" class="form-radio" value="upcoming"> 即将开始
+                </label>
+                <label class="form-radio-item">
+                  <input type="radio" name="activityStatus" class="form-radio" value="ended"> 已结束
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 活动时间 -->
+        <div class="form-row">
+          <div class="form-col">
+            <div class="form-group">
+              <label class="form-label">开始时间</label>
+              <input type="datetime-local" class="form-input" id="activityStartTime">
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="form-group">
+              <label class="form-label">结束时间</label>
+              <input type="datetime-local" class="form-input" id="activityEndTime">
+            </div>
+          </div>
+        </div>
+        
+        <!-- 活动封面 -->
+        <div class="form-group">
+          <label class="form-label">活动封面图</label>
+          <div class="form-upload">
+            <div class="upload-preview" id="coverPreview">
+              <img src="https://picsum.photos/id/237/400/200" alt="封面预览" id="coverImage">
+            </div>
+            <div class="upload-actions">
+              <button class="upload-btn" id="uploadCoverBtn">上传图片</button>
+              <div class="upload-tip">建议尺寸：800×400px，JPG/PNG格式</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 活动描述 -->
+        <div class="form-group">
+          <label class="form-label">活动描述</label>
+          <textarea class="form-textarea" id="activityDescription" placeholder="请输入活动描述"></textarea>
+        </div>
+        
+        <!-- 活动规则 -->
+        <div class="form-group">
+          <label class="form-label">活动规则</label>
+          <textarea class="form-textarea" id="activityRules" placeholder="请输入活动规则"></textarea>
+        </div>
+        
+        <!-- 参与商品 -->
+        <div class="form-group">
+          <label class="form-label">参与商品</label>
+          <div class="form-select-products">
+            <div class="select-products-header">
+              <select class="form-select" id="productSelectType">
+                <option value="all">全部商品</option>
+                <option value="category">按分类选择</option>
+                <option value="custom">自定义选择</option>
+              </select>
+              <button class="select-products-btn" id="selectProductsBtn">选择商品</button>
+            </div>
+            <div class="selected-products" id="selectedProducts">
+              <div class="selected-product">
+                <img src="https://picsum.photos/id/100/60/60" alt="珠光水彩24色套装" class="product-thumbnail">
+                <div class="product-info">
+                  <div class="product-name">珠光水彩24色套装</div>
+                  <div class="product-price">¥299.00</div>
+                </div>
+                <div class="remove-product">×</div>
+              </div>
+              <div class="selected-product">
+                <img src="https://picsum.photos/id/101/60/60" alt="专业水彩20张" class="product-thumbnail">
+                <div class="product-info">
+                  <div class="product-name">专业水彩20张</div>
+                  <div class="product-price">¥89.00</div>
+                </div>
+                <div class="remove-product">×</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 优惠方式 -->
+        <div class="form-group">
+          <label class="form-label">优惠方式</label>
+          <div class="form-row">
+            <div class="form-col">
+              <select class="form-select" id="discountType">
+                <option value="percent">折扣</option>
+                <option value="minus">满减</option>
+                <option value="direct">直降</option>
+                <option value="gift">赠品</option>
+              </select>
+            </div>
+            <div class="form-col discount-value-container">
+              <div class="discount-percent">
+                <input type="number" class="form-input" id="discountPercent" placeholder="例如：80">
+                <span class="discount-unit">%</span>
+              </div>
+              <div class="discount-minus" style="display: none;">
+                <div>满</div>
+                <input type="number" class="form-input" id="minusThreshold" placeholder="例如：300">
+                <div>减</div>
+                <input type="number" class="form-input" id="minusAmount" placeholder="例如：50">
+              </div>
+              <div class="discount-direct" style="display: none;">
+                <div>直降</div>
+                <input type="number" class="form-input" id="directAmount" placeholder="例如：100">
+                <div>元</div>
+              </div>
+              <div class="discount-gift" style="display: none;">
+                <input type="text" class="form-input" id="giftName" placeholder="赠品名称">
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 活动标签 -->
+        <div class="form-group">
+          <label class="form-label">活动标签</label>
+          <div class="form-tags">
+            <div class="tags-input-container">
+              <input type="text" class="form-input tags-input" id="tagInput" placeholder="输入标签后按回车添加">
+            </div>
+            <div class="tags-container" id="tagsContainer">
+              <div class="tag">限时折扣<span class="remove-tag">×</span></div>
+              <div class="tag">夏季特惠<span class="remove-tag">×</span></div>
+              <div class="tag">水彩<span class="remove-tag">×</span></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 排序设置 -->
+        <div class="form-group">
+          <label class="form-label">排序权重</label>
+          <input type="number" class="form-input" id="activitySort" placeholder="数字越大排序越靠前">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="modal-btn secondary" id="cancelEditActivity">取消</div>
+        <div class="modal-btn primary" id="saveActivity">保存</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 查看活动详情弹窗 -->
+  <div class="modal" id="viewActivityModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">活动详情</div>
+        <div class="modal-close" id="closeViewActivityModal">×</div>
+      </div>
+      <div class="modal-body">
+        <div class="activity-detail-view">
+          <div class="activity-detail-cover">
+            <img src="https://picsum.photos/id/237/800/400" alt="活动封面" id="detailCoverImage">
+          </div>
+          <div class="activity-detail-info">
+            <h2 class="activity-detail-name" id="detailName">夏日水彩特惠</h2>
+            <div class="activity-detail-meta">
+              <div class="activity-detail-type" id="detailType">限时折扣</div>
+              <div class="activity-detail-status active" id="detailStatus">进行中</div>
+            </div>
+            <div class="activity-detail-time" id="detailTime">
+              <img src="../images/icons/calendar.svg" alt="日期" class="activity-detail-icon">
+              2025-05-20 至 2025-06-20
+            </div>
+            <div class="activity-detail-discount" id="detailDiscount">
+              <img src="../images/icons/tag.svg" alt="折扣" class="activity-detail-icon">
+              全场水彩颜料8折起
+            </div>
+            <div class="activity-detail-participants" id="detailParticipants">
+              <img src="../images/icons/user.svg" alt="参与" class="activity-detail-icon">
+              已有1253人参与
+            </div>
+          </div>
+          <div class="activity-detail-section">
+            <h3 class="section-title">活动描述</h3>
+            <div class="section-content" id="detailDescription">
+              夏日来临，花涧珠光水彩推出夏季特惠活动，全场水彩颜料8折起，更有精美赠品相送。
+            </div>
+          </div>
+          <div class="activity-detail-section">
+            <h3 class="section-title">活动规则</h3>
+            <div class="section-content" id="detailRules">
+              1. 活动时间：2025年5月20日至2025年6月20日；<br>
+              2. 活动期间，全场水彩颜料8折起；<br>
+              3. 单笔订单满300元赠送精美水彩笔记本一本；<br>
+              4. 活动商品不与其他优惠同享；<br>
+              5. 本活动最终解释权归花涧珠光水彩所有。
+            </div>
+          </div>
+          <div class="activity-detail-section">
+            <h3 class="section-title">参与商品</h3>
+            <div class="activity-products" id="detailProducts">
+              <div class="activity-product">
+                <img src="https://picsum.photos/id/100/80/80" alt="珠光水彩24色套装" class="product-image">
+                <div class="product-detail">
+                  <div class="product-name">珠光水彩24色套装</div>
+                  <div class="product-price">
+                    <span class="current-price">¥239.00</span>
+                    <span class="original-price">¥299.00</span>
+                  </div>
+                </div>
+              </div>
+              <div class="activity-product">
+                <img src="https://picsum.photos/id/101/80/80" alt="专业水彩20张" class="product-image">
+                <div class="product-detail">
+                  <div class="product-name">专业水彩20张</div>
+                  <div class="product-price">
+                    <span class="current-price">¥71.00</span>
+                    <span class="original-price">¥89.00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="modal-btn primary" id="closeDetailBtn">关闭</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 删除确认弹窗 -->
+  <div class="modal" id="deleteConfirmModal">
+    <div class="modal-content" style="max-width: 400px;">
+      <div class="modal-header">
+        <div class="modal-title">删除确认</div>
+        <div class="modal-close" id="closeDeleteConfirmModal">×</div>
+      </div>
+      <div class="modal-body">
+        <div class="confirm-message">
+          确定要删除活动"<span id="deleteActivityName">夏日水彩特惠</span>"吗？此操作不可恢复。
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="modal-btn secondary" id="cancelDelete">取消</div>
+        <div class="modal-btn danger" id="confirmDelete">确认删除</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 引入公共JS -->
+  <script src="js/common.js"></script>
+  <script src="js/activities.js"></script>
+</body>
+</html>

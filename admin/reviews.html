@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>评价管理 - 花涧珠光水彩商城</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="css/reviews.css">
+  <style>
+    /* 侧边栏样式 */
+    .sidebar {
+      width: 220px;
+      background-color: #2c2c2e;
+      color: #fff;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+    
+    .sidebar-header {
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .sidebar-logo {
+      width: 50px;
+      height: 50px;
+      margin: 0 auto 10px;
+      background-color: #fff;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .sidebar-logo img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+    }
+    
+    .sidebar-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    
+    .sidebar-menu {
+      padding: 20px 0;
+    }
+    
+    .menu-category {
+      margin-bottom: 15px;
+      padding: 0 20px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .menu-item {
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .menu-item:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .menu-item.active {
+      background-color: #ff6b6b;
+    }
+    
+    .menu-icon {
+      width: 18px;
+      height: 18px;
+      margin-right: 12px;
+      opacity: 0.7;
+    }
+    
+    .menu-text {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <!-- 侧边栏容器 -->
+    <div class="sidebar-container"></div>
+    
+    <!-- 主内容区 -->
+    <div class="main-content">
+      <!-- 顶部导航 -->
+      <div class="top-nav">
+        <div class="page-title">评价管理</div>
+        <div class="header-actions">
+          <button class="action-btn secondary">
+            <img src="../images/icons/download.svg" alt="导出" width="16" height="16">
+            导出评价
+          </button>
+        </div>
+      </div>
+      
+      <!-- 筛选区域 -->
+      <div class="filter-section">
+        <div class="filter-row">
+          <div class="filter-label">评价类型</div>
+          <div class="filter-options">
+            <div class="filter-option active" data-type="all">全部</div>
+            <div class="filter-option" data-type="positive">好评</div>
+            <div class="filter-option" data-type="neutral">中评</div>
+            <div class="filter-option" data-type="negative">差评</div>
+            <div class="filter-option" data-type="with-image">有图</div>
+            <div class="filter-option" data-type="pending">待回复</div>
+          </div>
+        </div>
+        
+        <div class="filter-row">
+          <div class="filter-label">评价时间</div>
+          <div class="filter-options">
+            <div class="filter-option active" data-time="all">全部时间</div>
+            <div class="filter-option" data-time="today">今天</div>
+            <div class="filter-option" data-time="week">本周</div>
+            <div class="filter-option" data-time="month">本月</div>
+            <div class="filter-option" data-time="custom">自定义</div>
+          </div>
+        </div>
+        
+        <div class="filter-row date-range" style="display: none;">
+          <div class="filter-label"></div>
+          <div class="date-picker-container">
+            <input type="date" class="date-picker" id="startDate">
+            <span class="date-separator">至</span>
+            <input type="date" class="date-picker" id="endDate">
+            <button class="date-confirm-btn">确定</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 搜索和排序 -->
+      <div class="search-sort">
+        <div class="search-box">
+          <img src="../images/icons/search.svg" alt="搜索" class="search-icon">
+          <input type="text" class="search-input" placeholder="搜索商品名称、评价内容或用户名">
+        </div>
+        
+        <div class="sort-options">
+          <span class="sort-label">排序：</span>
+          <div class="sort-option active" data-sort="time-desc">最新</div>
+          <div class="sort-option" data-sort="time-asc">最早</div>
+          <div class="sort-option" data-sort="rating-desc">评分从高到低</div>
+          <div class="sort-option" data-sort="rating-asc">评分从低到高</div>
+        </div>
+      </div>
+      
+      <!-- 评价列表 -->
+      <div class="reviews-list">
+        <!-- 评价项 1 -->
+        <div class="review-item">
+          <div class="review-header">
+            <div class="review-user">
+              <img src="https://picsum.photos/id/64/40/40" alt="用户头像" class="user-avatar">
+              <div class="user-info">
+                <div class="user-name">张小明</div>
+                <div class="review-time">2025-05-28 14:23</div>
+              </div>
+            </div>
+            <div class="review-rating">
+              <div class="stars">
+                <img src="../images/icons/star-filled.svg" alt="星" class="star-icon">
+                <img src="../images/icons/star-filled.svg" alt="星" class="star-icon">
+                <img src="../images/icons/star-filled.svg" alt="星" class="star-icon">
+                <img src="../images/icons/star-filled.svg" alt="星" class="star-icon">
+                <img src="../images/icons/star-filled.svg" alt="星" class="star-icon">
+              </div>
+              <div class="rating-text">5.0</div>
+            </div>
+          </div>
+          
+          <div class="review-product">
+            <img src="https://picsum.photos/id/96/60/60" alt="珠光水彩24色套装" class="product-image">
+            <div class="product-info">
+              <div class="product-name">珠光水彩24色套装</div>
+              <div class="product-spec">规格：标准版</div>
+            </div>
+          </div>
+          
+          <div class="review-content">
+            颜色非常漂亮，珠光效果很好，水彩质量很高，非常适合初学者使用。包装也很精美，送人自用两相宜。
+          </div>
+          
+          <div class="review-images">
+            <img src="https://picsum.photos/id/96/100/100" alt="评价图片" class="review-image">
+            <img src="https://picsum.photos/id/42/100/100" alt="评价图片" class="review-image">
+            <img src="https://picsum.photos/id/106/100/100" alt="评价图片" class="review-image">
+          </div>
+          
+          <div class="review-reply">
+            <div class="reply-header">
+              <span class="shop-tag">商家回复</span>
+              <span class="reply-time">2025-05-28 15:40</span>
+            </div>
+            <div class="reply-content">
+              感谢您的支持和认可！我们一直致力于提供高品质的水彩产品，希望能给您带来更好的创作体验。如有任何问题，欢迎随时联系我们。
+            </div>
+          </div>
+          
+          <div class="review-actions">
+            <button class="review-action-btn reply-btn">回复</button>
+            <button class="review-action-btn hide-btn">隐藏</button>
+            <button class="review-action-btn delete-btn">删除</button>
+          </div>
+        </div>
+        
+        <!-- 评价项 2 -->
+        <div class="review-item">
+          <div class="review-header">
+            <div class="review-user">
+              <img src="https://picsum.photos/id/65/40/40" alt="用户头像" class="user-avatar">
+              <div class="user-info">
+                <div class="user-name">李华</div>
+                <div class="review-time">2025-05-27 09:15</div>
+              </div>
+            </div>
+            <div class="review-rating">
+              <div class="stars">
+                <img src="../images/icons/star-filled.svg" alt="星" class="star-icon">
+                <img src="../images/icons/star-filled.svg" alt="星" class="star-icon">
+                <img src="../images/icons/star-filled.svg" alt="星" class="star-icon">
+                <img src="../images/icons/star-filled.svg" alt="星" class="star-icon">
+                <img src="../images/icons/star-empty.svg" alt="星" class="star-icon">
+              </div>
+              <div class="rating-text">4.0</div>
+            </div>
+          </div>
+          
+          <div class="review-product">
+            <img src="https://picsum.photos/id/100/60/60" alt="专业水彩纸20张" class="product-image">
+            <div class="product-info">
+              <div class="product-name">专业水彩纸20张</div>
+              <div class="product-spec">规格：300g</div>
+            </div>
+          </div>
+          
+          <div class="review-content">
+            纸张质量不错，但是有一张有轻微的折痕，可能是运输过程中造成的。总体来说还是很满意的，吸水性好，不易变形。
+          </div>
+          
+          <div class="review-actions">
+            <button class="review-action-btn reply-btn">回复</button>
+            <button class="review-action-btn hide-btn">隐藏</button>
+            <button class="review-action-btn delete-btn">删除</button>
+          </div>
+        </div>
+        
+        <!-- 评价项 3 -->
+        <div class="review-item negative">
+          <div class="review-header">
+            <div class="review-user">
+              <img src="https://picsum.photos/id/66/40/40" alt="用户头像" class="user-avatar">
+              <div class="user-info">
+                <div class="user-name">王小红</div>
+                <div class="review-time">2025-05-26 16:42</div>
+              </div>
+            </div>
+            <div class="review-rating">
+              <div class="stars">
+                <img src="../images/icons/star-filled.svg" alt="星" class="star-icon">
+                <img src="../images/icons/star-filled.svg" alt="星" class="star-icon">
+                <img src="../images/icons/star-empty.svg" alt="星" class="star-icon">
+                <img src="../images/icons/star-empty.svg" alt="星" class="star-icon">
+                <img src="../images/icons/star-empty.svg" alt="星" class="star-icon">
+              </div>
+              <div class="rating-text">2.0</div>
+            </div>
+          </div>
+          
+          <div class="review-product">
+            <img src="https://picsum.photos/id/101/60/60" alt="水彩笔套装" class="product-image">
+            <div class="product-info">
+              <div class="product-name">水彩笔套装</div>
+              <div class="product-spec">规格：36色</div>
+            </div>
+          </div>
+          
+          <div class="review-content">
+            收到的商品有两支笔的笔帽已经松动了，而且颜色不如图片上看起来那么饱满。希望商家能够改进产品质量。
+          </div>
+          
+          <div class="review-images">
+            <img src="https://picsum.photos/id/20/100/100" alt="评价图片" class="review-image">
+            <img src="https://picsum.photos/id/21/100/100" alt="评价图片" class="review-image">
+          </div>
+          
+          <div class="review-actions">
+            <button class="review-action-btn reply-btn">回复</button>
+            <button class="review-action-btn hide-btn">隐藏</button>
+            <button class="review-action-btn delete-btn">删除</button>
+          </div>
+        </div>
+        
+        <!-- 评价项 4 -->
+        <div class="review-item">
+          <div class="review-header">
+            <div class="review-user">
+              <img src="https://picsum.photos/id/67/40/40" alt="用户头像" class="user-avatar">
+              <div class="user-info">
+                <div class="user-name">赵明</div>
+                <div class="review-time">2025-05-25 11:30</div>
+              </div>
+            </div>
+            <div class="review-rating">
+              <div class="stars">
+                <img src="../images/icons/star-filled.svg" alt="星" class="star-icon">
+                <img src="../images/icons/star-filled.svg" alt="星" class="star-icon">
+                <img src="../images/icons/star-filled.svg" alt="星" class="star-icon">
+                <img src="../images/icons/star-filled.svg" alt="星" class="star-icon">
+                <img src="../images/icons/star-filled.svg" alt="星" class="star-icon">
+              </div>
+              <div class="rating-text">5.0</div>
+            </div>
+          </div>
+          
+          <div class="review-product">
+            <img src="https://picsum.photos/id/102/60/60" alt="水彩画笔套装" class="product-image">
+            <div class="product-info">
+              <div class="product-name">水彩画笔套装</div>
+              <div class="product-spec">规格：12支装</div>
+            </div>
+          </div>
+          
+          <div class="review-content">
+            笔质非常好，握感舒适，毛质柔软有弹性，蘸水后出水均匀，非常适合水彩画创作。强烈推荐给其他水彩爱好者！
+          </div>
+          
+          <div class="review-actions">
+            <button class="review-action-btn reply-btn">回复</button>
+            <button class="review-action-btn hide-btn">隐藏</button>
+            <button class="review-action-btn delete-btn">删除</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 分页 -->
+      <div class="pagination">
+        <div class="page-item disabled">&lt;</div>
+        <div class="page-item active">1</div>
+        <div class="page-item">2</div>
+        <div class="page-item">3</div>
+        <div class="page-item">4</div>
+        <div class="page-item">5</div>
+        <div class="page-item">...</div>
+        <div class="page-item">10</div>
+        <div class="page-item">&gt;</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 回复评价弹窗 -->
+  <div class="modal" id="replyModal">
+    <div class="modal-content" style="max-width: 500px;">
+      <div class="modal-header">
+        <div class="modal-title">回复评价</div>
+        <div class="modal-close" id="closeReplyModal">×</div>
+      </div>
+      <div class="modal-body">
+        <div class="reply-review-content">
+          <div class="review-user-info">
+            <img src="https://picsum.photos/id/64/40/40" alt="用户头像" class="user-avatar-small">
+            <span class="user-name-small">张小明</span>
+            <span class="review-time-small">2025-05-28 14:23</span>
+          </div>
+          <div class="quoted-review">
+            颜色非常漂亮，珠光效果很好，水彩质量很高，非常适合初学者使用。包装也很精美，送人自用两相宜。
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">回复内容</label>
+          <textarea class="form-textarea" id="replyContent" placeholder="请输入回复内容..." rows="5"></textarea>
+        </div>
+        
+        <div class="form-group">
+          <div class="form-checkbox">
+            <input type="checkbox" id="saveAsTemplate" class="form-check">
+            <label for="saveAsTemplate" class="form-check-label">保存为回复模板</label>
+          </div>
+        </div>
+        
+        <div class="reply-templates">
+          <div class="template-title">常用回复模板</div>
+          <div class="template-list">
+            <div class="template-item">感谢您的支持和认可！我们一直致力于提供高品质的水彩产品，希望能给您带来更好的创作体验。如有任何问题，欢迎随时联系我们。</div>
+            <div class="template-item">非常抱歉给您带来不愉快的体验，我们会认真对待您的反馈并改进产品质量。请您提供订单号，我们将安排售后人员与您联系处理。</div>
+            <div class="template-item">您好，感谢您的购买和评价！如果在使用过程中有任何问题，欢迎随时联系我们的客服。祝您创作愉快！</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="modal-btn secondary" id="cancelReply">取消</div>
+        <div class="modal-btn primary" id="submitReply">提交回复</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 引入公共JS -->
+  <script src="js/common.js"></script>
+  <script src="js/reviews.js"></script>
+</body>
+</html>

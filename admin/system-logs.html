@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>系统日志 - 花涧珠光水彩商城</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="css/system-logs.css">
+  <style>
+    /* 侧边栏样式 */
+    .sidebar {
+      width: 220px;
+      background-color: #2c2c2e;
+      color: #fff;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+    
+    .sidebar-header {
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .sidebar-logo {
+      width: 50px;
+      height: 50px;
+      margin: 0 auto 10px;
+      background-color: #fff;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .sidebar-logo img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+    }
+    
+    .sidebar-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    
+    .sidebar-menu {
+      padding: 20px 0;
+    }
+    
+    .menu-category {
+      margin-bottom: 15px;
+      padding: 0 20px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .menu-item {
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .menu-item:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .menu-item.active {
+      background-color: #ff6b6b;
+    }
+    
+    .menu-icon {
+      width: 18px;
+      height: 18px;
+      margin-right: 12px;
+      opacity: 0.7;
+    }
+    
+    .menu-text {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <!-- 侧边栏容器 -->
+    <div class="sidebar-container"></div>
+    
+    <!-- 主内容区 -->
+    <div class="main-content">
+      <!-- 顶部导航 -->
+      <div class="top-nav">
+        <div class="page-title">系统日志</div>
+        <div class="header-actions">
+          <button class="action-btn secondary">
+            <i class="fas fa-download"></i>
+            导出日志
+          </button>
+          <button class="action-btn danger">
+            <i class="fas fa-trash-alt"></i>
+            清空日志
+          </button>
+        </div>
+      </div>
+      
+      <!-- 筛选区域 -->
+      <div class="filter-section">
+        <div class="filter-row">
+          <div class="filter-label">日志类型</div>
+          <div class="filter-options">
+            <div class="filter-option active" data-type="all">全部</div>
+            <div class="filter-option" data-type="login">登录日志</div>
+            <div class="filter-option" data-type="operation">操作日志</div>
+            <div class="filter-option" data-type="error">错误日志</div>
+            <div class="filter-option" data-type="system">系统日志</div>
+          </div>
+        </div>
+        
+        <div class="filter-row">
+          <div class="filter-label">日志级别</div>
+          <div class="filter-options">
+            <div class="filter-option active" data-level="all">全部</div>
+            <div class="filter-option" data-level="info">信息</div>
+            <div class="filter-option" data-level="warning">警告</div>
+            <div class="filter-option" data-level="error">错误</div>
+            <div class="filter-option" data-level="critical">严重</div>
+          </div>
+        </div>
+        
+        <div class="filter-row">
+          <div class="filter-label">时间范围</div>
+          <div class="filter-options">
+            <div class="filter-option active" data-time="all">全部时间</div>
+            <div class="filter-option" data-time="today">今天</div>
+            <div class="filter-option" data-time="yesterday">昨天</div>
+            <div class="filter-option" data-time="week">本周</div>
+            <div class="filter-option" data-time="month">本月</div>
+            <div class="filter-option" data-time="custom">自定义</div>
+          </div>
+        </div>
+        
+        <div class="filter-row date-range" style="display: none;">
+          <div class="filter-label"></div>
+          <div class="date-picker-container">
+            <input type="date" class="date-picker" id="startDate">
+            <span class="date-separator">至</span>
+            <input type="date" class="date-picker" id="endDate">
+            <button class="date-confirm-btn">确定</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 搜索和排序 -->
+      <div class="search-sort">
+        <div class="search-box">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" class="search-input" placeholder="搜索操作人、IP地址或日志内容">
+        </div>
+        
+        <div class="sort-options">
+          <span class="sort-label">排序：</span>
+          <div class="sort-option active" data-sort="time-desc">最新</div>
+          <div class="sort-option" data-sort="time-asc">最早</div>
+          <div class="sort-option" data-sort="level-desc">级别从高到低</div>
+          <div class="sort-option" data-sort="level-asc">级别从低到高</div>
+        </div>
+      </div>
+      
+      <!-- 日志列表 -->
+      <div class="logs-container">
+        <table class="logs-table">
+          <thead>
+            <tr>
+              <th width="180">时间</th>
+              <th width="100">类型</th>
+              <th width="80">级别</th>
+              <th width="120">操作人</th>
+              <th width="120">IP地址</th>
+              <th>日志内容</th>
+              <th width="80">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 登录日志 -->
+            <tr>
+              <td>2025-05-29 23:30:15</td>
+              <td>
+                <span class="log-type login">登录日志</span>
+              </td>
+              <td>
+                <span class="log-level info">信息</span>
+              </td>
+              <td>admin</td>
+              <td>192.168.1.100</td>
+              <td>管理员登录系统</td>
+              <td>
+                <button class="log-action-btn" data-action="view">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </td>
+            </tr>
+            
+            <!-- 操作日志 -->
+            <tr>
+              <td>2025-05-29 23:15:42</td>
+              <td>
+                <span class="log-type operation">操作日志</span>
+              </td>
+              <td>
+                <span class="log-level info">信息</span>
+              </td>
+              <td>admin</td>
+              <td>192.168.1.100</td>
+              <td>添加商品：珠光水彩24色套装</td>
+              <td>
+                <button class="log-action-btn" data-action="view">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </td>
+            </tr>
+            
+            <!-- 错误日志 -->
+            <tr>
+              <td>2025-05-29 22:45:10</td>
+              <td>
+                <span class="log-type error">错误日志</span>
+              </td>
+              <td>
+                <span class="log-level error">错误</span>
+              </td>
+              <td>system</td>
+              <td>192.168.1.1</td>
+              <td>数据库连接失败：Connection timeout</td>
+              <td>
+                <button class="log-action-btn" data-action="view">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </td>
+            </tr>
+            
+            <!-- 系统日志 -->
+            <tr>
+              <td>2025-05-29 22:30:05</td>
+              <td>
+                <span class="log-type system">系统日志</span>
+              </td>
+              <td>
+                <span class="log-level warning">警告</span>
+              </td>
+              <td>system</td>
+              <td>192.168.1.1</td>
+              <td>系统磁盘空间不足：剩余空间低于10%</td>
+              <td>
+                <button class="log-action-btn" data-action="view">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </td>
+            </tr>
+            
+            <!-- 操作日志 -->
+            <tr>
+              <td>2025-05-29 21:20:33</td>
+              <td>
+                <span class="log-type operation">操作日志</span>
+              </td>
+              <td>
+                <span class="log-level info">信息</span>
+              </td>
+              <td>zhangsan</td>
+              <td>192.168.1.101</td>
+              <td>修改商品价格：珠光水彩12色套装，¥99 -> ¥89</td>
+              <td>
+                <button class="log-action-btn" data-action="view">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </td>
+            </tr>
+            
+            <!-- 错误日志 -->
+            <tr>
+              <td>2025-05-29 20:15:18</td>
+              <td>
+                <span class="log-type error">错误日志</span>
+              </td>
+              <td>
+                <span class="log-level critical">严重</span>
+              </td>
+              <td>system</td>
+              <td>192.168.1.1</td>
+              <td>支付接口调用失败：API key invalid</td>
+              <td>
+                <button class="log-action-btn" data-action="view">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </td>
+            </tr>
+            
+            <!-- 登录日志 -->
+            <tr>
+              <td>2025-05-29 19:45:22</td>
+              <td>
+                <span class="log-type login">登录日志</span>
+              </td>
+              <td>
+                <span class="log-level warning">警告</span>
+              </td>
+              <td>lisi</td>
+              <td>192.168.1.102</td>
+              <td>用户登录失败：密码错误（连续3次）</td>
+              <td>
+                <button class="log-action-btn" data-action="view">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </td>
+            </tr>
+            
+            <!-- 系统日志 -->
+            <tr>
+              <td>2025-05-29 18:30:40</td>
+              <td>
+                <span class="log-type system">系统日志</span>
+              </td>
+              <td>
+                <span class="log-level info">信息</span>
+              </td>
+              <td>system</td>
+              <td>192.168.1.1</td>
+              <td>系统自动备份完成：数据库备份大小 256MB</td>
+              <td>
+                <button class="log-action-btn" data-action="view">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </td>
+            </tr>
+            
+            <!-- 操作日志 -->
+            <tr>
+              <td>2025-05-29 17:25:12</td>
+              <td>
+                <span class="log-type operation">操作日志</span>
+              </td>
+              <td>
+                <span class="log-level info">信息</span>
+              </td>
+              <td>wangwu</td>
+              <td>192.168.1.103</td>
+              <td>创建优惠券：满100减20</td>
+              <td>
+                <button class="log-action-btn" data-action="view">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </td>
+            </tr>
+            
+            <!-- 登录日志 -->
+            <tr>
+              <td>2025-05-29 16:40:55</td>
+              <td>
+                <span class="log-type login">登录日志</span>
+              </td>
+              <td>
+                <span class="log-level info">信息</span>
+              </td>
+              <td>zhangsan</td>
+              <td>192.168.1.101</td>
+              <td>用户登录系统</td>
+              <td>
+                <button class="log-action-btn" data-action="view">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <!-- 分页 -->
+      <div class="pagination">
+        <div class="page-info">显示 1 至 10 条，共 256 条日志</div>
+        <div class="page-controls">
+          <button class="page-btn disabled" data-page="prev">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <div class="page-numbers">
+            <div class="page-number active">1</div>
+            <div class="page-number">2</div>
+            <div class="page-number">3</div>
+            <div class="page-number">4</div>
+            <div class="page-number">5</div>
+            <div class="page-number more">...</div>
+            <div class="page-number">26</div>
+          </div>
+          <button class="page-btn" data-page="next">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 日志详情弹窗 -->
+  <div class="modal" id="logDetailModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">日志详情</div>
+        <div class="modal-close" id="closeLogDetailModal">×</div>
+      </div>
+      <div class="modal-body">
+        <div class="log-detail-item">
+          <div class="detail-label">日志ID</div>
+          <div class="detail-value">LOG20250529233015</div>
+        </div>
+        <div class="log-detail-item">
+          <div class="detail-label">时间</div>
+          <div class="detail-value">2025-05-29 23:30:15</div>
+        </div>
+        <div class="log-detail-item">
+          <div class="detail-label">类型</div>
+          <div class="detail-value"><span class="log-type login">登录日志</span></div>
+        </div>
+        <div class="log-detail-item">
+          <div class="detail-label">级别</div>
+          <div class="detail-value"><span class="log-level info">信息</span></div>
+        </div>
+        <div class="log-detail-item">
+          <div class="detail-label">操作人</div>
+          <div class="detail-value">admin</div>
+        </div>
+        <div class="log-detail-item">
+          <div class="detail-label">IP地址</div>
+          <div class="detail-value">192.168.1.100</div>
+        </div>
+        <div class="log-detail-item">
+          <div class="detail-label">设备信息</div>
+          <div class="detail-value">Chrome 95.0.4638.69 / macOS 12.0.1</div>
+        </div>
+        <div class="log-detail-item">
+          <div class="detail-label">日志内容</div>
+          <div class="detail-value">管理员登录系统</div>
+        </div>
+        <div class="log-detail-item">
+          <div class="detail-label">详细信息</div>
+          <div class="detail-value detail-code">
+            <pre>{
+  "user_id": "admin",
+  "login_time": "2025-05-29T23:30:15.000Z",
+  "ip": "192.168.1.100",
+  "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 12_0_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36",
+  "login_method": "password",
+  "status": "success",
+  "session_id": "sess_2025052923301500001"
+}</pre>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn" id="closeDetailBtn">关闭</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 清空日志确认弹窗 -->
+  <div class="modal" id="clearLogsModal">
+    <div class="modal-content" style="max-width: 400px;">
+      <div class="modal-header">
+        <div class="modal-title">确认清空日志</div>
+        <div class="modal-close" id="closeClearLogsModal">×</div>
+      </div>
+      <div class="modal-body">
+        <div class="confirm-message">
+          <i class="fas fa-exclamation-triangle warning-icon"></i>
+          <p>确定要清空所有日志吗？此操作不可恢复。</p>
+        </div>
+        <div class="confirm-options">
+          <div class="form-group">
+            <input type="checkbox" id="keepErrorLogs" class="form-checkbox">
+            <label for="keepErrorLogs" class="form-checkbox-label">保留错误和严重级别的日志</label>
+          </div>
+          <div class="form-group">
+            <input type="checkbox" id="backupBeforeClear" class="form-checkbox" checked>
+            <label for="backupBeforeClear" class="form-checkbox-label">清空前备份日志</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn secondary" id="cancelClearBtn">取消</button>
+        <button class="modal-btn danger" id="confirmClearBtn">确认清空</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 引入公共JS -->
+  <script src="js/common.js"></script>
+  <script src="js/system-logs.js"></script>
+</body>
+</html>
