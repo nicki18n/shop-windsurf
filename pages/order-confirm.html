@@ -267,48 +267,61 @@
       resize: none;
     }
     
-    /* 底部结算栏 */
-    .order-bottom-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 50px;
-      background-color: #fff;
-      display: flex;
+    /* 订单备注图片上传 */
+    .remark-image-upload {
+      margin-top: 10px;
+    }
+    
+    .upload-btn {
+      display: inline-flex;
       align-items: center;
-      border-top: 1px solid #eee;
-      padding: 0 15px;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      border: 1px dashed #ddd;
+      border-radius: 4px;
+      color: #999;
+      font-size: 24px;
+      cursor: pointer;
+      margin-right: 10px;
+      background-color: #f9f9f9;
     }
     
-    .order-total {
-      flex: 1;
-      text-align: right;
-      padding-right: 15px;
+    .upload-preview {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 10px;
     }
     
-    .order-total-price {
-      font-size: 16px;
-      color: #ff6b6b;
-      font-weight: bold;
+    .preview-item {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      overflow: hidden;
     }
     
-    .order-submit-btn {
-      width: 110px;
-      height: 40px;
-      background-color: #ff6b6b;
+    .preview-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .preview-delete {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 20px;
+      height: 20px;
+      background-color: rgba(0, 0, 0, 0.5);
       color: #fff;
-      font-size: 14px;
-      border-radius: 20px;
+      font-size: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
-    }
-    
-    /* 底部空白区，避免内容被底部结算栏遮挡 */
-    .bottom-space {
-      height: 60px;
+      border-radius: 0 0 0 4px;
     }
     
     /* 支付方式 */
@@ -346,6 +359,45 @@
     .payment-arrow {
       margin-left: 5px;
       color: #999;
+    }
+    
+    /* 新增：订单结算区域 */
+    .order-submit-section {
+      background-color: #fff;
+      margin-bottom: 60px;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    
+    .order-submit-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 15px;
+    }
+    
+    .order-total-amount {
+      font-size: 16px;
+      color: #333;
+    }
+    
+    .order-total-price {
+      font-size: 16px;
+      color: #ff6b6b;
+      font-weight: bold;
+    }
+    
+    .order-submit-btn {
+      width: 110px;
+      height: 40px;
+      background-color: #ff6b6b;
+      color: #fff;
+      font-size: 14px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -482,17 +534,23 @@
     <div class="remark-section">
       <div class="remark-title">订单备注</div>
       <textarea class="remark-input" placeholder="选填，请先和商家协商一致"></textarea>
+      
+      <!-- 图片上传 -->
+      <div class="remark-image-upload">
+        <div class="upload-btn" id="uploadBtn">+</div>
+        <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;">
+        <div class="upload-preview" id="imagePreview">
+          <!-- 预览图片将在这里动态生成 -->
+        </div>
+      </div>
     </div>
     
-    <!-- 底部空白区，避免内容被底部结算栏遮挡 -->
-    <div class="bottom-space"></div>
-    
-    <!-- 底部结算栏 -->
-    <div class="order-bottom-bar">
-      <div class="order-total">
-        <div class="order-total-price">实付金额: ¥186.00</div>
+    <!-- 新增：订单结算区域 -->
+    <div class="order-submit-section">
+      <div class="order-submit-content">
+        <div class="order-total-amount">实付金额: <span class="order-total-price">¥186.00</span></div>
+        <div class="order-submit-btn">提交订单</div>
       </div>
-      <div class="order-submit-btn">提交订单</div>
     </div>
     
     <!-- 底部导航栏 -->
@@ -530,6 +588,65 @@
       const submitBtn = document.querySelector('.order-submit-btn');
       submitBtn.addEventListener('click', function() {
         window.location.href = 'payment.html';
+      });
+      
+      // 图片上传功能
+      const uploadBtn = document.getElementById('uploadBtn');
+      const imageUpload = document.getElementById('imageUpload');
+      const imagePreview = document.getElementById('imagePreview');
+      
+      // 点击上传按钮触发文件选择
+      uploadBtn.addEventListener('click', function() {
+        imageUpload.click();
+      });
+      
+      // 监听文件选择变化
+      imageUpload.addEventListener('change', function(e) {
+        const files = e.target.files;
+        
+        if (files) {
+          // 遍历所有选择的文件
+          for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            
+            // 检查是否是图片
+            if (!file.type.match('image.*')) {
+              continue;
+            }
+            
+            const reader = new FileReader();
+            
+            // 文件读取完成后创建预览
+            reader.onload = function(e) {
+              // 创建预览容器
+              const previewItem = document.createElement('div');
+              previewItem.className = 'preview-item';
+              
+              // 创建图片元素
+              const img = document.createElement('img');
+              img.src = e.target.result;
+              previewItem.appendChild(img);
+              
+              // 创建删除按钮
+              const deleteBtn = document.createElement('div');
+              deleteBtn.className = 'preview-delete';
+              deleteBtn.innerHTML = '×';
+              deleteBtn.addEventListener('click', function() {
+                imagePreview.removeChild(previewItem);
+              });
+              previewItem.appendChild(deleteBtn);
+              
+              // 添加到预览区域
+              imagePreview.appendChild(previewItem);
+            };
+            
+            // 读取文件为DataURL
+            reader.readAsDataURL(file);
+          }
+        }
+        
+        // 重置文件输入，允许重复选择相同文件
+        e.target.value = '';
       });
       
       // 底部导航切换
