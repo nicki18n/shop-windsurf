@@ -469,21 +469,27 @@
         </div>
         <div class="tab-text">首页</div>
       </div>
+      <div class="tab-item">
+        <div class="tab-icon">
+          <img src="https://picsum.photos/24/24?random=21" alt="买家秀">
+        </div>
+        <div class="tab-text">买家秀</div>
+      </div>
       <div class="tab-item active">
         <div class="tab-icon">
-          <img src="https://picsum.photos/24/24?random=21" alt="分类">
+          <img src="https://picsum.photos/24/24?random=22" alt="分类">
         </div>
         <div class="tab-text">分类</div>
       </div>
       <div class="tab-item">
         <div class="tab-icon">
-          <img src="https://picsum.photos/24/24?random=22" alt="购物车">
+          <img src="https://picsum.photos/24/24?random=23" alt="购物车">
         </div>
         <div class="tab-text">购物车</div>
       </div>
       <div class="tab-item">
         <div class="tab-icon">
-          <img src="https://picsum.photos/24/24?random=23" alt="我的">
+          <img src="https://picsum.photos/24/24?random=24" alt="我的">
         </div>
         <div class="tab-text">我的</div>
       </div>
@@ -773,10 +779,12 @@
           if (index === 0) {
             window.location.href = '../index.html';
           } else if (index === 1) {
-            // 当前页面，不跳转
+            window.location.href = 'showcase.html';
           } else if (index === 2) {
-            window.location.href = 'cart.html';
+            // 当前页面，不跳转
           } else if (index === 3) {
+            window.location.href = 'cart.html';
+          } else if (index === 4) {
             window.location.href = 'profile.html';
           }
         });
