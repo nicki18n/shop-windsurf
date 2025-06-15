@@ -59,22 +59,26 @@
     
     .category-banner {
       width: 100%;
-      height: 120px;
+      min-height: 80px;
       border-radius: 16px;
       overflow: hidden;
       margin-bottom: 20px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      background: linear-gradient(135deg, #fff5f5 0%, #fff 100%);
+      padding: 15px;
+      box-sizing: border-box;
     }
     
-    .category-banner img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.3s ease;
+    .category-banner-text {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.6;
+      text-align: justify;
     }
     
-    .category-banner:hover img {
-      transform: scale(1.05);
+    .category-banner-text .highlight {
+      color: #ff6b6b;
+      font-weight: 500;
     }
     
     .subcategory-title {
@@ -160,6 +164,7 @@
       overflow: hidden;
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
       transition: all 0.3s ease;
+      cursor: pointer;
     }
     
     .product-card:hover {
@@ -195,7 +200,7 @@
     .product-name {
       font-size: 12px;
       color: #333;
-      margin-bottom: 4px;
+      text-align: center;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       line-clamp: 2;
@@ -263,7 +268,7 @@
       <div class="category-content">
         <!-- 分类banner -->
         <div class="category-banner">
-          <img src="https://picsum.photos/200/200?random=26" alt="珠光水彩">
+          <div class="category-banner-text">珠光系列采用独特的珠光颜料配方，呈现出梦幻般的金属光泽效果。适合创作星空、梦幻等主题作品，让您的画作闪耀动人。</div>
         </div>
         
         <!-- 子分类 -->
@@ -308,8 +313,6 @@
               </div>
               <div class="product-info">
                 <div class="product-name">星空系列珠光水彩 12色套装</div>
-                <div class="product-price">¥128.00</div>
-                <div class="product-sold">已售 2345</div>
               </div>
             </div>
             
@@ -319,8 +322,6 @@
               </div>
               <div class="product-info">
                 <div class="product-name">梦幻系列珠光水彩 24色套装</div>
-                <div class="product-price">¥198.00</div>
-                <div class="product-sold">已售 1892</div>
               </div>
             </div>
           </div>
@@ -362,7 +363,7 @@
       // 初始化分类数据
       const categoryData = {
         '珠光系列': {
-          banner: 'https://picsum.photos/200/200?random=26',
+          banner: '珠光系列采用独特的珠光颜料配方，呈现出梦幻般的金属光泽效果。适合创作星空、梦幻等主题作品，让您的画作闪耀动人。',
           subcategories: [
             { 
               name: '星空系列',
@@ -370,210 +371,186 @@
               products: [
                 { name: '星空系列珠光水彩 12色套装', price: '128.00', sold: '2345', image: 'https://picsum.photos/200/200?random=24' },
                 { name: '星空系列珠光水彩 24色套装', price: '198.00', sold: '1892', image: 'https://picsum.photos/200/200?random=25' },
-                { name: '星空系列珠光水彩 36色套装', price: '268.00', sold: '1245', image: 'https://picsum.photos/200/200?random=26' }
+                { name: '星空系列珠光水彩 36色套装', price: '268.00', sold: '1245', image: 'https://picsum.photos/200/200?random=26' },
+                { name: '星空系列珠光水彩 48色套装', price: '338.00', sold: '945', image: 'https://picsum.photos/200/200?random=27' },
+                { name: '星空系列珠光水彩 6色迷你套装', price: '88.00', sold: '3245', image: 'https://picsum.photos/200/200?random=28' },
+                { name: '星空系列珠光水彩 单色补充装', price: '28.00', sold: '2145', image: 'https://picsum.photos/200/200?random=29' }
               ]
             },
             { 
               name: '梦幻系列',
               image: 'https://picsum.photos/50/50?random=21',
               products: [
-                { name: '梦幻系列珠光水彩 12色套装', price: '138.00', sold: '2145', image: 'https://picsum.photos/200/200?random=27' },
-                { name: '梦幻系列珠光水彩 24色套装', price: '208.00', sold: '1792', image: 'https://picsum.photos/200/200?random=28' },
-                { name: '梦幻系列珠光水彩 36色套装', price: '278.00', sold: '1145', image: 'https://picsum.photos/200/200?random=29' }
+                { name: '梦幻系列珠光水彩 12色套装', price: '138.00', sold: '2145', image: 'https://picsum.photos/200/200?random=30' },
+                { name: '梦幻系列珠光水彩 24色套装', price: '208.00', sold: '1792', image: 'https://picsum.photos/200/200?random=31' },
+                { name: '梦幻系列珠光水彩 36色套装', price: '278.00', sold: '1145', image: 'https://picsum.photos/200/200?random=32' },
+                { name: '梦幻系列珠光水彩 48色套装', price: '348.00', sold: '845', image: 'https://picsum.photos/200/200?random=33' },
+                { name: '梦幻系列珠光水彩 6色迷你套装', price: '98.00', sold: '2945', image: 'https://picsum.photos/200/200?random=34' },
+                { name: '梦幻系列珠光水彩 单色补充装', price: '32.00', sold: '1845', image: 'https://picsum.photos/200/200?random=35' }
               ]
             },
             { 
               name: '金属系列',
               image: 'https://picsum.photos/50/50?random=23',
               products: [
-                { name: '金属系列珠光水彩 6色套装', price: '88.00', sold: '3421', image: 'https://picsum.photos/200/200?random=30' },
-                { name: '金属系列珠光水彩 12色套装', price: '158.00', sold: '2921', image: 'https://picsum.photos/200/200?random=31' },
-                { name: '金属系列珠光水彩 18色套装', price: '228.00', sold: '2421', image: 'https://picsum.photos/200/200?random=32' }
+                { name: '金属系列珠光水彩 6色套装', price: '88.00', sold: '3421', image: 'https://picsum.photos/200/200?random=36' },
+                { name: '金属系列珠光水彩 12色套装', price: '158.00', sold: '2921', image: 'https://picsum.photos/200/200?random=37' },
+                { name: '金属系列珠光水彩 18色套装', price: '228.00', sold: '2421', image: 'https://picsum.photos/200/200?random=38' },
+                { name: '金属系列珠光水彩 24色套装', price: '298.00', sold: '1921', image: 'https://picsum.photos/200/200?random=39' },
+                { name: '金属系列珠光水彩 单色补充装', price: '36.00', sold: '2721', image: 'https://picsum.photos/200/200?random=40' },
+                { name: '金属系列珠光水彩 专业套装', price: '398.00', sold: '1421', image: 'https://picsum.photos/200/200?random=41' }
               ]
             },
             { 
               name: '自然系列',
               image: 'https://picsum.photos/50/50?random=22',
               products: [
-                { name: '自然系列珠光水彩 12色套装', price: '118.00', sold: '2245', image: 'https://picsum.photos/200/200?random=33' },
-                { name: '自然系列珠光水彩 24色套装', price: '188.00', sold: '1792', image: 'https://picsum.photos/200/200?random=34' },
-                { name: '自然系列珠光水彩 36色套装', price: '258.00', sold: '1245', image: 'https://picsum.photos/200/200?random=35' }
+                { name: '自然系列珠光水彩 12色套装', price: '118.00', sold: '2245', image: 'https://picsum.photos/200/200?random=42' },
+                { name: '自然系列珠光水彩 24色套装', price: '188.00', sold: '1792', image: 'https://picsum.photos/200/200?random=43' },
+                { name: '自然系列珠光水彩 36色套装', price: '258.00', sold: '1245', image: 'https://picsum.photos/200/200?random=44' },
+                { name: '自然系列珠光水彩 48色套装', price: '328.00', sold: '945', image: 'https://picsum.photos/200/200?random=45' },
+                { name: '自然系列珠光水彩 6色迷你套装', price: '78.00', sold: '3145', image: 'https://picsum.photos/200/200?random=46' },
+                { name: '自然系列珠光水彩 单色补充装', price: '26.00', sold: '2045', image: 'https://picsum.photos/200/200?random=47' }
               ]
             }
           ]
         },
         '颜色分类': {
-          banner: 'https://picsum.photos/200/200?random=27',
+          banner: '我们提供丰富的色系选择，从基础色到特殊色，满足不同创作需求。每个色系都经过精心调配，确保色彩纯正、饱和度高。',
           subcategories: [
             { 
               name: '蓝色系',
               image: 'https://picsum.photos/50/50?random=30',
               products: [
-                { name: '蓝色系珠光水彩套装', price: '88.00', sold: '1245', image: 'https://picsum.photos/200/200?random=36' },
-                { name: '蓝色系珠光水彩单色', price: '28.00', sold: '892', image: 'https://picsum.photos/200/200?random=37' }
+                { name: '蓝色系珠光水彩套装', price: '88.00', sold: '1245', image: 'https://picsum.photos/200/200?random=48' },
+                { name: '蓝色系珠光水彩单色', price: '28.00', sold: '892', image: 'https://picsum.photos/200/200?random=49' },
+                { name: '蓝色系珠光水彩补充装', price: '32.00', sold: '745', image: 'https://picsum.photos/200/200?random=50' },
+                { name: '蓝色系珠光水彩迷你套装', price: '58.00', sold: '645', image: 'https://picsum.photos/200/200?random=51' },
+                { name: '蓝色系珠光水彩专业套装', price: '128.00', sold: '445', image: 'https://picsum.photos/200/200?random=52' },
+                { name: '蓝色系珠光水彩限量版', price: '98.00', sold: '345', image: 'https://picsum.photos/200/200?random=53' }
               ]
             },
             { 
               name: '红色系',
               image: 'https://picsum.photos/50/50?random=31',
               products: [
-                { name: '红色系珠光水彩套装', price: '88.00', sold: '1145', image: 'https://picsum.photos/200/200?random=38' },
-                { name: '红色系珠光水彩单色', price: '28.00', sold: '792', image: 'https://picsum.photos/200/200?random=39' }
+                { name: '红色系珠光水彩套装', price: '88.00', sold: '1145', image: 'https://picsum.photos/200/200?random=54' },
+                { name: '红色系珠光水彩单色', price: '28.00', sold: '792', image: 'https://picsum.photos/200/200?random=55' },
+                { name: '红色系珠光水彩补充装', price: '32.00', sold: '645', image: 'https://picsum.photos/200/200?random=56' },
+                { name: '红色系珠光水彩迷你套装', price: '58.00', sold: '545', image: 'https://picsum.photos/200/200?random=57' },
+                { name: '红色系珠光水彩专业套装', price: '128.00', sold: '345', image: 'https://picsum.photos/200/200?random=58' },
+                { name: '红色系珠光水彩限量版', price: '98.00', sold: '245', image: 'https://picsum.photos/200/200?random=59' }
               ]
             },
             { 
               name: '绿色系',
               image: 'https://picsum.photos/50/50?random=32',
               products: [
-                { name: '绿色系珠光水彩套装', price: '88.00', sold: '1045', image: 'https://picsum.photos/200/200?random=40' },
-                { name: '绿色系珠光水彩单色', price: '28.00', sold: '692', image: 'https://picsum.photos/200/200?random=41' }
+                { name: '绿色系珠光水彩套装', price: '88.00', sold: '1045', image: 'https://picsum.photos/200/200?random=60' },
+                { name: '绿色系珠光水彩单色', price: '28.00', sold: '692', image: 'https://picsum.photos/200/200?random=61' },
+                { name: '绿色系珠光水彩补充装', price: '32.00', sold: '545', image: 'https://picsum.photos/200/200?random=62' },
+                { name: '绿色系珠光水彩迷你套装', price: '58.00', sold: '445', image: 'https://picsum.photos/200/200?random=63' },
+                { name: '绿色系珠光水彩专业套装', price: '128.00', sold: '245', image: 'https://picsum.photos/200/200?random=64' },
+                { name: '绿色系珠光水彩限量版', price: '98.00', sold: '145', image: 'https://picsum.photos/200/200?random=65' }
               ]
             },
             { 
               name: '金色系',
               image: 'https://picsum.photos/50/50?random=33',
               products: [
-                { name: '金色系珠光水彩套装', price: '98.00', sold: '945', image: 'https://picsum.photos/200/200?random=42' },
-                { name: '金色系珠光水彩单色', price: '32.00', sold: '592', image: 'https://picsum.photos/200/200?random=43' }
-              ]
-            },
-            { 
-              name: '银色系',
-              image: 'https://picsum.photos/50/50?random=34',
-              products: [
-                { name: '银色系珠光水彩套装', price: '98.00', sold: '845', image: 'https://picsum.photos/200/200?random=44' },
-                { name: '银色系珠光水彩单色', price: '32.00', sold: '492', image: 'https://picsum.photos/200/200?random=45' }
-              ]
-            },
-            { 
-              name: '彩虹系',
-              image: 'https://picsum.photos/50/50?random=35',
-              products: [
-                { name: '彩虹系珠光水彩套装', price: '108.00', sold: '745', image: 'https://picsum.photos/200/200?random=46' },
-                { name: '彩虹系珠光水彩单色', price: '36.00', sold: '392', image: 'https://picsum.photos/200/200?random=47' }
+                { name: '金色系珠光水彩套装', price: '98.00', sold: '945', image: 'https://picsum.photos/200/200?random=66' },
+                { name: '金色系珠光水彩单色', price: '32.00', sold: '592', image: 'https://picsum.photos/200/200?random=67' },
+                { name: '金色系珠光水彩补充装', price: '36.00', sold: '445', image: 'https://picsum.photos/200/200?random=68' },
+                { name: '金色系珠光水彩迷你套装', price: '68.00', sold: '345', image: 'https://picsum.photos/200/200?random=69' },
+                { name: '金色系珠光水彩专业套装', price: '138.00', sold: '245', image: 'https://picsum.photos/200/200?random=70' },
+                { name: '金色系珠光水彩限量版', price: '108.00', sold: '145', image: 'https://picsum.photos/200/200?random=71' }
               ]
             }
           ]
         },
         '细腻度分类': {
-          banner: 'https://picsum.photos/200/200?random=28',
+          banner: '根据颜料颗粒大小分为不同细腻度等级，从超细腻到粗颗粒，满足不同绘画风格需求。超细腻适合细节刻画，粗颗粒则适合特殊效果。',
           subcategories: [
             { 
               name: '超细腻',
               image: 'https://picsum.photos/50/50?random=40',
               products: [
-                { name: '超细腻珠光水彩 12色套装', price: '168.00', sold: '2145', image: 'https://picsum.photos/200/200?random=48' },
-                { name: '超细腻珠光水彩 24色套装', price: '238.00', sold: '1632', image: 'https://picsum.photos/200/200?random=49' },
-                { name: '超细腻珠光水彩 36色套装', price: '308.00', sold: '1145', image: 'https://picsum.photos/200/200?random=50' }
+                { name: '超细腻珠光水彩 12色套装', price: '168.00', sold: '2145', image: 'https://picsum.photos/200/200?random=72' },
+                { name: '超细腻珠光水彩 24色套装', price: '238.00', sold: '1632', image: 'https://picsum.photos/200/200?random=73' },
+                { name: '超细腻珠光水彩 36色套装', price: '308.00', sold: '1145', image: 'https://picsum.photos/200/200?random=74' },
+                { name: '超细腻珠光水彩 48色套装', price: '378.00', sold: '845', image: 'https://picsum.photos/200/200?random=75' },
+                { name: '超细腻珠光水彩 6色迷你套装', price: '118.00', sold: '2945', image: 'https://picsum.photos/200/200?random=76' },
+                { name: '超细腻珠光水彩 单色补充装', price: '42.00', sold: '1845', image: 'https://picsum.photos/200/200?random=77' }
               ]
             },
             { 
               name: '细腻',
               image: 'https://picsum.photos/50/50?random=41',
               products: [
-                { name: '细腻珠光水彩 12色套装', price: '148.00', sold: '1945', image: 'https://picsum.photos/200/200?random=51' },
-                { name: '细腻珠光水彩 24色套装', price: '218.00', sold: '1432', image: 'https://picsum.photos/200/200?random=52' },
-                { name: '细腻珠光水彩 36色套装', price: '288.00', sold: '1045', image: 'https://picsum.photos/200/200?random=53' }
-              ]
-            },
-            { 
-              name: '中等',
-              image: 'https://picsum.photos/50/50?random=42',
-              products: [
-                { name: '中等珠光水彩 12色套装', price: '128.00', sold: '1745', image: 'https://picsum.photos/200/200?random=54' },
-                { name: '中等珠光水彩 24色套装', price: '198.00', sold: '1232', image: 'https://picsum.photos/200/200?random=55' },
-                { name: '中等珠光水彩 36色套装', price: '268.00', sold: '945', image: 'https://picsum.photos/200/200?random=56' }
-              ]
-            },
-            { 
-              name: '粗颗粒',
-              image: 'https://picsum.photos/50/50?random=43',
-              products: [
-                { name: '粗颗粒珠光水彩 12色套装', price: '108.00', sold: '1545', image: 'https://picsum.photos/200/200?random=57' },
-                { name: '粗颗粒珠光水彩 24色套装', price: '178.00', sold: '1032', image: 'https://picsum.photos/200/200?random=58' },
-                { name: '粗颗粒珠光水彩 36色套装', price: '248.00', sold: '845', image: 'https://picsum.photos/200/200?random=59' }
+                { name: '细腻珠光水彩 12色套装', price: '148.00', sold: '1945', image: 'https://picsum.photos/200/200?random=78' },
+                { name: '细腻珠光水彩 24色套装', price: '218.00', sold: '1432', image: 'https://picsum.photos/200/200?random=79' },
+                { name: '细腻珠光水彩 36色套装', price: '288.00', sold: '1045', image: 'https://picsum.photos/200/200?random=80' },
+                { name: '细腻珠光水彩 48色套装', price: '358.00', sold: '745', image: 'https://picsum.photos/200/200?random=81' },
+                { name: '细腻珠光水彩 6色迷你套装', price: '108.00', sold: '2745', image: 'https://picsum.photos/200/200?random=82' },
+                { name: '细腻珠光水彩 单色补充装', price: '38.00', sold: '1745', image: 'https://picsum.photos/200/200?random=83' }
               ]
             }
           ]
         },
         '用途分类': {
-          banner: 'https://picsum.photos/200/200?random=29',
+          banner: '针对不同使用场景，我们提供专业的水彩套装。手账系列便携易用，插画系列色彩丰富，装饰系列效果出众，艺术创作系列则适合专业创作。',
           subcategories: [
             { 
               name: '手账',
               image: 'https://picsum.photos/50/50?random=50',
               products: [
-                { name: '手账专用珠光水彩 12色套装', price: '98.00', sold: '3245', image: 'https://picsum.photos/200/200?random=60' },
-                { name: '手账专用珠光水彩 24色套装', price: '168.00', sold: '2632', image: 'https://picsum.photos/200/200?random=61' },
-                { name: '手账专用珠光水彩 36色套装', price: '238.00', sold: '1945', image: 'https://picsum.photos/200/200?random=62' }
+                { name: '手账专用珠光水彩 12色套装', price: '98.00', sold: '3245', image: 'https://picsum.photos/200/200?random=84' },
+                { name: '手账专用珠光水彩 24色套装', price: '168.00', sold: '2632', image: 'https://picsum.photos/200/200?random=85' },
+                { name: '手账专用珠光水彩 36色套装', price: '238.00', sold: '1945', image: 'https://picsum.photos/200/200?random=86' },
+                { name: '手账专用珠光水彩 6色迷你套装', price: '78.00', sold: '4145', image: 'https://picsum.photos/200/200?random=87' },
+                { name: '手账专用珠光水彩 单色补充装', price: '28.00', sold: '2845', image: 'https://picsum.photos/200/200?random=88' },
+                { name: '手账专用珠光水彩 便携套装', price: '128.00', sold: '2345', image: 'https://picsum.photos/200/200?random=89' }
               ]
             },
             { 
               name: '插画',
               image: 'https://picsum.photos/50/50?random=51',
               products: [
-                { name: '插画专用珠光水彩 12色套装', price: '128.00', sold: '2945', image: 'https://picsum.photos/200/200?random=63' },
-                { name: '插画专用珠光水彩 24色套装', price: '198.00', sold: '2332', image: 'https://picsum.photos/200/200?random=64' },
-                { name: '插画专用珠光水彩 36色套装', price: '268.00', sold: '1645', image: 'https://picsum.photos/200/200?random=65' }
-              ]
-            },
-            { 
-              name: '装饰',
-              image: 'https://picsum.photos/50/50?random=52',
-              products: [
-                { name: '装饰专用珠光水彩 12色套装', price: '118.00', sold: '2745', image: 'https://picsum.photos/200/200?random=66' },
-                { name: '装饰专用珠光水彩 24色套装', price: '188.00', sold: '2132', image: 'https://picsum.photos/200/200?random=67' },
-                { name: '装饰专用珠光水彩 36色套装', price: '258.00', sold: '1445', image: 'https://picsum.photos/200/200?random=68' }
-              ]
-            },
-            { 
-              name: '艺术创作',
-              image: 'https://picsum.photos/50/50?random=53',
-              products: [
-                { name: '艺术创作珠光水彩 12色套装', price: '138.00', sold: '2545', image: 'https://picsum.photos/200/200?random=69' },
-                { name: '艺术创作珠光水彩 24色套装', price: '208.00', sold: '1932', image: 'https://picsum.photos/200/200?random=70' },
-                { name: '艺术创作珠光水彩 36色套装', price: '278.00', sold: '1345', image: 'https://picsum.photos/200/200?random=71' }
+                { name: '插画专用珠光水彩 12色套装', price: '128.00', sold: '2945', image: 'https://picsum.photos/200/200?random=90' },
+                { name: '插画专用珠光水彩 24色套装', price: '198.00', sold: '2332', image: 'https://picsum.photos/200/200?random=91' },
+                { name: '插画专用珠光水彩 36色套装', price: '268.00', sold: '1645', image: 'https://picsum.photos/200/200?random=92' },
+                { name: '插画专用珠光水彩 48色套装', price: '338.00', sold: '1145', image: 'https://picsum.photos/200/200?random=93' },
+                { name: '插画专用珠光水彩 6色迷你套装', price: '98.00', sold: '3845', image: 'https://picsum.photos/200/200?random=94' },
+                { name: '插画专用珠光水彩 单色补充装', price: '38.00', sold: '2745', image: 'https://picsum.photos/200/200?random=95' }
               ]
             }
           ]
         },
         '销量分类': {
-          banner: 'https://picsum.photos/200/200?random=30',
+          banner: '精选最受欢迎的商品系列，包括热销TOP10、新品首发、限时特惠等。这些商品都经过市场验证，深受用户喜爱。',
           subcategories: [
             { 
               name: '热销TOP10',
               image: 'https://picsum.photos/50/50?random=60',
               products: [
-                { name: '热销TOP1珠光水彩套装', price: '198.00', sold: '5245', image: 'https://picsum.photos/200/200?random=72' },
-                { name: '热销TOP2珠光水彩套装', price: '188.00', sold: '4632', image: 'https://picsum.photos/200/200?random=73' },
-                { name: '热销TOP3珠光水彩套装', price: '178.00', sold: '3945', image: 'https://picsum.photos/200/200?random=74' }
+                { name: '热销TOP1珠光水彩套装', price: '198.00', sold: '5245', image: 'https://picsum.photos/200/200?random=96' },
+                { name: '热销TOP2珠光水彩套装', price: '188.00', sold: '4632', image: 'https://picsum.photos/200/200?random=97' },
+                { name: '热销TOP3珠光水彩套装', price: '178.00', sold: '3945', image: 'https://picsum.photos/200/200?random=98' },
+                { name: '热销TOP4珠光水彩套装', price: '168.00', sold: '3632', image: 'https://picsum.photos/200/200?random=99' },
+                { name: '热销TOP5珠光水彩套装', price: '158.00', sold: '3232', image: 'https://picsum.photos/200/200?random=100' },
+                { name: '热销TOP6珠光水彩套装', price: '148.00', sold: '2932', image: 'https://picsum.photos/200/200?random=101' }
               ]
             },
             { 
               name: '新品热卖',
               image: 'https://picsum.photos/50/50?random=61',
               products: [
-                { name: '新品首发珠光水彩套装', price: '168.00', sold: '3632', image: 'https://picsum.photos/200/200?random=75' },
-                { name: '新品限定珠光水彩套装', price: '158.00', sold: '2932', image: 'https://picsum.photos/200/200?random=76' },
-                { name: '新品特惠珠光水彩套装', price: '148.00', sold: '2232', image: 'https://picsum.photos/200/200?random=77' }
-              ]
-            },
-            { 
-              name: '限时特惠',
-              image: 'https://picsum.photos/50/50?random=62',
-              products: [
-                { name: '限时特惠珠光水彩套装', price: '138.00', sold: '2832', image: 'https://picsum.photos/200/200?random=78' },
-                { name: '限时折扣珠光水彩套装', price: '128.00', sold: '2132', image: 'https://picsum.photos/200/200?random=79' },
-                { name: '限时优惠珠光水彩套装', price: '118.00', sold: '1432', image: 'https://picsum.photos/200/200?random=80' }
-              ]
-            },
-            { 
-              name: '套装优惠',
-              image: 'https://picsum.photos/50/50?random=63',
-              products: [
-                { name: '套装优惠珠光水彩套装', price: '158.00', sold: '2432', image: 'https://picsum.photos/200/200?random=81' },
-                { name: '套装特惠珠光水彩套装', price: '148.00', sold: '1732', image: 'https://picsum.photos/200/200?random=82' },
-                { name: '套装折扣珠光水彩套装', price: '138.00', sold: '1032', image: 'https://picsum.photos/200/200?random=83' }
+                { name: '新品首发珠光水彩套装', price: '168.00', sold: '3632', image: 'https://picsum.photos/200/200?random=102' },
+                { name: '新品限定珠光水彩套装', price: '158.00', sold: '2932', image: 'https://picsum.photos/200/200?random=103' },
+                { name: '新品特惠珠光水彩套装', price: '148.00', sold: '2232', image: 'https://picsum.photos/200/200?random=104' },
+                { name: '新品限量珠光水彩套装', price: '138.00', sold: '1932', image: 'https://picsum.photos/200/200?random=105' },
+                { name: '新品推荐珠光水彩套装', price: '128.00', sold: '1632', image: 'https://picsum.photos/200/200?random=106' },
+                { name: '新品精选珠光水彩套装', price: '118.00', sold: '1332', image: 'https://picsum.photos/200/200?random=107' }
               ]
             }
           ]
@@ -582,7 +559,7 @@
       
       // 获取DOM元素
       const categoryContent = document.querySelector('.category-content');
-      const categoryBanner = document.querySelector('.category-banner img');
+      const categoryBanner = document.querySelector('.category-banner');
       const subcategoryTitle = document.querySelector('.subcategory-title');
       const subcategoryGrid = document.querySelector('.subcategory-grid');
       const productList = document.querySelector('.product-list');
@@ -592,15 +569,12 @@
         const category = categoryData[categoryName];
         if (!category) return;
         
-        // 更新banner
-        categoryBanner.src = category.banner;
-        categoryBanner.alt = categoryName;
-        
-        // 更新分类标题
-        subcategoryTitle.textContent = categoryName;
-        
         // 渲染子分类和商品
-        let contentHTML = '';
+        let contentHTML = `
+          <div class="category-banner">
+            <div class="category-banner-text">${category.banner}</div>
+          </div>
+        `;
         
         // 渲染子分类
         category.subcategories.forEach(subcategory => {
@@ -619,8 +593,6 @@
                 </div>
                 <div class="product-info">
                   <div class="product-name">${product.name}</div>
-                  <div class="product-price">¥${product.price}</div>
-                  <div class="product-sold">已售 ${product.sold}</div>
                 </div>
               </div>
             `;
@@ -633,12 +605,7 @@
         });
         
         // 更新内容
-        categoryContent.innerHTML = `
-          <div class="category-banner">
-            <img src="${category.banner}" alt="${categoryName}">
-          </div>
-          ${contentHTML}
-        `;
+        categoryContent.innerHTML = contentHTML;
       }
       
       // 分类侧边栏切换
