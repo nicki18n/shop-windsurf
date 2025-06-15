@@ -59,7 +59,7 @@
       overflow: hidden;
       margin-bottom: 20px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      background: linear-gradient(135deg, #fff5f5 0%, #fff 100%);
+      background: linear-gradient(135deg, #d1f0f0 0%, #e6f7f7 100%);
       padding: 15px;
       box-sizing: border-box;
     }
@@ -163,6 +163,8 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
       transition: all 0.3s ease;
       cursor: pointer;
+      display: flex;
+      flex-direction: column;
     }
     
     .product-card:hover {
@@ -175,6 +177,8 @@
       padding-top: 100%;
       position: relative;
       overflow: hidden;
+      background-color: #f8f8f8;
+      flex-shrink: 0;
     }
     
     .product-image img {
@@ -193,6 +197,11 @@
     
     .product-info {
       padding: 8px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
     }
     
     .product-name {
@@ -205,6 +214,7 @@
       height: 20px;
       line-height: 20px;
       padding: 0 4px;
+      width: 100%;
     }
     
     .product-price {
@@ -695,8 +705,8 @@
         let contentHTML = `
           <div class="category-banner">
             <div class="category-banner-text">花涧珠光水彩颜料${category.banner}</div>
-          </div>
-        `;
+            </div>
+          `;
         
         // 渲染子分类
         category.subcategories.forEach(subcategory => {
