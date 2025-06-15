@@ -41,15 +41,7 @@
     }
     
     .category-sidebar-item.active::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 3px;
-      height: 16px;
-      background-color: #2c9a9a;
-      border-radius: 0 2px 2px 0;
+      display: none;
     }
     
     .category-content {
@@ -80,7 +72,7 @@
     }
     
     .category-banner-text .highlight {
-      color: #ff6b6b;
+      color: #2c9a9a;
       font-weight: 500;
     }
     
@@ -398,7 +390,7 @@
       <div class="category-content">
         <!-- 分类banner -->
         <div class="category-banner">
-          <div class="category-banner-text">珠光系列采用独特的珠光颜料配方，呈现出梦幻般的金属光泽效果。适合创作星空、梦幻等主题作品，让您的画作闪耀动人。</div>
+          <div class="category-banner-text">花涧珠光水彩颜料珠光系列采用独特的珠光颜料配方，呈现出梦幻般的金属光泽效果。适合创作星空、梦幻等主题作品，让您的画作闪耀动人。</div>
         </div>
         
         <!-- 子分类 -->
@@ -702,7 +694,7 @@
         // 渲染子分类和商品
         let contentHTML = `
           <div class="category-banner">
-            <div class="category-banner-text">${category.banner}</div>
+            <div class="category-banner-text">花涧珠光水彩颜料${category.banner}</div>
           </div>
         `;
         
