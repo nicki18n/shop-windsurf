@@ -9,118 +9,211 @@
     /* 分类页面特定样式 */
     .category-container {
       display: flex;
-      height: calc(100vh - 50px - 50px); /* 减去头部和底部导航的高度 */
+      height: calc(100vh - 50px - 50px);
       overflow: hidden;
+      background: #f8f8f8;
     }
     
     .category-sidebar {
-      width: 80px;
-      background-color: #f8f8f8;
+      width: 90px;
+      background-color: #fff;
       overflow-y: auto;
       height: 100%;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.05);
     }
     
     .category-sidebar-item {
-      padding: 15px 0;
+      padding: 16px 0;
       text-align: center;
       font-size: 14px;
       color: #666;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid #f5f5f5;
+      transition: all 0.3s ease;
+      position: relative;
     }
     
     .category-sidebar-item.active {
       color: #ff6b6b;
       background-color: #fff;
-      border-left: 3px solid #ff6b6b;
+      font-weight: 500;
+    }
+    
+    .category-sidebar-item.active::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 16px;
+      background-color: #ff6b6b;
+      border-radius: 0 2px 2px 0;
     }
     
     .category-content {
       flex: 1;
       overflow-y: auto;
       padding: 15px;
-      background-color: #fff;
+      background-color: #f8f8f8;
     }
     
     .category-banner {
       width: 100%;
-      height: 100px;
-      border-radius: 8px;
+      height: 120px;
+      border-radius: 16px;
       overflow: hidden;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
     
     .category-banner img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    .category-banner:hover img {
+      transform: scale(1.05);
     }
     
     .subcategory-title {
-      font-size: 14px;
-      font-weight: bold;
+      font-size: 15px;
+      font-weight: 600;
       margin: 15px 0 10px;
       color: #333;
+      display: flex;
+      align-items: center;
+    }
+    
+    .subcategory-title::before {
+      content: "";
+      display: inline-block;
+      width: 3px;
+      height: 14px;
+      background-color: #ff6b6b;
+      margin-right: 6px;
+      border-radius: 2px;
     }
     
     .subcategory-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      gap: 15px;
+      padding: 5px;
+      margin-bottom: 20px;
     }
     
     .subcategory-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      background-color: #f8f8f8;
-      border-radius: 8px;
-      padding: 10px;
+      background-color: #fff;
+      border-radius: 16px;
+      padding: 15px 10px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    
+    .subcategory-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
     
     .subcategory-icon {
-      width: 50px;
-      height: 50px;
-      margin-bottom: 8px;
+      width: 60px;
+      height: 60px;
+      margin-bottom: 10px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     
     .subcategory-icon img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    .subcategory-item:hover .subcategory-icon img {
+      transform: scale(1.1);
     }
     
     .subcategory-name {
-      font-size: 12px;
-      color: #666;
+      font-size: 13px;
+      color: #333;
       text-align: center;
-    }
-    
-    .product-section {
-      margin-top: 20px;
-    }
-    
-    .product-section-title {
-      font-size: 16px;
-      font-weight: bold;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-    }
-    
-    .product-section-title::before {
-      content: "";
-      display: inline-block;
-      width: 4px;
-      height: 16px;
-      background-color: #ff6b6b;
-      margin-right: 5px;
-      border-radius: 2px;
+      font-weight: 500;
     }
     
     .product-list {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 10px;
+      padding: 5px;
+    }
+    
+    .product-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .product-image {
+      width: 100%;
+      padding-top: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .product-image img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    .product-card:hover .product-image img {
+      transform: scale(1.05);
+    }
+    
+    .product-info {
+      padding: 8px;
+    }
+    
+    .product-name {
+      font-size: 12px;
+      color: #333;
+      margin-bottom: 4px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      height: 32px;
+    }
+    
+    .product-price {
+      color: #ff6b6b;
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 2px;
+    }
+    
+    .product-sold {
+      font-size: 10px;
+      color: #999;
     }
     
     /* 头部标题栏调整 */
@@ -159,14 +252,11 @@
     <div class="category-container">
       <!-- 左侧分类导航 -->
       <div class="category-sidebar">
-        <div class="category-sidebar-item active">珠光水彩</div>
-        <div class="category-sidebar-item">画笔</div>
-        <div class="category-sidebar-item">水彩纸</div>
-        <div class="category-sidebar-item">颜料盒</div>
-        <div class="category-sidebar-item">套装</div>
-        <div class="category-sidebar-item">水彩卡片</div>
-        <div class="category-sidebar-item">教程</div>
-        <div class="category-sidebar-item">配件</div>
+        <div class="category-sidebar-item active">珠光系列</div>
+        <div class="category-sidebar-item">颜色分类</div>
+        <div class="category-sidebar-item">细腻度分类</div>
+        <div class="category-sidebar-item">用途分类</div>
+        <div class="category-sidebar-item">销量分类</div>
       </div>
       
       <!-- 右侧分类详情 -->
@@ -177,7 +267,7 @@
         </div>
         
         <!-- 子分类 -->
-        <div class="subcategory-title">按系列分类</div>
+        <div class="subcategory-title">珠光系列</div>
         <div class="subcategory-grid">
           <div class="subcategory-item">
             <div class="subcategory-icon">
@@ -206,65 +296,6 @@
             </div>
             <div class="subcategory-name">自然系列</div>
           </div>
-          
-          <div class="subcategory-item">
-            <div class="subcategory-icon">
-              <img src="https://picsum.photos/200/200?random=24" alt="花卉系列">
-            </div>
-            <div class="subcategory-name">花卉系列</div>
-          </div>
-          
-          <div class="subcategory-item">
-            <div class="subcategory-icon">
-              <img src="https://picsum.photos/200/200?random=25" alt="风景系列">
-            </div>
-            <div class="subcategory-name">风景系列</div>
-          </div>
-        </div>
-        
-        <div class="subcategory-title">按颜色分类</div>
-        <div class="subcategory-grid">
-          <div class="subcategory-item">
-            <div class="subcategory-icon">
-              <img src="https://picsum.photos/50/50?random=20" alt="蓝色系">
-            </div>
-            <div class="subcategory-name">蓝色系</div>
-          </div>
-          
-          <div class="subcategory-item">
-            <div class="subcategory-icon">
-              <img src="https://picsum.photos/50/50?random=21" alt="红色系">
-            </div>
-            <div class="subcategory-name">红色系</div>
-          </div>
-          
-          <div class="subcategory-item">
-            <div class="subcategory-icon">
-              <img src="https://picsum.photos/50/50?random=23" alt="绿色系">
-            </div>
-            <div class="subcategory-name">绿色系</div>
-          </div>
-          
-          <div class="subcategory-item">
-            <div class="subcategory-icon">
-              <img src="https://picsum.photos/50/50?random=22" alt="金色系">
-            </div>
-            <div class="subcategory-name">金色系</div>
-          </div>
-          
-          <div class="subcategory-item">
-            <div class="subcategory-icon">
-              <img src="https://picsum.photos/200/200?random=24" alt="银色系">
-            </div>
-            <div class="subcategory-name">银色系</div>
-          </div>
-          
-          <div class="subcategory-item">
-            <div class="subcategory-icon">
-              <img src="https://picsum.photos/200/200?random=25" alt="彩虹系">
-            </div>
-            <div class="subcategory-name">彩虹系</div>
-          </div>
         </div>
         
         <!-- 热门商品 -->
@@ -290,28 +321,6 @@
                 <div class="product-name">梦幻系列珠光水彩 24色套装</div>
                 <div class="product-price">¥198.00</div>
                 <div class="product-sold">已售 1892</div>
-              </div>
-            </div>
-            
-            <div class="product-card">
-              <div class="product-image">
-                <img src="https://picsum.photos/200/200?random=26" alt="金属珠光水彩">
-              </div>
-              <div class="product-info">
-                <div class="product-name">金属系列珠光水彩 6色套装</div>
-                <div class="product-price">¥88.00</div>
-                <div class="product-sold">已售 3421</div>
-              </div>
-            </div>
-            
-            <div class="product-card">
-              <div class="product-image">
-                <img src="https://picsum.photos/50/50?random=23" alt="自然珠光水彩">
-              </div>
-              <div class="product-info">
-                <div class="product-name">自然系列珠光水彩 18色套装</div>
-                <div class="product-price">¥168.00</div>
-                <div class="product-sold">已售 1245</div>
               </div>
             </div>
           </div>
@@ -352,52 +361,221 @@
     document.addEventListener('DOMContentLoaded', function() {
       // 初始化分类数据
       const categoryData = {
-        '珠光水彩': {
+        '珠光系列': {
           banner: 'https://picsum.photos/200/200?random=26',
-          series: [
-            { name: '星空系列', image: 'https://picsum.photos/50/50?random=20' },
-            { name: '梦幻系列', image: 'https://picsum.photos/50/50?random=21' },
-            { name: '金属系列', image: 'https://picsum.photos/50/50?random=23' },
-            { name: '自然系列', image: 'https://picsum.photos/50/50?random=24' }
-          ],
-          colors: [
-            { name: '蓝色系', image: 'https://picsum.photos/50/50?random=25' },
-            { name: '红色系', image: 'https://picsum.photos/50/50?random=26' },
-            { name: '金色系', image: 'https://picsum.photos/50/50?random=27' },
-            { name: '绿色系', image: 'https://picsum.photos/50/50?random=28' }
-          ],
-          hotProducts: [
-            { name: '星空系列珠光水彩 12色套装', price: '128.00', sold: '2345', image: 'https://picsum.photos/50/50?random=20' },
-            { name: '梦幻系列珠光水彩 24色套装', price: '198.00', sold: '1892', image: 'https://picsum.photos/50/50?random=21' },
-            { name: '金属系列珠光水彩 6色套装', price: '88.00', sold: '3421', image: 'https://picsum.photos/50/50?random=22' },
-            { name: '自然系列珠光水彩 18色套装', price: '168.00', sold: '1245', image: 'https://picsum.photos/50/50?random=23' }
+          subcategories: [
+            { 
+              name: '星空系列',
+              image: 'https://picsum.photos/50/50?random=20',
+              products: [
+                { name: '星空系列珠光水彩 12色套装', price: '128.00', sold: '2345', image: 'https://picsum.photos/200/200?random=24' },
+                { name: '星空系列珠光水彩 24色套装', price: '198.00', sold: '1892', image: 'https://picsum.photos/200/200?random=25' },
+                { name: '星空系列珠光水彩 36色套装', price: '268.00', sold: '1245', image: 'https://picsum.photos/200/200?random=26' }
+              ]
+            },
+            { 
+              name: '梦幻系列',
+              image: 'https://picsum.photos/50/50?random=21',
+              products: [
+                { name: '梦幻系列珠光水彩 12色套装', price: '138.00', sold: '2145', image: 'https://picsum.photos/200/200?random=27' },
+                { name: '梦幻系列珠光水彩 24色套装', price: '208.00', sold: '1792', image: 'https://picsum.photos/200/200?random=28' },
+                { name: '梦幻系列珠光水彩 36色套装', price: '278.00', sold: '1145', image: 'https://picsum.photos/200/200?random=29' }
+              ]
+            },
+            { 
+              name: '金属系列',
+              image: 'https://picsum.photos/50/50?random=23',
+              products: [
+                { name: '金属系列珠光水彩 6色套装', price: '88.00', sold: '3421', image: 'https://picsum.photos/200/200?random=30' },
+                { name: '金属系列珠光水彩 12色套装', price: '158.00', sold: '2921', image: 'https://picsum.photos/200/200?random=31' },
+                { name: '金属系列珠光水彩 18色套装', price: '228.00', sold: '2421', image: 'https://picsum.photos/200/200?random=32' }
+              ]
+            },
+            { 
+              name: '自然系列',
+              image: 'https://picsum.photos/50/50?random=22',
+              products: [
+                { name: '自然系列珠光水彩 12色套装', price: '118.00', sold: '2245', image: 'https://picsum.photos/200/200?random=33' },
+                { name: '自然系列珠光水彩 24色套装', price: '188.00', sold: '1792', image: 'https://picsum.photos/200/200?random=34' },
+                { name: '自然系列珠光水彩 36色套装', price: '258.00', sold: '1245', image: 'https://picsum.photos/200/200?random=35' }
+              ]
+            }
           ]
         },
-        '画笔': {
+        '颜色分类': {
+          banner: 'https://picsum.photos/200/200?random=27',
+          subcategories: [
+            { 
+              name: '蓝色系',
+              image: 'https://picsum.photos/50/50?random=30',
+              products: [
+                { name: '蓝色系珠光水彩套装', price: '88.00', sold: '1245', image: 'https://picsum.photos/200/200?random=36' },
+                { name: '蓝色系珠光水彩单色', price: '28.00', sold: '892', image: 'https://picsum.photos/200/200?random=37' }
+              ]
+            },
+            { 
+              name: '红色系',
+              image: 'https://picsum.photos/50/50?random=31',
+              products: [
+                { name: '红色系珠光水彩套装', price: '88.00', sold: '1145', image: 'https://picsum.photos/200/200?random=38' },
+                { name: '红色系珠光水彩单色', price: '28.00', sold: '792', image: 'https://picsum.photos/200/200?random=39' }
+              ]
+            },
+            { 
+              name: '绿色系',
+              image: 'https://picsum.photos/50/50?random=32',
+              products: [
+                { name: '绿色系珠光水彩套装', price: '88.00', sold: '1045', image: 'https://picsum.photos/200/200?random=40' },
+                { name: '绿色系珠光水彩单色', price: '28.00', sold: '692', image: 'https://picsum.photos/200/200?random=41' }
+              ]
+            },
+            { 
+              name: '金色系',
+              image: 'https://picsum.photos/50/50?random=33',
+              products: [
+                { name: '金色系珠光水彩套装', price: '98.00', sold: '945', image: 'https://picsum.photos/200/200?random=42' },
+                { name: '金色系珠光水彩单色', price: '32.00', sold: '592', image: 'https://picsum.photos/200/200?random=43' }
+              ]
+            },
+            { 
+              name: '银色系',
+              image: 'https://picsum.photos/50/50?random=34',
+              products: [
+                { name: '银色系珠光水彩套装', price: '98.00', sold: '845', image: 'https://picsum.photos/200/200?random=44' },
+                { name: '银色系珠光水彩单色', price: '32.00', sold: '492', image: 'https://picsum.photos/200/200?random=45' }
+              ]
+            },
+            { 
+              name: '彩虹系',
+              image: 'https://picsum.photos/50/50?random=35',
+              products: [
+                { name: '彩虹系珠光水彩套装', price: '108.00', sold: '745', image: 'https://picsum.photos/200/200?random=46' },
+                { name: '彩虹系珠光水彩单色', price: '36.00', sold: '392', image: 'https://picsum.photos/200/200?random=47' }
+              ]
+            }
+          ]
+        },
+        '细腻度分类': {
+          banner: 'https://picsum.photos/200/200?random=28',
+          subcategories: [
+            { 
+              name: '超细腻',
+              image: 'https://picsum.photos/50/50?random=40',
+              products: [
+                { name: '超细腻珠光水彩 12色套装', price: '168.00', sold: '2145', image: 'https://picsum.photos/200/200?random=48' },
+                { name: '超细腻珠光水彩 24色套装', price: '238.00', sold: '1632', image: 'https://picsum.photos/200/200?random=49' },
+                { name: '超细腻珠光水彩 36色套装', price: '308.00', sold: '1145', image: 'https://picsum.photos/200/200?random=50' }
+              ]
+            },
+            { 
+              name: '细腻',
+              image: 'https://picsum.photos/50/50?random=41',
+              products: [
+                { name: '细腻珠光水彩 12色套装', price: '148.00', sold: '1945', image: 'https://picsum.photos/200/200?random=51' },
+                { name: '细腻珠光水彩 24色套装', price: '218.00', sold: '1432', image: 'https://picsum.photos/200/200?random=52' },
+                { name: '细腻珠光水彩 36色套装', price: '288.00', sold: '1045', image: 'https://picsum.photos/200/200?random=53' }
+              ]
+            },
+            { 
+              name: '中等',
+              image: 'https://picsum.photos/50/50?random=42',
+              products: [
+                { name: '中等珠光水彩 12色套装', price: '128.00', sold: '1745', image: 'https://picsum.photos/200/200?random=54' },
+                { name: '中等珠光水彩 24色套装', price: '198.00', sold: '1232', image: 'https://picsum.photos/200/200?random=55' },
+                { name: '中等珠光水彩 36色套装', price: '268.00', sold: '945', image: 'https://picsum.photos/200/200?random=56' }
+              ]
+            },
+            { 
+              name: '粗颗粒',
+              image: 'https://picsum.photos/50/50?random=43',
+              products: [
+                { name: '粗颗粒珠光水彩 12色套装', price: '108.00', sold: '1545', image: 'https://picsum.photos/200/200?random=57' },
+                { name: '粗颗粒珠光水彩 24色套装', price: '178.00', sold: '1032', image: 'https://picsum.photos/200/200?random=58' },
+                { name: '粗颗粒珠光水彩 36色套装', price: '248.00', sold: '845', image: 'https://picsum.photos/200/200?random=59' }
+              ]
+            }
+          ]
+        },
+        '用途分类': {
+          banner: 'https://picsum.photos/200/200?random=29',
+          subcategories: [
+            { 
+              name: '手账',
+              image: 'https://picsum.photos/50/50?random=50',
+              products: [
+                { name: '手账专用珠光水彩 12色套装', price: '98.00', sold: '3245', image: 'https://picsum.photos/200/200?random=60' },
+                { name: '手账专用珠光水彩 24色套装', price: '168.00', sold: '2632', image: 'https://picsum.photos/200/200?random=61' },
+                { name: '手账专用珠光水彩 36色套装', price: '238.00', sold: '1945', image: 'https://picsum.photos/200/200?random=62' }
+              ]
+            },
+            { 
+              name: '插画',
+              image: 'https://picsum.photos/50/50?random=51',
+              products: [
+                { name: '插画专用珠光水彩 12色套装', price: '128.00', sold: '2945', image: 'https://picsum.photos/200/200?random=63' },
+                { name: '插画专用珠光水彩 24色套装', price: '198.00', sold: '2332', image: 'https://picsum.photos/200/200?random=64' },
+                { name: '插画专用珠光水彩 36色套装', price: '268.00', sold: '1645', image: 'https://picsum.photos/200/200?random=65' }
+              ]
+            },
+            { 
+              name: '装饰',
+              image: 'https://picsum.photos/50/50?random=52',
+              products: [
+                { name: '装饰专用珠光水彩 12色套装', price: '118.00', sold: '2745', image: 'https://picsum.photos/200/200?random=66' },
+                { name: '装饰专用珠光水彩 24色套装', price: '188.00', sold: '2132', image: 'https://picsum.photos/200/200?random=67' },
+                { name: '装饰专用珠光水彩 36色套装', price: '258.00', sold: '1445', image: 'https://picsum.photos/200/200?random=68' }
+              ]
+            },
+            { 
+              name: '艺术创作',
+              image: 'https://picsum.photos/50/50?random=53',
+              products: [
+                { name: '艺术创作珠光水彩 12色套装', price: '138.00', sold: '2545', image: 'https://picsum.photos/200/200?random=69' },
+                { name: '艺术创作珠光水彩 24色套装', price: '208.00', sold: '1932', image: 'https://picsum.photos/200/200?random=70' },
+                { name: '艺术创作珠光水彩 36色套装', price: '278.00', sold: '1345', image: 'https://picsum.photos/200/200?random=71' }
+              ]
+            }
+          ]
+        },
+        '销量分类': {
           banner: 'https://picsum.photos/200/200?random=30',
-          series: [
-            { name: '水彩笔', image: 'https://picsum.photos/50/50?random=31' },
-            { name: '勾线笔', image: 'https://picsum.photos/50/50?random=32' },
-            { name: '毛笔', image: 'https://picsum.photos/50/50?random=33' },
-            { name: '混合笔', image: 'https://picsum.photos/50/50?random=34' }
-          ],
-          colors: [],
-          hotProducts: [
-            { name: '细头水彩笔套装', price: '68.00', sold: '1245', image: 'https://picsum.photos/50/50?random=35' },
-            { name: '专业勾线笔套装', price: '45.00', sold: '892', image: 'https://picsum.photos/50/50?random=36' }
-          ]
-        },
-        '水彩纸': {
-          banner: 'https://picsum.photos/200/200?random=40',
-          series: [
-            { name: '冷压水彩纸', image: 'https://picsum.photos/50/50?random=41' },
-            { name: '细纹水彩纸', image: 'https://picsum.photos/50/50?random=42' },
-            { name: '粉彩水彩纸', image: 'https://picsum.photos/50/50?random=43' }
-          ],
-          colors: [],
-          hotProducts: [
-            { name: '300g冷压水彩纸 20张', price: '36.00', sold: '2145', image: 'https://picsum.photos/50/50?random=44' },
-            { name: '200g细纹水彩纸 30张', price: '28.00', sold: '1632', image: 'https://picsum.photos/50/50?random=45' }
+          subcategories: [
+            { 
+              name: '热销TOP10',
+              image: 'https://picsum.photos/50/50?random=60',
+              products: [
+                { name: '热销TOP1珠光水彩套装', price: '198.00', sold: '5245', image: 'https://picsum.photos/200/200?random=72' },
+                { name: '热销TOP2珠光水彩套装', price: '188.00', sold: '4632', image: 'https://picsum.photos/200/200?random=73' },
+                { name: '热销TOP3珠光水彩套装', price: '178.00', sold: '3945', image: 'https://picsum.photos/200/200?random=74' }
+              ]
+            },
+            { 
+              name: '新品热卖',
+              image: 'https://picsum.photos/50/50?random=61',
+              products: [
+                { name: '新品首发珠光水彩套装', price: '168.00', sold: '3632', image: 'https://picsum.photos/200/200?random=75' },
+                { name: '新品限定珠光水彩套装', price: '158.00', sold: '2932', image: 'https://picsum.photos/200/200?random=76' },
+                { name: '新品特惠珠光水彩套装', price: '148.00', sold: '2232', image: 'https://picsum.photos/200/200?random=77' }
+              ]
+            },
+            { 
+              name: '限时特惠',
+              image: 'https://picsum.photos/50/50?random=62',
+              products: [
+                { name: '限时特惠珠光水彩套装', price: '138.00', sold: '2832', image: 'https://picsum.photos/200/200?random=78' },
+                { name: '限时折扣珠光水彩套装', price: '128.00', sold: '2132', image: 'https://picsum.photos/200/200?random=79' },
+                { name: '限时优惠珠光水彩套装', price: '118.00', sold: '1432', image: 'https://picsum.photos/200/200?random=80' }
+              ]
+            },
+            { 
+              name: '套装优惠',
+              image: 'https://picsum.photos/50/50?random=63',
+              products: [
+                { name: '套装优惠珠光水彩套装', price: '158.00', sold: '2432', image: 'https://picsum.photos/200/200?random=81' },
+                { name: '套装特惠珠光水彩套装', price: '148.00', sold: '1732', image: 'https://picsum.photos/200/200?random=82' },
+                { name: '套装折扣珠光水彩套装', price: '138.00', sold: '1032', image: 'https://picsum.photos/200/200?random=83' }
+              ]
+            }
           ]
         }
       };
@@ -405,9 +583,8 @@
       // 获取DOM元素
       const categoryContent = document.querySelector('.category-content');
       const categoryBanner = document.querySelector('.category-banner img');
-      const subcategorySeriesGrid = document.querySelector('.subcategory-grid');
-      const subcategoryColorsSection = document.querySelector('.subcategory-colors-section');
-      const productSection = document.querySelector('.product-section');
+      const subcategoryTitle = document.querySelector('.subcategory-title');
+      const subcategoryGrid = document.querySelector('.subcategory-grid');
       const productList = document.querySelector('.product-list');
       
       // 渲染分类内容函数
@@ -419,78 +596,49 @@
         categoryBanner.src = category.banner;
         categoryBanner.alt = categoryName;
         
-        // 渲染系列分类
-        let seriesHTML = '';
-        category.series.forEach(series => {
-          seriesHTML += `
-            <div class="subcategory-item">
-              <div class="subcategory-icon">
-                <img src="${series.image}" alt="${series.name}">
-              </div>
-              <div class="subcategory-name">${series.name}</div>
-            </div>
-          `;
-        });
-        subcategorySeriesGrid.innerHTML = seriesHTML;
+        // 更新分类标题
+        subcategoryTitle.textContent = categoryName;
         
-        // 渲染颜色分类
-        if (category.colors && category.colors.length > 0) {
-          let colorsHTML = `
-            <div class="subcategory-title">按颜色分类</div>
-            <div class="subcategory-grid">
+        // 渲染子分类和商品
+        let contentHTML = '';
+        
+        // 渲染子分类
+        category.subcategories.forEach(subcategory => {
+          contentHTML += `
+            <div class="subcategory-section">
+              <div class="subcategory-title">${subcategory.name}</div>
+              <div class="product-list">
           `;
           
-          category.colors.forEach(color => {
-            colorsHTML += `
-              <div class="subcategory-item">
-                <div class="subcategory-icon">
-                  <img src="${color.image}" alt="${color.name}">
+          // 渲染该子分类下的商品
+          subcategory.products.forEach(product => {
+            contentHTML += `
+              <div class="product-card" onclick="window.location.href='product-detail.html'">
+                <div class="product-image">
+                  <img src="${product.image}" alt="${product.name}">
                 </div>
-                <div class="subcategory-name">${color.name}</div>
+                <div class="product-info">
+                  <div class="product-name">${product.name}</div>
+                  <div class="product-price">¥${product.price}</div>
+                  <div class="product-sold">已售 ${product.sold}</div>
+                </div>
               </div>
             `;
           });
           
-          colorsHTML += '</div>';
-          subcategoryColorsSection.innerHTML = colorsHTML;
-          subcategoryColorsSection.style.display = 'block';
-        } else {
-          subcategoryColorsSection.style.display = 'none';
-        }
-        
-        // 渲染热销商品
-        let productsHTML = '';
-        category.hotProducts.forEach(product => {
-          productsHTML += `
-            <div class="product-card">
-              <div class="product-image">
-                <img src="${product.image}" alt="${product.name}">
-              </div>
-              <div class="product-info">
-                <div class="product-name">${product.name}</div>
-                <div class="product-price">¥${product.price}</div>
-                <div class="product-sold">已售 ${product.sold}</div>
+          contentHTML += `
               </div>
             </div>
           `;
         });
-        productList.innerHTML = productsHTML;
         
-        // 添加点击事件
-        const subcategoryItems = document.querySelectorAll('.subcategory-item');
-        subcategoryItems.forEach(item => {
-          item.addEventListener('click', function() {
-            const subcategoryName = this.querySelector('.subcategory-name').textContent;
-            window.location.href = 'hot-products.html';
-          });
-        });
-        
-        const productCards = document.querySelectorAll('.product-card');
-        productCards.forEach(card => {
-          card.addEventListener('click', function() {
-            window.location.href = 'product-detail.html';
-          });
-        });
+        // 更新内容
+        categoryContent.innerHTML = `
+          <div class="category-banner">
+            <img src="${category.banner}" alt="${categoryName}">
+          </div>
+          ${contentHTML}
+        `;
       }
       
       // 分类侧边栏切换
@@ -505,7 +653,10 @@
           renderCategory(this.textContent);
           
           // 滚动到顶部
-          window.scrollTo(0, 0);
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
         });
       });
       
@@ -532,10 +683,7 @@
       });
       
       // 初始化页面，加载默认分类
-      renderCategory('珠光水彩');
-      
-      // 初始化点击事件
-      addClickEvents();
+      renderCategory('珠光系列');
     });
   </script>
 </body>
